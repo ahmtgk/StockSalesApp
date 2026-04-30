@@ -24,10 +24,7 @@ namespace StockSalesApp.Business
 
             return _repo.Search(keyword);
         }
-
-        // -------------------------------------------------------
         // Satış ekranında barkod okutunca çağrılır
-        // -------------------------------------------------------
         public Product GetByBarcode(string barcode)
         {
             if (string.IsNullOrWhiteSpace(barcode))
@@ -40,22 +37,16 @@ namespace StockSalesApp.Business
 
             return product;
         }
-
-        // -------------------------------------------------------
         // ID ile tek ürün getirir
-        // -------------------------------------------------------
         public Product GetById(int id)
         {
             return _repo.GetById(id);
         }
-
-        // -------------------------------------------------------
         // Yeni ürün ekler — önce kuralları kontrol eder
-        // -------------------------------------------------------
         public void Add(Product p)
         {
             // Zorunlu alan kontrolleri — UI'da da kontrol edilir ama
-            // Business katmanında da olması güvenlik için önemli
+            // Business katmanında da olması güvenlik için
             if (string.IsNullOrWhiteSpace(p.Name))
                 throw new System.Exception("Ürün adı boş olamaz.");
 
@@ -76,10 +67,7 @@ namespace StockSalesApp.Business
 
             _repo.Add(p);
         }
-
-        // -------------------------------------------------------
         // Ürün bilgilerini günceller
-        // -------------------------------------------------------
         public void Update(Product p)
         {
             if (string.IsNullOrWhiteSpace(p.Name))
@@ -90,10 +78,7 @@ namespace StockSalesApp.Business
 
             _repo.Update(p);
         }
-
-        // -------------------------------------------------------
         // Ürünü siler
-        // -------------------------------------------------------
         public void Delete(int id)
         {
             _repo.Delete(id);
