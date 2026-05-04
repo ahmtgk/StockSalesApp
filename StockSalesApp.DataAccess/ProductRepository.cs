@@ -27,7 +27,7 @@ namespace StockSalesApp.DataAccess
             return list;
         }
         // ID ile tek ürün getirir (satış sırasında stok kontrolü için)
-        public Product GetById(int id)
+        public Product? GetById(int id)
         {
             using (var conn = DbHelper.GetConnection())
             {
@@ -43,7 +43,7 @@ namespace StockSalesApp.DataAccess
             return null;
         }
         // Barkod okutunca ürünü getirir
-        public Product GetByBarcode(string barcode)
+        public Product? GetByBarcode(string barcode)
         {
             using (var conn = DbHelper.GetConnection())
             {
@@ -156,6 +156,27 @@ namespace StockSalesApp.DataAccess
                 SalePrice = (decimal)r["SalePrice"],
                 StockQuantity = (int)r["StockQuantity"]
             };
+        }
+        // Toplam ürün sayısını getirir
+        public int GetTotalCount()
+        {
+            using (var conn = DbHelper.GetConnection())
+            {
+                conn.Open();
+                var cmd = new SqlCommand("SELECT COUNT(*) FROM Products", conn);
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+        // Stok miktarı 5 ve altındaki ürün sayısını getirir (kritik stok uyarısı)
+        public int GetCriticalStockCount()
+        {
+            using (var conn = DbHelper.GetConnection())
+            {
+                conn.Open();
+                var cmd = new SqlCommand(
+                    "SELECT COUNT(*) FROM Products WHERE StockQuantity <= 5", conn);
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
         }
     }
 }

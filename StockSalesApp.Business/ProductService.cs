@@ -83,5 +83,7 @@ namespace StockSalesApp.Business
         {
             _repo.Delete(id);
         }
+        public int GetTotalCount() => _repo.GetTotalCount();
+        public int GetCriticalStockCount() => _repo.GetCriticalStockCount();
     }
 }

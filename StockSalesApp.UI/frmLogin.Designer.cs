@@ -34,20 +34,26 @@
             txtPassword = new TextBox();
             btnLogin = new Button();
             chkShowPassword = new CheckBox();
+            panel1 = new Panel();
+            pictureBox1 = new PictureBox();
+            close = new Button();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(80, 110);
+            label1.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            label1.Location = new Point(446, 159);
             label1.Name = "label1";
-            label1.Size = new Size(73, 15);
+            label1.Size = new Size(85, 17);
             label1.TabIndex = 0;
-            label1.Text = "Kullanıcı Adı";
+            label1.Text = "Kullanıcı Adı :";
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(220, 107);
+            txtUsername.Location = new Point(537, 153);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(180, 23);
             txtUsername.TabIndex = 1;
@@ -55,57 +61,105 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(80, 160);
+            label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            label2.Location = new Point(490, 240);
             label2.Name = "label2";
-            label2.Size = new Size(30, 15);
+            label2.Size = new Size(41, 17);
             label2.TabIndex = 2;
-            label2.Text = "Şifre";
+            label2.Text = "Şifre :";
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(220, 157);
+            txtPassword.Location = new Point(537, 234);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(180, 23);
             txtPassword.TabIndex = 3;
+            txtPassword.TextChanged += txtPassword_TextChanged;
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(220, 230);
+            btnLogin.BackColor = Color.FromArgb(116, 142, 191);
+            btnLogin.FlatStyle = FlatStyle.Flat;
+            btnLogin.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            btnLogin.ForeColor = Color.White;
+            btnLogin.Location = new Point(490, 348);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(120, 40);
+            btnLogin.Size = new Size(271, 34);
             btnLogin.TabIndex = 4;
             btnLogin.Text = "Giriş Yap";
-            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
             // chkShowPassword
             // 
             chkShowPassword.AutoSize = true;
-            chkShowPassword.Location = new Point(220, 190);
+            chkShowPassword.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            chkShowPassword.Location = new Point(612, 294);
             chkShowPassword.Name = "chkShowPassword";
-            chkShowPassword.Size = new Size(95, 19);
+            chkShowPassword.Size = new Size(105, 21);
             chkShowPassword.TabIndex = 5;
             chkShowPassword.Text = "Şifreyi Göster";
             chkShowPassword.UseVisualStyleBackColor = true;
             chkShowPassword.CheckedChanged += chkShowPassword_CheckedChanged;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(116, 142, 191);
+            panel1.Controls.Add(pictureBox1);
+            panel1.Location = new Point(0, -1);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(400, 501);
+            panel1.TabIndex = 6;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = Color.White;
+            pictureBox1.Image = Properties.Resources.logo;
+            pictureBox1.Location = new Point(100, 150);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(200, 200);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
+            // 
+            // close
+            // 
+            close.BackColor = Color.Firebrick;
+            close.FlatAppearance.BorderColor = Color.Black;
+            close.FlatStyle = FlatStyle.Flat;
+            close.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            close.ForeColor = Color.White;
+            close.Location = new Point(797, 12);
+            close.Name = "close";
+            close.Size = new Size(41, 38);
+            close.TabIndex = 7;
+            close.Text = "X";
+            close.UseVisualStyleBackColor = false;
+            close.Click += close_Click;
+            // 
             // frmLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(484, 361);
+            BackColor = Color.White;
+            ClientSize = new Size(850, 500);
+            Controls.Add(label1);
+            Controls.Add(close);
+            Controls.Add(label2);
             Controls.Add(chkShowPassword);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
-            Controls.Add(label2);
             Controls.Add(txtUsername);
-            Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             Name = "frmLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Giriş";
+            Load += frmLogin_Load;
+            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -118,5 +172,8 @@
         private TextBox txtPassword;
         private Button btnLogin;
         private CheckBox chkShowPassword;
+        private Panel panel1;
+        private Button close;
+        private PictureBox pictureBox1;
     }
 }

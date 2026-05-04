@@ -14,6 +14,7 @@ namespace StockSalesApp.Business
         private readonly SaleRepository _saleRepo = new SaleRepository();
         private readonly ProductRepository _productRepo = new ProductRepository();
         private readonly StockRepository _stockRepo = new StockRepository();
+       
         // Satışı tamamlar — sepetteki tüm ürünleri kaydeder
         // Parametre olarak ne alır?
         // sale    = satışın genel bilgisi (kim yaptı, toplam tutar)
@@ -103,5 +104,8 @@ namespace StockSalesApp.Business
         {
             return _saleRepo.GetAll();
         }
+        public decimal GetTodayTotalAmount() => _saleRepo.GetTodayTotalAmount();
+        public int GetTodaySaleCount() => _saleRepo.GetTodaySaleCount();
+        public List<Sale> GetLast5() => _saleRepo.GetLast5();
     }
 }

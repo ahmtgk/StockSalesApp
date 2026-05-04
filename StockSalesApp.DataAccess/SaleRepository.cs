@@ -68,5 +68,60 @@ namespace StockSalesApp.DataAccess
             }
             return list;
         }
+        // Bugünkü toplam satış tutarını getirir (Dashboard)
+        public decimal GetTodayTotalAmount()
+        {
+            using (var conn = DbHelper.GetConnection())
+            {
+                conn.Open();
+                var cmd = new SqlCommand(@"
+            SELECT ISNULL(SUM(TotalAmount), 0)
+            FROM Sales
+            WHERE CAST(SaleDate AS DATE) = CAST(GETDATE() AS DATE)", conn);
+                // ISNULL(..., 0) = satış yoksa null yerine 0 döner
+                // CAST(... AS DATE) = sadece tarihi karşılaştırır, saati yoksayar
+                return Convert.ToDecimal(cmd.ExecuteScalar());
+            }
+        }
+        // Bugünkü satış adedini getirir
+        public int GetTodaySaleCount()
+        {
+            using (var conn = DbHelper.GetConnection())
+            {
+                conn.Open();
+                var cmd = new SqlCommand(@"
+            SELECT COUNT(*)
+            FROM Sales
+            WHERE CAST(SaleDate AS DATE) = CAST(GETDATE() AS DATE)", conn);
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+        // Son 5 satışı getirir (Dashboard listesi için)
+        public List<Sale> GetLast5()
+        {
+            var list = new List<Sale>();
+            using (var conn = DbHelper.GetConnection())
+            {
+                conn.Open();
+                var cmd = new SqlCommand(@"
+            SELECT TOP 5 *
+            FROM Sales
+            ORDER BY SaleDate DESC", conn);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Sale
+                        {
+                            Id = (int)reader["Id"],
+                            UserId = (int)reader["UserId"],
+                            TotalAmount = (decimal)reader["TotalAmount"],
+                            SaleDate = (DateTime)reader["SaleDate"]
+                        });
+                    }
+                }
+            }
+            return list;
+        }
     }
 }
