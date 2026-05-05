@@ -27,9 +27,12 @@ namespace StockSalesApp.UI
         private void frmMain_Load(object sender, EventArgs e)
         {
             lblWelcome.Text = $"Hoşgeldiniz, {_currentUser.Username}  |  Rol: {_currentUser.RoleName}";
+
+            // Kasiyer ise Kullanıcı Yönetimi butonu hiç görünmesin
+            btnUsers.Visible = _currentUser.RoleName == "Admin";
+
             LoadDashboard();
         }
-
         // Dashboard kartlarını ve son satışları doldurur
         // Her form açılıp kapandıktan sonra da çağırılır — veriler güncel kalır
         public void LoadDashboard()
@@ -105,6 +108,46 @@ namespace StockSalesApp.UI
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void close_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void lblWelcome_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Oturumu kapatmak istediğinize emin misiniz?", "Onay Mesajı", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                frmLogin loginForm = new frmLogin();
+                loginForm.Show();
+                this.Hide();
+            }
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void lblSaleAmount_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblCriticalStock_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblProductCount_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
