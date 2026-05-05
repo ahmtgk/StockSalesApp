@@ -83,9 +83,9 @@
             label5.AutoSize = true;
             label5.Location = new Point(30, 190);
             label5.Name = "label5";
-            label5.Size = new Size(61, 15);
+            label5.Size = new Size(70, 15);
             label5.TabIndex = 4;
-            label5.Text = "Stok Fiyatı";
+            label5.Text = "Stok Miktarı";
             // 
             // txtName
             // 
@@ -130,6 +130,7 @@
             btnSave.TabIndex = 12;
             btnSave.Text = "Kaydet";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // btnCancel
             // 
@@ -139,6 +140,7 @@
             btnCancel.TabIndex = 13;
             btnCancel.Text = "İptal";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // frmProductDetail
             // 
@@ -161,6 +163,7 @@
             Name = "frmProductDetail";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Ürün Detay";
+            Load += frmProductDetail_Load;
             ResumeLayout(false);
             PerformLayout();
         }

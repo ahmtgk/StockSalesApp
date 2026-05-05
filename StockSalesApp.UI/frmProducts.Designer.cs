@@ -36,6 +36,7 @@
             btnEdit = new Button();
             btnDelete = new Button();
             btnClose = new Button();
+            btnSearch = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             SuspendLayout();
             // 
@@ -54,6 +55,7 @@
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(200, 23);
             txtSearch.TabIndex = 1;
+            txtSearch.KeyDown += txtSearch_KeyDown;
             // 
             // btnListAll
             // 
@@ -63,6 +65,7 @@
             btnListAll.TabIndex = 2;
             btnListAll.Text = "Tümünü Listele";
             btnListAll.UseVisualStyleBackColor = true;
+            btnListAll.Click += btnListAll_Click;
             // 
             // dgvProducts
             // 
@@ -86,6 +89,7 @@
             btnAdd.TabIndex = 4;
             btnAdd.Text = "Yeni Ürün Ekle";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnEdit
             // 
@@ -95,6 +99,7 @@
             btnEdit.TabIndex = 5;
             btnEdit.Text = "Güncelle";
             btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click;
             // 
             // btnDelete
             // 
@@ -104,6 +109,7 @@
             btnDelete.TabIndex = 6;
             btnDelete.Text = "Sil";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnClose
             // 
@@ -113,6 +119,17 @@
             btnClose.TabIndex = 7;
             btnClose.Text = "Kapat";
             btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
+            // 
+            // btnSearch
+            // 
+            btnSearch.Location = new Point(300, 16);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(75, 25);
+            btnSearch.TabIndex = 8;
+            btnSearch.Text = "Ara";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
             // frmProducts
             // 
@@ -120,6 +137,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
             ClientSize = new Size(1184, 861);
+            Controls.Add(btnSearch);
             Controls.Add(btnClose);
             Controls.Add(btnDelete);
             Controls.Add(btnEdit);
@@ -128,11 +146,11 @@
             Controls.Add(btnListAll);
             Controls.Add(txtSearch);
             Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             Name = "frmProducts";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Ürün Yönetimi";
+            Load += frmProducts_Load;
             ((System.ComponentModel.ISupportInitialize)dgvProducts).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -148,5 +166,6 @@
         private Button btnEdit;
         private Button btnDelete;
         private Button btnClose;
+        private Button btnSearch;
     }
 }

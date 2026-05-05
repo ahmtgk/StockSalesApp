@@ -108,7 +108,7 @@ namespace StockSalesApp.UI
                     _product.Barcode = txtBarcode.Text.Trim();
                     _product.PurchasePrice = purchasePrice;
                     _product.SalePrice = salePrice;
-                    // NOT: Stok miktarı burada güncellenmez
+                    // Stok miktarı burada güncellenmez
                     // Stok sadece Stok Girişi ekranından değiştirilir
                     _productService.Update(_product);
                     MessageBox.Show("Ürün başarıyla güncellendi.", "Başarılı",
