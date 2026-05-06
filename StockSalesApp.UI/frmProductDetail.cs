@@ -128,5 +128,7 @@ namespace StockSalesApp.UI
         {
             this.Close();
         }
+
+        
     }
 }

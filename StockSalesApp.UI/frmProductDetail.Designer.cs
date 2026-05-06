@@ -113,7 +113,7 @@
             txtSalePrice.Location = new Point(130, 147);
             txtSalePrice.Name = "txtSalePrice";
             txtSalePrice.Size = new Size(220, 23);
-            txtSalePrice.TabIndex = 11;
+            txtSalePrice.TabIndex = 9;
             // 
             // txtStockQuantity
             // 
