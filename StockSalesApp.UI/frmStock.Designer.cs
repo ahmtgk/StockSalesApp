@@ -82,7 +82,7 @@
             dgvProducts.MultiSelect = false;
             dgvProducts.Name = "dgvProducts";
             dgvProducts.ReadOnly = true;
-            dgvProducts.SelectionMode = DataGridViewSelectionMode.FullColumnSelect;
+            dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProducts.Size = new Size(500, 300);
             dgvProducts.TabIndex = 3;
             dgvProducts.SelectionChanged += dgvProducts_SelectionChanged;

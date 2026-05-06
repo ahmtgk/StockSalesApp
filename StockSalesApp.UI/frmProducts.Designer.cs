@@ -40,7 +40,6 @@
             label2 = new Label();
             panel2 = new Panel();
             close = new Button();
-            btnClear = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -50,7 +49,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label1.Location = new Point(15, 36);
+            label1.Location = new Point(12, 35);
             label1.Name = "label1";
             label1.Size = new Size(77, 20);
             label1.TabIndex = 0;
@@ -60,9 +59,9 @@
             // txtSearch
             // 
             txtSearch.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            txtSearch.Location = new Point(98, 33);
+            txtSearch.Location = new Point(95, 32);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(425, 27);
+            txtSearch.Size = new Size(509, 27);
             txtSearch.TabIndex = 1;
             txtSearch.KeyDown += txtSearch_KeyDown;
             // 
@@ -74,9 +73,9 @@
             btnListAll.FlatStyle = FlatStyle.Flat;
             btnListAll.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
             btnListAll.ForeColor = Color.White;
-            btnListAll.Location = new Point(743, 19);
+            btnListAll.Location = new Point(796, 24);
             btnListAll.Name = "btnListAll";
-            btnListAll.Size = new Size(180, 54);
+            btnListAll.Size = new Size(180, 43);
             btnListAll.TabIndex = 2;
             btnListAll.Text = "Tümünü Listele";
             btnListAll.UseVisualStyleBackColor = false;
@@ -94,7 +93,7 @@
             dgvProducts.Name = "dgvProducts";
             dgvProducts.ReadOnly = true;
             dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProducts.Size = new Size(911, 322);
+            dgvProducts.Size = new Size(964, 319);
             dgvProducts.TabIndex = 3;
             // 
             // btnAdd
@@ -105,7 +104,7 @@
             btnAdd.FlatStyle = FlatStyle.Flat;
             btnAdd.Font = new Font("Segoe UI", 11.25F);
             btnAdd.ForeColor = Color.White;
-            btnAdd.Location = new Point(98, 116);
+            btnAdd.Location = new Point(12, 117);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(180, 54);
             btnAdd.TabIndex = 4;
@@ -121,7 +120,7 @@
             btnEdit.FlatStyle = FlatStyle.Flat;
             btnEdit.Font = new Font("Segoe UI", 11.25F);
             btnEdit.ForeColor = Color.White;
-            btnEdit.Location = new Point(343, 116);
+            btnEdit.Location = new Point(216, 117);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(180, 54);
             btnEdit.TabIndex = 5;
@@ -137,7 +136,7 @@
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Segoe UI", 11.25F);
             btnDelete.ForeColor = Color.White;
-            btnDelete.Location = new Point(98, 202);
+            btnDelete.Location = new Point(424, 117);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(180, 54);
             btnDelete.TabIndex = 6;
@@ -153,9 +152,9 @@
             btnSearch.FlatStyle = FlatStyle.Flat;
             btnSearch.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
             btnSearch.ForeColor = Color.White;
-            btnSearch.Location = new Point(543, 19);
+            btnSearch.Location = new Point(610, 24);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(180, 54);
+            btnSearch.Size = new Size(180, 43);
             btnSearch.TabIndex = 8;
             btnSearch.Text = "Ara";
             btnSearch.UseVisualStyleBackColor = false;
@@ -168,7 +167,7 @@
             panel1.Controls.Add(dgvProducts);
             panel1.Location = new Point(12, 51);
             panel1.Name = "panel1";
-            panel1.Size = new Size(934, 381);
+            panel1.Size = new Size(989, 380);
             panel1.TabIndex = 9;
             // 
             // label2
@@ -185,7 +184,6 @@
             // panel2
             // 
             panel2.BackColor = Color.White;
-            panel2.Controls.Add(btnClear);
             panel2.Controls.Add(label1);
             panel2.Controls.Add(txtSearch);
             panel2.Controls.Add(btnListAll);
@@ -193,9 +191,9 @@
             panel2.Controls.Add(btnSearch);
             panel2.Controls.Add(btnAdd);
             panel2.Controls.Add(btnDelete);
-            panel2.Location = new Point(12, 456);
+            panel2.Location = new Point(12, 460);
             panel2.Name = "panel2";
-            panel2.Size = new Size(934, 280);
+            panel2.Size = new Size(989, 205);
             panel2.TabIndex = 10;
             // 
             // close
@@ -205,7 +203,7 @@
             close.FlatStyle = FlatStyle.Flat;
             close.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             close.ForeColor = Color.White;
-            close.Location = new Point(889, 12);
+            close.Location = new Point(944, 12);
             close.Name = "close";
             close.Size = new Size(57, 33);
             close.TabIndex = 11;
@@ -213,28 +211,13 @@
             close.UseVisualStyleBackColor = false;
             close.Click += close_Click;
             // 
-            // btnClear
-            // 
-            btnClear.BackColor = Color.FromArgb(116, 142, 191);
-            btnClear.FlatAppearance.BorderSize = 0;
-            btnClear.FlatAppearance.MouseOverBackColor = Color.FromArgb(133, 163, 219);
-            btnClear.FlatStyle = FlatStyle.Flat;
-            btnClear.Font = new Font("Segoe UI", 11.25F);
-            btnClear.ForeColor = Color.White;
-            btnClear.Location = new Point(343, 202);
-            btnClear.Name = "btnClear";
-            btnClear.Size = new Size(180, 54);
-            btnClear.TabIndex = 9;
-            btnClear.Text = "Temizle";
-            btnClear.UseVisualStyleBackColor = false;
-            // 
             // frmProducts
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(958, 756);
+            ClientSize = new Size(1013, 677);
             Controls.Add(close);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -266,6 +249,5 @@
         private Panel panel2;
         private Button close;
         private Label label2;
-        private Button btnClear;
     }
 }
