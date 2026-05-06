@@ -80,6 +80,7 @@
             // btnLogin
             // 
             btnLogin.BackColor = Color.FromArgb(116, 142, 191);
+            btnLogin.FlatAppearance.MouseOverBackColor = Color.FromArgb(133, 163, 219);
             btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             btnLogin.ForeColor = Color.White;
