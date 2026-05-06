@@ -55,6 +55,7 @@
             btnLogout = new Button();
             pictureBox1 = new PictureBox();
             panel3 = new Panel();
+            panel4 = new Panel();
             pnlSaleAmount.SuspendLayout();
             pnlProductCount.SuspendLayout();
             pnlCriticalStock.SuspendLayout();
@@ -64,6 +65,7 @@
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel3.SuspendLayout();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // lblWelcome
@@ -85,7 +87,7 @@
             pnlSaleAmount.BorderStyle = BorderStyle.FixedSingle;
             pnlSaleAmount.Controls.Add(lblSaleAmount);
             pnlSaleAmount.Controls.Add(lblSaleAmountTitle);
-            pnlSaleAmount.Location = new Point(924, 16);
+            pnlSaleAmount.Location = new Point(924, 20);
             pnlSaleAmount.Name = "pnlSaleAmount";
             pnlSaleAmount.Size = new Size(285, 260);
             pnlSaleAmount.TabIndex = 1;
@@ -119,7 +121,7 @@
             pnlProductCount.BorderStyle = BorderStyle.FixedSingle;
             pnlProductCount.Controls.Add(lblProductCount);
             pnlProductCount.Controls.Add(lblProductCountTitle);
-            pnlProductCount.Location = new Point(324, 16);
+            pnlProductCount.Location = new Point(324, 20);
             pnlProductCount.Name = "pnlProductCount";
             pnlProductCount.Size = new Size(285, 260);
             pnlProductCount.TabIndex = 2;
@@ -153,7 +155,7 @@
             pnlCriticalStock.BorderStyle = BorderStyle.FixedSingle;
             pnlCriticalStock.Controls.Add(lblCriticalStock);
             pnlCriticalStock.Controls.Add(lblCriticalTitle);
-            pnlCriticalStock.Location = new Point(624, 16);
+            pnlCriticalStock.Location = new Point(624, 20);
             pnlCriticalStock.Name = "pnlCriticalStock";
             pnlCriticalStock.Size = new Size(285, 260);
             pnlCriticalStock.TabIndex = 3;
@@ -187,7 +189,7 @@
             pnlSaleCount.BorderStyle = BorderStyle.FixedSingle;
             pnlSaleCount.Controls.Add(lblSaleCount);
             pnlSaleCount.Controls.Add(lblSaleCountTitle);
-            pnlSaleCount.Location = new Point(24, 16);
+            pnlSaleCount.Location = new Point(24, 20);
             pnlSaleCount.Name = "pnlSaleCount";
             pnlSaleCount.Size = new Size(285, 260);
             pnlSaleCount.TabIndex = 4;
@@ -305,7 +307,7 @@
             lblLastSalesTitle.BackColor = Color.White;
             lblLastSalesTitle.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             lblLastSalesTitle.ForeColor = Color.Black;
-            lblLastSalesTitle.Location = new Point(321, 441);
+            lblLastSalesTitle.Location = new Point(24, 25);
             lblLastSalesTitle.Name = "lblLastSalesTitle";
             lblLastSalesTitle.Size = new Size(128, 30);
             lblLastSalesTitle.TabIndex = 10;
@@ -317,11 +319,11 @@
             dgvLastSales.AllowUserToDeleteRows = false;
             dgvLastSales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvLastSales.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvLastSales.Location = new Point(320, 479);
+            dgvLastSales.Location = new Point(24, 61);
             dgvLastSales.Name = "dgvLastSales";
             dgvLastSales.ReadOnly = true;
             dgvLastSales.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvLastSales.Size = new Size(1233, 490);
+            dgvLastSales.Size = new Size(1185, 449);
             dgvLastSales.TabIndex = 11;
             // 
             // panel1
@@ -333,7 +335,7 @@
             panel1.ForeColor = Color.White;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1565, 60);
+            panel1.Size = new Size(1565, 54);
             panel1.TabIndex = 12;
             // 
             // label1
@@ -341,7 +343,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             label1.ForeColor = Color.Black;
-            label1.Location = new Point(12, 19);
+            label1.Location = new Point(12, 17);
             label1.Name = "label1";
             label1.Size = new Size(231, 23);
             label1.TabIndex = 13;
@@ -354,9 +356,9 @@
             close.FlatStyle = FlatStyle.Flat;
             close.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             close.ForeColor = Color.White;
-            close.Location = new Point(1512, 12);
+            close.Location = new Point(1496, 12);
             close.Name = "close";
-            close.Size = new Size(41, 38);
+            close.Size = new Size(57, 28);
             close.TabIndex = 8;
             close.Text = "X";
             close.UseVisualStyleBackColor = false;
@@ -374,9 +376,9 @@
             panel2.Controls.Add(btnReports);
             panel2.Controls.Add(btnStock);
             panel2.Dock = DockStyle.Left;
-            panel2.Location = new Point(0, 60);
+            panel2.Location = new Point(0, 54);
             panel2.Name = "panel2";
-            panel2.Size = new Size(304, 921);
+            panel2.Size = new Size(304, 927);
             panel2.TabIndex = 13;
             // 
             // btnLogout
@@ -415,11 +417,22 @@
             panel3.Controls.Add(pnlSaleAmount);
             panel3.Controls.Add(pnlCriticalStock);
             panel3.ForeColor = Color.White;
-            panel3.Location = new Point(320, 80);
+            panel3.Location = new Point(320, 84);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1233, 291);
+            panel3.Size = new Size(1233, 299);
             panel3.TabIndex = 14;
             panel3.Paint += panel3_Paint;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.White;
+            panel4.Controls.Add(dgvLastSales);
+            panel4.Controls.Add(lblLastSalesTitle);
+            panel4.ForeColor = Color.White;
+            panel4.Location = new Point(320, 418);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(1233, 531);
+            panel4.TabIndex = 15;
             // 
             // frmMain
             // 
@@ -427,11 +440,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1565, 981);
+            Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
-            Controls.Add(dgvLastSales);
-            Controls.Add(lblLastSalesTitle);
             ForeColor = Color.WhiteSmoke;
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
@@ -455,8 +467,9 @@
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel3.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -488,5 +501,6 @@
         private Button btnLogout;
         private Panel panel3;
         private Label lblProductCountTitle;
+        private Panel panel4;
     }
 }

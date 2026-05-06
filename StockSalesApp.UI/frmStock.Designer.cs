@@ -149,7 +149,7 @@
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(650, 480);
+            btnClose.Location = new Point(660, 464);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(110, 35);
             btnClose.TabIndex = 11;

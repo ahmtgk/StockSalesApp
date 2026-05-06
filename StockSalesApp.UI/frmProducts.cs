@@ -166,17 +166,26 @@ namespace StockSalesApp.UI
             }
         }
 
-        // Kapat butonu
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         // Enter tuşu ile arama yapsın
         private void txtSearch_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 btnSearch_Click(null, null);
+        }
+
+        private void close_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
