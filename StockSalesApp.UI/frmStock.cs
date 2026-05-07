@@ -172,10 +172,50 @@ namespace StockSalesApp.UI
                     "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void btnClose_Click(object sender, EventArgs e)
+        private void btnStockOut_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (_selectedProduct == null)
+            {
+                MessageBox.Show("Lütfen listeden bir ürün seçin.",
+                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!int.TryParse(txtQuantity.Text, out int quantity) || quantity <= 0)
+            {
+                MessageBox.Show("Lütfen geçerli bir miktar girin.",
+                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Onay al — stok çıkışı geri alınamaz
+            var result = MessageBox.Show(
+                $"'{_selectedProduct.Name}' ürününden {quantity} adet stok çıkışı yapılacak. Onaylıyor musunuz?",
+                "Stok Çıkışı Onayı", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result != DialogResult.Yes) return;
+
+            try
+            {
+                _stockService.StockOut(_selectedProduct.Id, quantity);
+
+                MessageBox.Show(
+                    $"'{_selectedProduct.Name}' ürününden {quantity} adet stok çıkışı yapıldı.",
+                    "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                _selectedProduct = null;
+                txtSelectedProduct.Clear();
+                txtCurrentStock.Clear();
+                txtQuantity.Clear();
+
+                LoadProducts();
+                LoadMovements();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hata: " + ex.Message,
+                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // Enter tuşu ile arama
@@ -183,6 +223,11 @@ namespace StockSalesApp.UI
         {
             if (e.KeyCode == Keys.Enter)
                 btnSearch_Click(null, null);
+        }
+
+        private void close_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

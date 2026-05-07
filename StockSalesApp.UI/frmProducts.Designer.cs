@@ -40,6 +40,7 @@
             label2 = new Label();
             panel2 = new Panel();
             close = new Button();
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -54,7 +55,6 @@
             label1.Size = new Size(77, 20);
             label1.TabIndex = 0;
             label1.Text = "Ürün Ara:";
-            label1.Click += label1_Click;
             // 
             // txtSearch
             // 
@@ -173,13 +173,12 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
             label2.Location = new Point(12, 15);
             label2.Name = "label2";
-            label2.Size = new Size(130, 28);
+            label2.Size = new Size(105, 21);
             label2.TabIndex = 0;
             label2.Text = "Tüm Ürünler";
-            label2.Click += label2_Click;
             // 
             // panel2
             // 
@@ -201,15 +200,25 @@
             close.BackColor = Color.Firebrick;
             close.FlatAppearance.BorderColor = Color.Black;
             close.FlatStyle = FlatStyle.Flat;
-            close.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            close.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             close.ForeColor = Color.White;
-            close.Location = new Point(944, 12);
+            close.Location = new Point(962, 12);
             close.Name = "close";
-            close.Size = new Size(57, 33);
+            close.Size = new Size(39, 28);
             close.TabIndex = 11;
             close.Text = "X";
             close.UseVisualStyleBackColor = false;
             close.Click += close_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label3.Location = new Point(12, 14);
+            label3.Name = "label3";
+            label3.Size = new Size(141, 25);
+            label3.TabIndex = 12;
+            label3.Text = "Ürün Yönetimi";
             // 
             // frmProducts
             // 
@@ -218,6 +227,7 @@
             AutoSize = true;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1013, 677);
+            Controls.Add(label3);
             Controls.Add(close);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -233,6 +243,7 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -247,7 +258,8 @@
         private Button btnSearch;
         private Panel panel1;
         private Panel panel2;
-        private Button close;
         private Label label2;
+        private Button close;
+        private Label label3;
     }
 }

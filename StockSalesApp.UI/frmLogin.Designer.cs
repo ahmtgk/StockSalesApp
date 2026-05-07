@@ -129,12 +129,12 @@
             close.BackColor = Color.Firebrick;
             close.FlatAppearance.BorderColor = Color.Black;
             close.FlatStyle = FlatStyle.Flat;
-            close.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            close.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             close.ForeColor = Color.White;
-            close.Location = new Point(797, 12);
+            close.Location = new Point(799, 12);
             close.Name = "close";
-            close.Size = new Size(41, 38);
-            close.TabIndex = 7;
+            close.Size = new Size(39, 28);
+            close.TabIndex = 9;
             close.Text = "X";
             close.UseVisualStyleBackColor = false;
             close.Click += close_Click;
@@ -145,8 +145,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(850, 500);
-            Controls.Add(label1);
             Controls.Add(close);
+            Controls.Add(label1);
             Controls.Add(label2);
             Controls.Add(chkShowPassword);
             Controls.Add(btnLogin);
@@ -174,7 +174,7 @@
         private Button btnLogin;
         private CheckBox chkShowPassword;
         private Panel panel1;
-        private Button close;
         private PictureBox pictureBox1;
+        private Button close;
     }
 }

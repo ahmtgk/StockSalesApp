@@ -46,11 +46,11 @@ namespace StockSalesApp.UI
 
                 if (user == null)
                 {
-                   MessageBox.Show("Kullanıcı adı veya şifre hatalı.",
-                   "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                   txtPassword.Clear();
-                   txtPassword.Focus();
-                   return;
+                    MessageBox.Show("Kullanıcı adı veya şifre hatalı.",
+                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPassword.Clear();
+                    txtPassword.Focus();
+                    return;
                 }
 
                 // Giriş başarılı, ana formu aç
@@ -90,14 +90,15 @@ namespace StockSalesApp.UI
 
         }
 
-        private void close_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
 
         private void frmLogin_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void close_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

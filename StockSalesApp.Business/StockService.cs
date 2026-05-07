@@ -59,6 +59,50 @@ namespace StockSalesApp.Business
                 }
             }
         }
+        // Stok çıkışı yapar (fire, kayıp, bozulma gibi durumlar için)
+        public void StockOut(int productId, int quantity)
+        {
+            if (quantity <= 0)
+                throw new Exception("Çıkış miktarı sıfırdan büyük olmalıdır.");
+
+            var product = _productRepo.GetById(productId);
+            if (product == null)
+                throw new Exception("Ürün bulunamadı.");
+
+            // Yeterli stok var mı kontrol et
+            if (product.StockQuantity < quantity)
+                throw new Exception(
+                    $"Yetersiz stok. Mevcut stok: {product.StockQuantity}");
+
+            using (var conn = DbHelper.GetConnection())
+            {
+                conn.Open();
+                using (var transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        // Stok hareketi ekle (OUT)
+                        _stockRepo.Add(new StockMovement
+                        {
+                            ProductId = productId,
+                            Quantity = quantity,
+                            MovementType = "OUT"
+                        }, conn, transaction);
+
+                        // Stok miktarını düşür
+                        int newStock = product.StockQuantity - quantity;
+                        _productRepo.UpdateStock(productId, newStock, conn, transaction);
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
         // Tüm stok hareketlerini getirir (rapor ekranı için)
         public List<StockMovement> GetAll()
         {

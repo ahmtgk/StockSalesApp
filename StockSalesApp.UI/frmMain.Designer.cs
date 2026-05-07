@@ -263,7 +263,7 @@
             btnStock.Name = "btnStock";
             btnStock.Size = new Size(280, 45);
             btnStock.TabIndex = 7;
-            btnStock.Text = "Stok Girişi";
+            btnStock.Text = "Stok Yönetimi";
             btnStock.UseVisualStyleBackColor = false;
             btnStock.Click += btnStock_Click;
             // 
@@ -305,11 +305,11 @@
             // 
             lblLastSalesTitle.AutoSize = true;
             lblLastSalesTitle.BackColor = Color.White;
-            lblLastSalesTitle.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblLastSalesTitle.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             lblLastSalesTitle.ForeColor = Color.Black;
-            lblLastSalesTitle.Location = new Point(24, 25);
+            lblLastSalesTitle.Location = new Point(24, 14);
             lblLastSalesTitle.Name = "lblLastSalesTitle";
-            lblLastSalesTitle.Size = new Size(128, 30);
+            lblLastSalesTitle.Size = new Size(116, 25);
             lblLastSalesTitle.TabIndex = 10;
             lblLastSalesTitle.Text = "Son Satışlar";
             // 
@@ -319,11 +319,11 @@
             dgvLastSales.AllowUserToDeleteRows = false;
             dgvLastSales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvLastSales.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvLastSales.Location = new Point(24, 61);
+            dgvLastSales.Location = new Point(24, 55);
             dgvLastSales.Name = "dgvLastSales";
             dgvLastSales.ReadOnly = true;
             dgvLastSales.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvLastSales.Size = new Size(1185, 449);
+            dgvLastSales.Size = new Size(1185, 455);
             dgvLastSales.TabIndex = 11;
             // 
             // panel1
@@ -354,11 +354,11 @@
             close.BackColor = Color.Firebrick;
             close.FlatAppearance.BorderColor = Color.Black;
             close.FlatStyle = FlatStyle.Flat;
-            close.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            close.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             close.ForeColor = Color.White;
-            close.Location = new Point(1496, 12);
+            close.Location = new Point(1514, 12);
             close.Name = "close";
-            close.Size = new Size(57, 28);
+            close.Size = new Size(39, 28);
             close.TabIndex = 8;
             close.Text = "X";
             close.UseVisualStyleBackColor = false;

@@ -19,8 +19,21 @@ namespace StockSalesApp.Business
         // Arama kutusundan çağrılır
         public List<Product> Search(string keyword)
         {
+            // Boş arama — tüm listeyi getir
             if (string.IsNullOrWhiteSpace(keyword))
-                return _repo.GetAll(); // Arama boşsa tüm listeyi getir
+                return _repo.GetAll();
+
+            // Çok kısa arama — en az 2 karakter
+            if (keyword.Trim().Length < 2)
+                throw new Exception("Arama için en az 2 karakter girmelisiniz.");
+
+            // Sadece harf, rakam, tire ve boşluğa izin ver
+            // Özel karakter, SQL özel karakteri gibi şeyler girince hata ver
+            foreach (char c in keyword)
+            {
+                if (!char.IsLetterOrDigit(c) && c != ' ' && c != '-')
+                    throw new Exception("Arama yalnızca harf, rakam ve tire içerebilir.");
+            }
 
             return _repo.Search(keyword);
         }

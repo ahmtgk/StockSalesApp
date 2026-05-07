@@ -76,19 +76,18 @@ namespace StockSalesApp.UI
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            if (!int.TryParse(txtStockQuantity.Text, out int stockQty))
-            {
-                MessageBox.Show("Stok miktarı geçerli bir tam sayı olmalıdır.", "Uyarı",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             try
             {
                 if (_product == null)
                 {
-                    // Yeni ürün ekle
+                    // Yeni ürün modunda stok girilebilir
+                    if (!int.TryParse(txtStockQuantity.Text, out int stockQty) || stockQty < 0)
+                    {
+                        MessageBox.Show("Stok miktarı geçerli bir sayı olmalıdır.", "Uyarı",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
                     var newProduct = new Product
                     {
                         Name = txtName.Text.Trim(),
