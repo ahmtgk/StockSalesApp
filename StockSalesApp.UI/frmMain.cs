@@ -28,8 +28,9 @@ namespace StockSalesApp.UI
         {
             lblWelcome.Text = $"Hoşgeldiniz, {_currentUser.Username}  |  Rol: {_currentUser.RoleName}";
 
-            // Kasiyer ise Kullanıcı Yönetimi butonu hiç görünmesin
+            // Kasiyer bu butonları görmesin
             btnUsers.Visible = _currentUser.RoleName == "Admin";
+            btnStock.Visible = _currentUser.RoleName == "Admin";
 
             LoadDashboard();
         }
@@ -85,6 +86,13 @@ namespace StockSalesApp.UI
 
         private void btnStock_Click(object sender, EventArgs e)
         {
+            if (_currentUser.RoleName != "Admin")
+            {
+                MessageBox.Show("Stok yönetimi sadece Admin tarafından yapılabilir.",
+                    "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             new frmStock().ShowDialog();
             LoadDashboard();
         }
