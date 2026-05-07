@@ -48,9 +48,6 @@
             btnUsers = new Button();
             lblLastSalesTitle = new Label();
             dgvLastSales = new DataGridView();
-            panel1 = new Panel();
-            label1 = new Label();
-            close = new Button();
             panel2 = new Panel();
             btnLogout = new Button();
             pictureBox1 = new PictureBox();
@@ -61,7 +58,6 @@
             pnlCriticalStock.SuspendLayout();
             pnlSaleCount.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvLastSales).BeginInit();
-            panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel3.SuspendLayout();
@@ -79,7 +75,6 @@
             lblWelcome.Size = new Size(109, 23);
             lblWelcome.TabIndex = 0;
             lblWelcome.Text = "Hoşgeldiniz,";
-            lblWelcome.Click += lblWelcome_Click;
             // 
             // pnlSaleAmount
             // 
@@ -102,7 +97,6 @@
             lblSaleAmount.Size = new Size(97, 65);
             lblSaleAmount.TabIndex = 1;
             lblSaleAmount.Text = "0 ₺";
-            lblSaleAmount.Click += lblSaleAmount_Click;
             // 
             // lblSaleAmountTitle
             // 
@@ -136,7 +130,6 @@
             lblProductCount.Size = new Size(56, 65);
             lblProductCount.TabIndex = 1;
             lblProductCount.Text = "0";
-            lblProductCount.Click += lblProductCount_Click;
             // 
             // lblProductCountTitle
             // 
@@ -170,7 +163,6 @@
             lblCriticalStock.Size = new Size(56, 65);
             lblCriticalStock.TabIndex = 1;
             lblCriticalStock.Text = "0";
-            lblCriticalStock.Click += lblCriticalStock_Click;
             // 
             // lblCriticalTitle
             // 
@@ -326,44 +318,6 @@
             dgvLastSales.Size = new Size(1185, 455);
             dgvLastSales.TabIndex = 11;
             // 
-            // panel1
-            // 
-            panel1.BackColor = Color.White;
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(close);
-            panel1.Dock = DockStyle.Top;
-            panel1.ForeColor = Color.White;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1565, 54);
-            panel1.TabIndex = 12;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label1.ForeColor = Color.Black;
-            label1.Location = new Point(12, 17);
-            label1.Name = "label1";
-            label1.Size = new Size(231, 23);
-            label1.TabIndex = 13;
-            label1.Text = "Stok ve Satış Takip Sistemi ";
-            // 
-            // close
-            // 
-            close.BackColor = Color.Firebrick;
-            close.FlatAppearance.BorderColor = Color.Black;
-            close.FlatStyle = FlatStyle.Flat;
-            close.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            close.ForeColor = Color.White;
-            close.Location = new Point(1514, 12);
-            close.Name = "close";
-            close.Size = new Size(39, 28);
-            close.TabIndex = 8;
-            close.Text = "X";
-            close.UseVisualStyleBackColor = false;
-            close.Click += close_Click;
-            // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(116, 142, 191);
@@ -376,9 +330,9 @@
             panel2.Controls.Add(btnReports);
             panel2.Controls.Add(btnStock);
             panel2.Dock = DockStyle.Left;
-            panel2.Location = new Point(0, 54);
+            panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(304, 927);
+            panel2.Size = new Size(305, 931);
             panel2.TabIndex = 13;
             // 
             // btnLogout
@@ -417,11 +371,10 @@
             panel3.Controls.Add(pnlSaleAmount);
             panel3.Controls.Add(pnlCriticalStock);
             panel3.ForeColor = Color.White;
-            panel3.Location = new Point(320, 84);
+            panel3.Location = new Point(320, 24);
             panel3.Name = "panel3";
             panel3.Size = new Size(1233, 299);
             panel3.TabIndex = 14;
-            panel3.Paint += panel3_Paint;
             // 
             // panel4
             // 
@@ -429,9 +382,9 @@
             panel4.Controls.Add(dgvLastSales);
             panel4.Controls.Add(lblLastSalesTitle);
             panel4.ForeColor = Color.White;
-            panel4.Location = new Point(320, 418);
+            panel4.Location = new Point(320, 368);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1233, 531);
+            panel4.Size = new Size(1233, 541);
             panel4.TabIndex = 15;
             // 
             // frmMain
@@ -439,17 +392,15 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(1565, 981);
+            ClientSize = new Size(1565, 931);
             Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel2);
-            Controls.Add(panel1);
             ForeColor = Color.WhiteSmoke;
-            FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             Name = "frmMain";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = " ";
+            Text = " Stok ve Satış Takip Sistemi ";
             FormClosed += frmMain_FormClosed;
             Load += frmMain_Load;
             pnlSaleAmount.ResumeLayout(false);
@@ -461,8 +412,6 @@
             pnlSaleCount.ResumeLayout(false);
             pnlSaleCount.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvLastSales).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -493,9 +442,6 @@
         private Button btnUsers;
         private Label lblLastSalesTitle;
         private DataGridView dgvLastSales;
-        private Panel panel1;
-        private Button close;
-        private Label label1;
         private Panel panel2;
         private PictureBox pictureBox1;
         private Button btnLogout;

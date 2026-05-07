@@ -44,8 +44,6 @@
             panel1 = new Panel();
             btnStockOut = new Button();
             panel2 = new Panel();
-            close = new Button();
-            label6 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvMovements).BeginInit();
             panel1.SuspendLayout();
@@ -56,7 +54,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            label1.Location = new Point(13, 28);
+            label1.Location = new Point(13, 18);
             label1.Name = "label1";
             label1.Size = new Size(67, 20);
             label1.TabIndex = 0;
@@ -65,7 +63,7 @@
             // txtSearch
             // 
             txtSearch.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            txtSearch.Location = new Point(86, 25);
+            txtSearch.Location = new Point(86, 15);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(359, 27);
             txtSearch.TabIndex = 1;
@@ -79,7 +77,7 @@
             btnSearch.FlatStyle = FlatStyle.Flat;
             btnSearch.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
             btnSearch.ForeColor = Color.White;
-            btnSearch.Location = new Point(464, 22);
+            btnSearch.Location = new Point(465, 12);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(167, 33);
             btnSearch.TabIndex = 2;
@@ -92,13 +90,14 @@
             dgvProducts.AllowUserToAddRows = false;
             dgvProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProducts.Location = new Point(13, 97);
+            dgvProducts.Location = new Point(13, 72);
             dgvProducts.MultiSelect = false;
             dgvProducts.Name = "dgvProducts";
             dgvProducts.ReadOnly = true;
             dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProducts.Size = new Size(827, 300);
+            dgvProducts.Size = new Size(827, 307);
             dgvProducts.TabIndex = 3;
+            dgvProducts.CellContentClick += dgvProducts_CellContentClick;
             dgvProducts.SelectionChanged += dgvProducts_SelectionChanged;
             // 
             // label2
@@ -203,9 +202,9 @@
             panel1.Controls.Add(label1);
             panel1.Controls.Add(txtSearch);
             panel1.Controls.Add(btnSearch);
-            panel1.Location = new Point(12, 49);
+            panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(856, 413);
+            panel1.Size = new Size(856, 394);
             panel1.TabIndex = 14;
             // 
             // btnStockOut
@@ -237,46 +236,18 @@
             panel2.Controls.Add(btnStockIn);
             panel2.Controls.Add(txtCurrentStock);
             panel2.Controls.Add(label3);
-            panel2.Location = new Point(12, 485);
+            panel2.Location = new Point(12, 433);
             panel2.Name = "panel2";
-            panel2.Size = new Size(856, 303);
+            panel2.Size = new Size(856, 301);
             panel2.TabIndex = 16;
-            // 
-            // close
-            // 
-            close.BackColor = Color.Firebrick;
-            close.FlatAppearance.BorderColor = Color.Black;
-            close.FlatStyle = FlatStyle.Flat;
-            close.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            close.ForeColor = Color.White;
-            close.Location = new Point(829, 15);
-            close.Name = "close";
-            close.Size = new Size(39, 28);
-            close.TabIndex = 17;
-            close.Text = "X";
-            close.UseVisualStyleBackColor = false;
-            close.Click += close_Click;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label6.Location = new Point(12, 15);
-            label6.Name = "label6";
-            label6.Size = new Size(136, 25);
-            label6.TabIndex = 18;
-            label6.Text = "Stok Yönetimi";
             // 
             // frmStock
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(880, 801);
-            Controls.Add(label6);
-            Controls.Add(close);
+            ClientSize = new Size(880, 745);
             Controls.Add(panel2);
             Controls.Add(panel1);
-            FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             Name = "frmStock";
             StartPosition = FormStartPosition.CenterScreen;
@@ -289,7 +260,6 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -310,7 +280,5 @@
         private Panel panel1;
         private Button btnStockOut;
         private Panel panel2;
-        private Button close;
-        private Label label6;
     }
 }

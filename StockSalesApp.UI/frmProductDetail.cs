@@ -122,10 +122,5 @@ namespace StockSalesApp.UI
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
     }
 }

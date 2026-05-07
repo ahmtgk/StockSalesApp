@@ -117,17 +117,6 @@ namespace StockSalesApp.UI
         {
             Application.Exit();
         }
-
-        private void close_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void lblWelcome_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnLogout_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Oturumu kapatmak istediğinize emin misiniz?", "Onay Mesajı", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -136,26 +125,6 @@ namespace StockSalesApp.UI
                 loginForm.Show();
                 this.Hide();
             }
-        }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void lblSaleAmount_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblCriticalStock_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblProductCount_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

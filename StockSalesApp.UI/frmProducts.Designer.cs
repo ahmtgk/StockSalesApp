@@ -39,8 +39,6 @@
             panel1 = new Panel();
             label2 = new Label();
             panel2 = new Panel();
-            close = new Button();
-            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -165,9 +163,9 @@
             panel1.BackColor = Color.White;
             panel1.Controls.Add(label2);
             panel1.Controls.Add(dgvProducts);
-            panel1.Location = new Point(12, 51);
+            panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(989, 380);
+            panel1.Size = new Size(989, 381);
             panel1.TabIndex = 9;
             // 
             // label2
@@ -190,35 +188,10 @@
             panel2.Controls.Add(btnSearch);
             panel2.Controls.Add(btnAdd);
             panel2.Controls.Add(btnDelete);
-            panel2.Location = new Point(12, 460);
+            panel2.Location = new Point(12, 422);
             panel2.Name = "panel2";
-            panel2.Size = new Size(989, 205);
+            panel2.Size = new Size(989, 189);
             panel2.TabIndex = 10;
-            // 
-            // close
-            // 
-            close.BackColor = Color.Firebrick;
-            close.FlatAppearance.BorderColor = Color.Black;
-            close.FlatStyle = FlatStyle.Flat;
-            close.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            close.ForeColor = Color.White;
-            close.Location = new Point(962, 12);
-            close.Name = "close";
-            close.Size = new Size(39, 28);
-            close.TabIndex = 11;
-            close.Text = "X";
-            close.UseVisualStyleBackColor = false;
-            close.Click += close_Click;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label3.Location = new Point(12, 14);
-            label3.Name = "label3";
-            label3.Size = new Size(141, 25);
-            label3.TabIndex = 12;
-            label3.Text = "Ürün Yönetimi";
             // 
             // frmProducts
             // 
@@ -226,12 +199,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(1013, 677);
-            Controls.Add(label3);
-            Controls.Add(close);
+            ClientSize = new Size(1013, 625);
             Controls.Add(panel2);
             Controls.Add(panel1);
-            FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             Name = "frmProducts";
             StartPosition = FormStartPosition.CenterScreen;
@@ -243,7 +213,6 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -259,7 +228,5 @@
         private Panel panel1;
         private Panel panel2;
         private Label label2;
-        private Button close;
-        private Label label3;
     }
 }

@@ -83,10 +83,19 @@ namespace StockSalesApp.DataAccess
             using (var conn = DbHelper.GetConnection())
             {
                 conn.Open();
-                var cmd = new SqlCommand(@"
-                    INSERT INTO Products (Name, Barcode, PurchasePrice, SalePrice, StockQuantity)
-                    VALUES (@Name, @Barcode, @PurchasePrice, @SalePrice, @StockQuantity)", conn);
 
+                // Önce aynı barkod var mı kontrol et
+                var checkCmd = new SqlCommand(
+                    "SELECT COUNT(*) FROM Products WHERE Barcode = @Barcode", conn);
+                checkCmd.Parameters.AddWithValue("@Barcode", p.Barcode);
+                int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                if (count > 0)
+                    throw new Exception($"'{p.Barcode}' barkoduna sahip bir ürün zaten mevcut.");
+
+                var cmd = new SqlCommand(@"
+            INSERT INTO Products (Name, Barcode, PurchasePrice, SalePrice, StockQuantity)
+            VALUES (@Name, @Barcode, @PurchasePrice, @SalePrice, @StockQuantity)", conn);
                 cmd.Parameters.AddWithValue("@Name", p.Name);
                 cmd.Parameters.AddWithValue("@Barcode", p.Barcode);
                 cmd.Parameters.AddWithValue("@PurchasePrice", p.PurchasePrice);

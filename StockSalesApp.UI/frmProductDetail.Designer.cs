@@ -164,7 +164,6 @@
             btnCancel.TabIndex = 13;
             btnCancel.Text = "İptal";
             btnCancel.UseVisualStyleBackColor = false;
-            btnCancel.Click += btnCancel_Click;
             // 
             // panel1
             // 
@@ -193,7 +192,6 @@
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(474, 401);
             Controls.Add(panel1);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "frmProductDetail";
             StartPosition = FormStartPosition.CenterScreen;

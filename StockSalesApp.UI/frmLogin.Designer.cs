@@ -36,7 +36,6 @@
             chkShowPassword = new CheckBox();
             panel1 = new Panel();
             pictureBox1 = new PictureBox();
-            close = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -75,7 +74,6 @@
             txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(180, 23);
             txtPassword.TabIndex = 3;
-            txtPassword.TextChanged += txtPassword_TextChanged;
             // 
             // btnLogin
             // 
@@ -108,9 +106,10 @@
             // 
             panel1.BackColor = Color.FromArgb(116, 142, 191);
             panel1.Controls.Add(pictureBox1);
-            panel1.Location = new Point(0, -1);
+            panel1.Dock = DockStyle.Left;
+            panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(400, 501);
+            panel1.Size = new Size(400, 500);
             panel1.TabIndex = 6;
             // 
             // pictureBox1
@@ -124,28 +123,12 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // close
-            // 
-            close.BackColor = Color.Firebrick;
-            close.FlatAppearance.BorderColor = Color.Black;
-            close.FlatStyle = FlatStyle.Flat;
-            close.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            close.ForeColor = Color.White;
-            close.Location = new Point(799, 12);
-            close.Name = "close";
-            close.Size = new Size(39, 28);
-            close.TabIndex = 9;
-            close.Text = "X";
-            close.UseVisualStyleBackColor = false;
-            close.Click += close_Click;
-            // 
             // frmLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(850, 500);
-            Controls.Add(close);
             Controls.Add(label1);
             Controls.Add(label2);
             Controls.Add(chkShowPassword);
@@ -153,12 +136,10 @@
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);
             Controls.Add(panel1);
-            FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             Name = "frmLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Giriş";
-            Load += frmLogin_Load;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
@@ -175,6 +156,5 @@
         private CheckBox chkShowPassword;
         private Panel panel1;
         private PictureBox pictureBox1;
-        private Button close;
     }
 }

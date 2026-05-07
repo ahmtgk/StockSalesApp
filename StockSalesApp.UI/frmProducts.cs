@@ -172,10 +172,5 @@ namespace StockSalesApp.UI
             if (e.KeyCode == Keys.Enter)
                 btnSearch_Click(null, null);
         }
-
-        private void close_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
     }
 }
