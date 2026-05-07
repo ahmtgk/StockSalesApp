@@ -131,7 +131,6 @@
             txtStockQuantity.Font = new Font("Segoe UI", 11.25F);
             txtStockQuantity.Location = new Point(136, 219);
             txtStockQuantity.Name = "txtStockQuantity";
-            txtStockQuantity.ReadOnly = true;
             txtStockQuantity.Size = new Size(264, 27);
             txtStockQuantity.TabIndex = 10;
             // 
