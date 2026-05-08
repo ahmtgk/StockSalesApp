@@ -56,9 +56,9 @@
             label1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
             label1.Location = new Point(13, 18);
             label1.Name = "label1";
-            label1.Size = new Size(67, 20);
+            label1.Size = new Size(70, 20);
             label1.TabIndex = 0;
-            label1.Text = "Ürün Ara";
+            label1.Text = "Ürün Ara:";
             // 
             // txtSearch
             // 
@@ -128,7 +128,7 @@
             label4.Name = "label4";
             label4.Size = new Size(91, 20);
             label4.TabIndex = 6;
-            label4.Text = "Stok Miktarı;";
+            label4.Text = "Stok Miktarı:";
             // 
             // txtSelectedProduct
             // 

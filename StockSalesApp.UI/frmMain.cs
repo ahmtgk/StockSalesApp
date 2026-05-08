@@ -29,8 +29,9 @@ namespace StockSalesApp.UI
             lblWelcome.Text = $"Hoşgeldiniz, {_currentUser.Username}  |  Rol: {_currentUser.RoleName}";
 
             // Kasiyer bu butonları görmesin
-            btnUsers.Visible = _currentUser.RoleName == "Admin";
+            btnProducts.Visible = _currentUser.RoleName == "Admin";
             btnStock.Visible = _currentUser.RoleName == "Admin";
+            btnUsers.Visible = _currentUser.RoleName == "Admin";
 
             LoadDashboard();
         }
@@ -74,8 +75,15 @@ namespace StockSalesApp.UI
 
         private void btnProducts_Click(object sender, EventArgs e)
         {
+            if (_currentUser.RoleName != "Admin")
+            {
+                MessageBox.Show("Ürün yönetimi sadece Admin tarafından yapılabilir.",
+                    "Yetkisiz Erişim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             new frmProducts().ShowDialog();
-            LoadDashboard(); // Form kapanınca dashboard'u yenile
+            LoadDashboard();
         }
 
         private void btnSale_Click(object sender, EventArgs e)

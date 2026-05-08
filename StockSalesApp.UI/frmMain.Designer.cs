@@ -217,7 +217,7 @@
             btnProducts.FlatStyle = FlatStyle.Flat;
             btnProducts.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
             btnProducts.ForeColor = Color.White;
-            btnProducts.Location = new Point(12, 266);
+            btnProducts.Location = new Point(12, 368);
             btnProducts.Name = "btnProducts";
             btnProducts.Size = new Size(280, 45);
             btnProducts.TabIndex = 5;
@@ -234,7 +234,7 @@
             btnSale.FlatStyle = FlatStyle.Flat;
             btnSale.Font = new Font("Segoe UI", 14.25F);
             btnSale.ForeColor = Color.Transparent;
-            btnSale.Location = new Point(12, 317);
+            btnSale.Location = new Point(12, 266);
             btnSale.Name = "btnSale";
             btnSale.Size = new Size(280, 45);
             btnSale.TabIndex = 6;
@@ -251,7 +251,7 @@
             btnStock.FlatStyle = FlatStyle.Flat;
             btnStock.Font = new Font("Segoe UI", 14.25F);
             btnStock.ForeColor = Color.Transparent;
-            btnStock.Location = new Point(12, 368);
+            btnStock.Location = new Point(12, 419);
             btnStock.Name = "btnStock";
             btnStock.Size = new Size(280, 45);
             btnStock.TabIndex = 7;
@@ -268,7 +268,7 @@
             btnReports.FlatStyle = FlatStyle.Flat;
             btnReports.Font = new Font("Segoe UI", 14.25F);
             btnReports.ForeColor = Color.Transparent;
-            btnReports.Location = new Point(12, 419);
+            btnReports.Location = new Point(12, 317);
             btnReports.Name = "btnReports";
             btnReports.Size = new Size(280, 45);
             btnReports.TabIndex = 8;
@@ -373,7 +373,7 @@
             panel3.ForeColor = Color.White;
             panel3.Location = new Point(320, 24);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1233, 299);
+            panel3.Size = new Size(1233, 302);
             panel3.TabIndex = 14;
             // 
             // panel4

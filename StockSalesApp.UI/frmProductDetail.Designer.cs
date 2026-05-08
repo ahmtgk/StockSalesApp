@@ -50,9 +50,9 @@
             label1.Font = new Font("Segoe UI", 11.25F);
             label1.Location = new Point(28, 62);
             label1.Name = "label1";
-            label1.Size = new Size(67, 20);
+            label1.Size = new Size(70, 20);
             label1.TabIndex = 0;
-            label1.Text = "Ürün Adı";
+            label1.Text = "Ürün Adı:";
             // 
             // label2
             // 
@@ -60,9 +60,9 @@
             label2.Font = new Font("Segoe UI", 11.25F);
             label2.Location = new Point(28, 102);
             label2.Name = "label2";
-            label2.Size = new Size(56, 20);
+            label2.Size = new Size(59, 20);
             label2.TabIndex = 1;
-            label2.Text = "Barkod";
+            label2.Text = "Barkod:";
             // 
             // label3
             // 
@@ -70,9 +70,9 @@
             label3.Font = new Font("Segoe UI", 11.25F);
             label3.Location = new Point(28, 142);
             label3.Name = "label3";
-            label3.Size = new Size(72, 20);
+            label3.Size = new Size(75, 20);
             label3.TabIndex = 2;
-            label3.Text = "Alış Fiyatı";
+            label3.Text = "Alış Fiyatı:";
             // 
             // label4
             // 
@@ -80,9 +80,9 @@
             label4.Font = new Font("Segoe UI", 11.25F);
             label4.Location = new Point(28, 182);
             label4.Name = "label4";
-            label4.Size = new Size(79, 20);
+            label4.Size = new Size(82, 20);
             label4.TabIndex = 3;
-            label4.Text = "Satış Fiyatı";
+            label4.Text = "Satış Fiyatı:";
             // 
             // label5
             // 
@@ -90,9 +90,9 @@
             label5.Font = new Font("Segoe UI", 11.25F);
             label5.Location = new Point(28, 222);
             label5.Name = "label5";
-            label5.Size = new Size(88, 20);
+            label5.Size = new Size(91, 20);
             label5.TabIndex = 4;
-            label5.Text = "Stok Miktarı";
+            label5.Text = "Stok Miktarı:";
             // 
             // txtName
             // 

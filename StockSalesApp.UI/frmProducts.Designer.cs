@@ -34,11 +34,11 @@
             dgvProducts = new DataGridView();
             btnAdd = new Button();
             btnEdit = new Button();
-            btnDelete = new Button();
             btnSearch = new Button();
             panel1 = new Panel();
             label2 = new Label();
             panel2 = new Panel();
+            btnDelete = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -126,22 +126,6 @@
             btnEdit.UseVisualStyleBackColor = false;
             btnEdit.Click += btnEdit_Click;
             // 
-            // btnDelete
-            // 
-            btnDelete.BackColor = Color.FromArgb(116, 142, 191);
-            btnDelete.FlatAppearance.BorderSize = 0;
-            btnDelete.FlatAppearance.MouseOverBackColor = Color.FromArgb(133, 163, 219);
-            btnDelete.FlatStyle = FlatStyle.Flat;
-            btnDelete.Font = new Font("Segoe UI", 11.25F);
-            btnDelete.ForeColor = Color.White;
-            btnDelete.Location = new Point(424, 117);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(180, 54);
-            btnDelete.TabIndex = 6;
-            btnDelete.Text = "Sil";
-            btnDelete.UseVisualStyleBackColor = false;
-            btnDelete.Click += btnDelete_Click;
-            // 
             // btnSearch
             // 
             btnSearch.BackColor = Color.FromArgb(116, 142, 191);
@@ -181,17 +165,33 @@
             // panel2
             // 
             panel2.BackColor = Color.White;
+            panel2.Controls.Add(btnDelete);
             panel2.Controls.Add(label1);
             panel2.Controls.Add(txtSearch);
             panel2.Controls.Add(btnListAll);
             panel2.Controls.Add(btnEdit);
             panel2.Controls.Add(btnSearch);
             panel2.Controls.Add(btnAdd);
-            panel2.Controls.Add(btnDelete);
             panel2.Location = new Point(12, 422);
             panel2.Name = "panel2";
             panel2.Size = new Size(989, 189);
             panel2.TabIndex = 10;
+            // 
+            // btnDelete
+            // 
+            btnDelete.BackColor = Color.FromArgb(200, 80, 60);
+            btnDelete.FlatAppearance.BorderSize = 0;
+            btnDelete.FlatAppearance.MouseOverBackColor = Color.FromArgb(240, 100, 80);
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.Font = new Font("Segoe UI", 11.25F);
+            btnDelete.ForeColor = Color.White;
+            btnDelete.Location = new Point(424, 117);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(180, 54);
+            btnDelete.TabIndex = 16;
+            btnDelete.Text = "Sil";
+            btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
             // 
             // frmProducts
             // 
@@ -223,10 +223,10 @@
         private DataGridView dgvProducts;
         private Button btnAdd;
         private Button btnEdit;
-        private Button btnDelete;
         private Button btnSearch;
         private Panel panel1;
         private Panel panel2;
         private Label label2;
+        private Button btnDelete;
     }
 }
