@@ -13,5 +13,6 @@ namespace StockSalesApp.Entities
         public int UserId { get; set; }
         public decimal TotalAmount { get; set; }
         public DateTime SaleDate { get; set; }
+        public string Username { get; set; } // Dashboard için
     }
 }

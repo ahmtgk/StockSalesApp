@@ -61,9 +61,10 @@ namespace StockSalesApp.UI
                 if (dgvLastSales.Columns.Count > 0)
                 {
                     dgvLastSales.Columns["Id"].HeaderText = "Satış No";
-                    dgvLastSales.Columns["UserId"].HeaderText = "Kullanıcı ID";
+                    dgvLastSales.Columns["UserId"].Visible = false;
                     dgvLastSales.Columns["TotalAmount"].HeaderText = "Toplam Tutar";
                     dgvLastSales.Columns["SaleDate"].HeaderText = "Tarih";
+                    dgvLastSales.Columns["Username"].HeaderText = "Kasiyer";
                 }
             }
             catch (Exception ex)

@@ -103,10 +103,13 @@ namespace StockSalesApp.DataAccess
             using (var conn = DbHelper.GetConnection())
             {
                 conn.Open();
+                // JOIN ile kullanıcı adını da çekiyoruz
                 var cmd = new SqlCommand(@"
-            SELECT TOP 5 *
-            FROM Sales
-            ORDER BY SaleDate DESC", conn);
+            SELECT TOP 5 s.Id, s.UserId, s.TotalAmount, s.SaleDate, u.Username
+            FROM Sales s
+            INNER JOIN Users u ON s.UserId = u.Id
+            ORDER BY s.SaleDate DESC", conn);
+
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -116,7 +119,8 @@ namespace StockSalesApp.DataAccess
                             Id = (int)reader["Id"],
                             UserId = (int)reader["UserId"],
                             TotalAmount = (decimal)reader["TotalAmount"],
-                            SaleDate = (DateTime)reader["SaleDate"]
+                            SaleDate = (DateTime)reader["SaleDate"],
+                            Username = reader["Username"].ToString()
                         });
                     }
                 }
