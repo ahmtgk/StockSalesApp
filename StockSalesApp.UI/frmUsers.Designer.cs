@@ -32,7 +32,9 @@
             btnAdd = new Button();
             btnEdit = new Button();
             btnDelete = new Button();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // dgvUsers
@@ -41,12 +43,12 @@
             dgvUsers.AllowUserToDeleteRows = false;
             dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvUsers.Location = new Point(20, 20);
+            dgvUsers.Location = new Point(12, 13);
             dgvUsers.MultiSelect = false;
             dgvUsers.Name = "dgvUsers";
             dgvUsers.ReadOnly = true;
             dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvUsers.Size = new Size(500, 400);
+            dgvUsers.Size = new Size(602, 540);
             dgvUsers.TabIndex = 0;
             // 
             // btnAdd
@@ -57,9 +59,9 @@
             btnAdd.FlatStyle = FlatStyle.Flat;
             btnAdd.Font = new Font("Segoe UI", 11.25F);
             btnAdd.ForeColor = Color.White;
-            btnAdd.Location = new Point(540, 20);
+            btnAdd.Location = new Point(637, 157);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(120, 31);
+            btnAdd.Size = new Size(165, 55);
             btnAdd.TabIndex = 16;
             btnAdd.Text = "Yeni Kullanıcı";
             btnAdd.UseVisualStyleBackColor = false;
@@ -73,9 +75,9 @@
             btnEdit.FlatStyle = FlatStyle.Flat;
             btnEdit.Font = new Font("Segoe UI", 11.25F);
             btnEdit.ForeColor = Color.White;
-            btnEdit.Location = new Point(540, 70);
+            btnEdit.Location = new Point(637, 259);
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(120, 31);
+            btnEdit.Size = new Size(165, 55);
             btnEdit.TabIndex = 17;
             btnEdit.Text = "Güncelle";
             btnEdit.UseVisualStyleBackColor = false;
@@ -89,29 +91,40 @@
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Segoe UI", 11.25F);
             btnDelete.ForeColor = Color.White;
-            btnDelete.Location = new Point(540, 120);
+            btnDelete.Location = new Point(637, 359);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(120, 31);
+            btnDelete.Size = new Size(165, 55);
             btnDelete.TabIndex = 18;
             btnDelete.Text = "Sil";
             btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.White;
+            panel1.Controls.Add(dgvUsers);
+            panel1.Controls.Add(btnDelete);
+            panel1.Controls.Add(btnAdd);
+            panel1.Controls.Add(btnEdit);
+            panel1.Location = new Point(12, 12);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(822, 568);
+            panel1.TabIndex = 19;
+            // 
             // frmUsers
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1479, 1016);
-            Controls.Add(btnDelete);
-            Controls.Add(btnEdit);
-            Controls.Add(btnAdd);
-            Controls.Add(dgvUsers);
+            BackColor = Color.WhiteSmoke;
+            ClientSize = new Size(847, 592);
+            Controls.Add(panel1);
             MaximizeBox = false;
             Name = "frmUsers";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Kullanıcı Yönetimi";
             Load += frmUsers_Load;
             ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -121,5 +134,6 @@
         private Button btnAdd;
         private Button btnEdit;
         private Button btnDelete;
+        private Panel panel1;
     }
 }
