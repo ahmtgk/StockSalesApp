@@ -140,6 +140,7 @@
             Name = "frmLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Giriş";
+            FormClosed += frmLogin_FormClosed;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

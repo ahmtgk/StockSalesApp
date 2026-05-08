@@ -84,5 +84,10 @@ namespace StockSalesApp.UI
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
+        private void frmLogin_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
