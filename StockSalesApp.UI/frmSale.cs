@@ -17,8 +17,6 @@ namespace StockSalesApp.UI
         private readonly SaleService _saleService = new SaleService();
         private readonly ProductService _productService = new ProductService();
         private readonly User _currentUser;
-
-        // Sepet: kullanıcının eklediği ürünlerin listesi
         // Form kapanana kadar bellekte tutulur, satış tamamlanınca veritabanına yazılır
         private readonly List<SaleDetail> _cart = new List<SaleDetail>();
 

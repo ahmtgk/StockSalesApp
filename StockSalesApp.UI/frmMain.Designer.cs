@@ -90,11 +90,11 @@
             // lblSaleAmount
             // 
             lblSaleAmount.AutoSize = true;
-            lblSaleAmount.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblSaleAmount.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             lblSaleAmount.ForeColor = Color.White;
             lblSaleAmount.Location = new Point(10, 113);
             lblSaleAmount.Name = "lblSaleAmount";
-            lblSaleAmount.Size = new Size(97, 65);
+            lblSaleAmount.Size = new Size(74, 50);
             lblSaleAmount.TabIndex = 1;
             lblSaleAmount.Text = "0 ₺";
             // 
@@ -123,11 +123,11 @@
             // lblProductCount
             // 
             lblProductCount.AutoSize = true;
-            lblProductCount.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblProductCount.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold);
             lblProductCount.ForeColor = Color.White;
             lblProductCount.Location = new Point(10, 113);
             lblProductCount.Name = "lblProductCount";
-            lblProductCount.Size = new Size(56, 65);
+            lblProductCount.Size = new Size(43, 50);
             lblProductCount.TabIndex = 1;
             lblProductCount.Text = "0";
             // 
@@ -156,11 +156,11 @@
             // lblCriticalStock
             // 
             lblCriticalStock.AutoSize = true;
-            lblCriticalStock.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblCriticalStock.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold);
             lblCriticalStock.ForeColor = Color.White;
             lblCriticalStock.Location = new Point(10, 113);
             lblCriticalStock.Name = "lblCriticalStock";
-            lblCriticalStock.Size = new Size(56, 65);
+            lblCriticalStock.Size = new Size(43, 50);
             lblCriticalStock.TabIndex = 1;
             lblCriticalStock.Text = "0";
             // 
@@ -189,11 +189,11 @@
             // lblSaleCount
             // 
             lblSaleCount.AutoSize = true;
-            lblSaleCount.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblSaleCount.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold);
             lblSaleCount.ForeColor = Color.White;
             lblSaleCount.Location = new Point(10, 113);
             lblSaleCount.Name = "lblSaleCount";
-            lblSaleCount.Size = new Size(56, 65);
+            lblSaleCount.Size = new Size(43, 50);
             lblSaleCount.TabIndex = 1;
             lblSaleCount.Text = "0";
             // 
