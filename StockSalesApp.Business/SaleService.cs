@@ -98,6 +98,12 @@ namespace StockSalesApp.Business
             }
         }
         // Tüm satışları listeler (rapor ekranı için)
-        
+        public List<Sale> GetAll()
+        {
+            return _saleRepo.GetAll();
+        }
+        public decimal GetTodayTotalAmount() => _saleRepo.GetTodayTotalAmount();
+        public int GetTodaySaleCount() => _saleRepo.GetTodaySaleCount();
+        public List<Sale> GetLast5() => _saleRepo.GetLast5();
     }
 }

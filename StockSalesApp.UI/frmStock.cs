@@ -229,10 +229,5 @@ namespace StockSalesApp.UI
         {
             this.Close();
         }
-
-        private void dgvProducts_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

@@ -97,7 +97,6 @@
             dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProducts.Size = new Size(827, 307);
             dgvProducts.TabIndex = 3;
-            dgvProducts.CellContentClick += dgvProducts_CellContentClick;
             dgvProducts.SelectionChanged += dgvProducts_SelectionChanged;
             // 
             // label2
