@@ -12,7 +12,6 @@ namespace StockSalesApp.Business
     public class UserService
     {
         // DataAccess katmanındaki repository'yi burada kullanıyoruz
-        // "private readonly" = sadece bu sınıf kullanır, sonradan değiştirilemez
         private readonly UserRepository _repo = new UserRepository();
         // Login ekranından çağrılır
         // Kullanıcı adını veritabanında arar, şifresini karşılaştırır
@@ -32,20 +31,16 @@ namespace StockSalesApp.Business
             // Her şey doğruysa kullanıcı nesnesini döner
             return user;
         }
-        // Kullanıcı yönetim ekranında tüm kullanıcıları listeler
         public List<User> GetAll()
         {
             return _repo.GetAll();
         }
-        // Yeni kullanıcı ekler
         // Şifreyi hashleyip öyle kaydeder — veritabanında düz şifre olmaz
         public void Add(User user, string plainPassword)
         {
-            // Boş kullanıcı adı kontrolü
             if (string.IsNullOrWhiteSpace(user.Username))
                 throw new System.Exception("Kullanıcı adı boş olamaz.");
 
-            // Boş şifre kontrolü
             if (string.IsNullOrWhiteSpace(plainPassword))
                 throw new System.Exception("Şifre boş olamaz.");
 
@@ -55,27 +50,23 @@ namespace StockSalesApp.Business
             // Repository'ye gönder, veritabanına kaydet
             _repo.Add(user);
         }
-        // Mevcut kullanıcıyı günceller
         // plainPassword boş gelirse şifreyi değiştirmez, sadece diğer bilgileri günceller
         public void Update(User user, string plainPassword = null)
         {
             if (string.IsNullOrWhiteSpace(user.Username))
                 throw new System.Exception("Kullanıcı adı boş olamaz.");
 
-            // Eğer yeni şifre girildiyse hashle ve güncelle
-            // Girilmediyse mevcut hash veritabanında kalır
+            // Eğer yeni şifre girildiyse hashle ve güncelle girilmediyse mevcut hash veritabanında kalır
             if (!string.IsNullOrWhiteSpace(plainPassword))
                 user.PasswordHash = HashPassword(plainPassword);
 
             _repo.Update(user);
         }
-        // Kullanıcıyı siler
         public void Delete(int id)
         {
             _repo.Delete(id);
         }
-        // Şifreyi SHA256 algoritmasıyla hashler
-        // "public" çünkü login formunda test amaçlı da kullanılabilir
+        // Şifreyi SHA256 algoritmasıyla hashler "public" çünkü login formunda test amaçlı da kullanılabilir
         // Örnek: "1234" girince "03ac674..." gibi 64 karakterli string üretir
         public string HashPassword(string password)
         {

@@ -40,10 +40,9 @@ namespace StockSalesApp.Business
                 {
                     try
                     {
-                        // --- ADIM 1: Tüm ürünlerin stok kontrolü ---
-                        // Önce hepsini kontrol et, sonra kaydetmeye başla
-                        // Yoksa 3. ürünü kaydederken stok bitti dersen
-                        // ilk 2 ürün kaydedilmiş olur — tutarsız veri oluşur
+                        // --- 1- Tüm ürünlerin stok kontrolü ---
+                        // Önce hepsini kontrol et, sonra kaydetmeye başla.
+                        // Eğer sırayla kontrol edip kaydetmeye başlarsak, ortada bir hata olursa bazı ürünler kaydedilmiş olurdu.
                         foreach (var detail in details)
                         {
                             var product = _productRepo.GetById(detail.ProductId);
@@ -57,28 +56,27 @@ namespace StockSalesApp.Business
                                     $"Mevcut: {product.StockQuantity}, İstenen: {detail.Quantity}");
                         }
 
-                        // --- ADIM 2: Sales tablosuna satış başlığını kaydet ---
+                        // --- 2- Sales tablosuna satış başlığını kaydet ---
                         // Dönen saleId'yi sonraki adımlarda kullanacağız
                         int saleId = _saleRepo.Add(sale, conn, transaction);
 
-                        // --- ADIM 3 + 4 + 5: Her sepet ürünü için ---
+                        // --- Her sepet ürünü için ---
                         foreach (var detail in details)
                         {
-                            // Güncel stok bilgisini tekrar al (az önce GetById yaptık ama
-                            // döngü içinde tekrar almak daha güvenli)
+                            // Güncel stok bilgisini tekrar al (az önce GetById yaptık ama döngü içinde tekrar almak daha güvenli)
                             var product = _productRepo.GetById(detail.ProductId);
 
                             // Detay satırına satış ID'sini yaz
                             detail.SaleId = saleId;
 
-                            // ADIM 3: SaleDetails tablosuna bu ürünü kaydet
+                            // 3- SaleDetails tablosuna bu ürünü kaydet
                             _saleRepo.AddDetail(detail, conn, transaction);
 
-                            // ADIM 4: Products tablosunda stok miktarını düşür
+                            // 4- Products tablosunda stok miktarını düşür
                             int newStock = product.StockQuantity - detail.Quantity;
                             _productRepo.UpdateStock(detail.ProductId, newStock, conn, transaction);
 
-                            // ADIM 5: StockMovements tablosuna "OUT" hareketi ekle
+                            // 5- StockMovements tablosuna "OUT" hareketi ekle
                             _stockRepo.Add(new StockMovement
                             {
                                 ProductId = detail.ProductId,
@@ -100,12 +98,6 @@ namespace StockSalesApp.Business
             }
         }
         // Tüm satışları listeler (rapor ekranı için)
-        public List<Sale> GetAll()
-        {
-            return _saleRepo.GetAll();
-        }
-        public decimal GetTodayTotalAmount() => _saleRepo.GetTodayTotalAmount();
-        public int GetTodaySaleCount() => _saleRepo.GetTodaySaleCount();
-        public List<Sale> GetLast5() => _saleRepo.GetLast5();
+        
     }
 }

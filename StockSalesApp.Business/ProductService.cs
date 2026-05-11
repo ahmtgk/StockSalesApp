@@ -27,8 +27,7 @@ namespace StockSalesApp.Business
             if (keyword.Trim().Length < 2)
                 throw new Exception("Arama için en az 2 karakter girmelisiniz.");
 
-            // Sadece harf, rakam, tire ve boşluğa izin ver
-            // Özel karakter, SQL özel karakteri gibi şeyler girince hata ver
+            // Sadece harf, rakam, tire ve boşluğa izin verir. Özel karakter, SQL özel karakteri gibi şeyler girince hata ver
             foreach (char c in keyword)
             {
                 if (!char.IsLetterOrDigit(c) && c != ' ' && c != '-')
@@ -37,7 +36,6 @@ namespace StockSalesApp.Business
 
             return _repo.Search(keyword);
         }
-        // Satış ekranında barkod okutunca çağrılır
         public Product GetByBarcode(string barcode)
         {
             if (string.IsNullOrWhiteSpace(barcode))
@@ -50,12 +48,10 @@ namespace StockSalesApp.Business
 
             return product;
         }
-        // ID ile tek ürün getirir
         public Product GetById(int id)
         {
             return _repo.GetById(id);
         }
-        // Yeni ürün ekler — önce kuralları kontrol eder
         public void Add(Product p)
         {
             // Zorunlu alan kontrolleri — UI'da da kontrol edilir ama
@@ -80,7 +76,6 @@ namespace StockSalesApp.Business
 
             _repo.Add(p);
         }
-        // Ürün bilgilerini günceller
         public void Update(Product p)
         {
             if (string.IsNullOrWhiteSpace(p.Name))
@@ -91,7 +86,6 @@ namespace StockSalesApp.Business
 
             _repo.Update(p);
         }
-        // Ürünü siler
         public void Delete(int id)
         {
             _repo.Delete(id);

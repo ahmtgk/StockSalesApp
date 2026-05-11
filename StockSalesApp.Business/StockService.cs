@@ -13,9 +13,7 @@ namespace StockSalesApp.Business
     {
         private readonly StockRepository _stockRepo = new StockRepository();
         private readonly ProductRepository _productRepo = new ProductRepository();
-        // Stok girişi yapar (ürün satın alındığında çağrılır)
-        // StockMovements tablosuna kayıt atar
-        // Products tablosundaki StockQuantity'yi artırır
+        // StockMovements tablosuna kayıt atar ve Products tablosundaki StockQuantity'yi artırır
         // İkisi aynı transaction içinde olur — biri başarısız olursa ikisi de geri alınır
         public void StockIn(int productId, int quantity)
         {
