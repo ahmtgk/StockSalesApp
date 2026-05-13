@@ -106,5 +106,9 @@ namespace StockSalesApp.Business
         {
             return _stockRepo.GetAll();
         }
+        public List<StockMovement> GetByProductId(int productId)
+        {
+            return _stockRepo.GetByProductId(productId);
+        }
     }
 }

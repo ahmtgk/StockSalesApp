@@ -112,5 +112,51 @@ namespace StockSalesApp.UI
                     "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSearch.Text))
+            {
+                LoadUsers();
+                return;
+            }
+
+            try
+            {
+                var allUsers = _userService.GetAll();
+                // İsimde arama yap
+                var filtered = allUsers.FindAll(u =>
+                    u.Username.ToLower().Contains(txtSearch.Text.ToLower().Trim()));
+
+                dgvUsers.DataSource = null;
+                dgvUsers.DataSource = filtered;
+
+                if (dgvUsers.Columns.Count > 0)
+                {
+                    dgvUsers.Columns["PasswordHash"].Visible = false;
+                    dgvUsers.Columns["Id"].Visible = false;
+                    dgvUsers.Columns["RoleId"].Visible = false;
+                    dgvUsers.Columns["Username"].HeaderText = "Kullanıcı Adı";
+                    dgvUsers.Columns["RoleName"].HeaderText = "Rol";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Arama hatası: " + ex.Message,
+                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnListAll_Click(object sender, EventArgs e)
+        {
+            txtSearch.Clear();
+            LoadUsers();
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                btnSearch_Click(null, null);
+        }
     }
 }

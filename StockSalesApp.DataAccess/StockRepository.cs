@@ -58,5 +58,38 @@ namespace StockSalesApp.DataAccess
             }
             return list;
         }
+        // Belirli bir ürünün stok hareketlerini getirir
+        public List<StockMovement> GetByProductId(int productId)
+        {
+            var list = new List<StockMovement>();
+            using (var conn = DbHelper.GetConnection())
+            {
+                conn.Open();
+                var cmd = new SqlCommand(@"
+            SELECT sm.Id, sm.ProductId, sm.Quantity, sm.MovementType, sm.MovementDate, p.Name AS ProductName
+            FROM StockMovements sm
+            INNER JOIN Products p ON sm.ProductId = p.Id
+            WHERE sm.ProductId = @ProductId
+            ORDER BY sm.MovementDate DESC", conn);
+                cmd.Parameters.AddWithValue("@ProductId", productId);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new StockMovement
+                        {
+                            Id = (int)reader["Id"],
+                            ProductId = (int)reader["ProductId"],
+                            Quantity = (int)reader["Quantity"],
+                            MovementType = reader["MovementType"].ToString(),
+                            MovementDate = (DateTime)reader["MovementDate"],
+                            ProductName = reader["ProductName"].ToString()
+                        });
+                    }
+                }
+            }
+            return list;
+        }
     }
 }

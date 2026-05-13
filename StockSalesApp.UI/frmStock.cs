@@ -89,7 +89,6 @@ namespace StockSalesApp.UI
 
             var row = dgvProducts.SelectedRows[0];
 
-            // Seçilen ürünü nesneye aktar
             _selectedProduct = new Product
             {
                 Id = (int)row.Cells["Id"].Value,
@@ -97,11 +96,47 @@ namespace StockSalesApp.UI
                 StockQuantity = (int)row.Cells["StockQuantity"].Value
             };
 
-            // Alt kısımdaki kutulara seçilen ürünün bilgilerini yaz
             txtSelectedProduct.Text = _selectedProduct.Name;
             txtCurrentStock.Text = _selectedProduct.StockQuantity.ToString();
             txtQuantity.Clear();
             txtQuantity.Focus();
+
+            // Seçilen ürünün hareketlerini yükle
+            LoadMovementsByProduct(_selectedProduct.Id);
+        }
+
+        // Belirli ürünün hareketlerini yükler
+        private void LoadMovementsByProduct(int productId)
+        {
+            try
+            {
+                dgvMovements.DataSource = null;
+                dgvMovements.DataSource = _stockService.GetByProductId(productId);
+
+                if (dgvMovements.Columns.Count > 0)
+                {
+                    dgvMovements.Columns["Id"].Visible = false;
+                    dgvMovements.Columns["ProductId"].Visible = false;
+                    dgvMovements.Columns["ProductName"].Visible = false;
+                    dgvMovements.Columns["Quantity"].HeaderText = "Miktar";
+                    dgvMovements.Columns["MovementType"].HeaderText = "Tür";
+                    dgvMovements.Columns["MovementDate"].HeaderText = "Tarih";
+
+                    // IN yeşil, OUT kırmızı göster
+                    foreach (DataGridViewRow r in dgvMovements.Rows)
+                    {
+                        string type = r.Cells["MovementType"].Value.ToString();
+                        r.DefaultCellStyle.BackColor = type == "IN"
+                            ? System.Drawing.Color.FromArgb(200, 240, 200)
+                            : System.Drawing.Color.FromArgb(255, 200, 200);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hareketler yüklenirken hata: " + ex.Message,
+                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // Arama butonu
@@ -163,8 +198,9 @@ namespace StockSalesApp.UI
                 txtCurrentStock.Clear();
                 txtQuantity.Clear();
 
-                LoadProducts();  // Güncel stok miktarı gösterilsin
-                LoadMovements(); // Yeni hareket listeye eklensin
+                LoadProducts();
+                if (_selectedProduct != null)
+                    LoadMovementsByProduct(_selectedProduct.Id);
             }
             catch (Exception ex)
             {
@@ -209,7 +245,8 @@ namespace StockSalesApp.UI
                 txtQuantity.Clear();
 
                 LoadProducts();
-                LoadMovements();
+                if (_selectedProduct != null)
+                    LoadMovementsByProduct(_selectedProduct.Id);
             }
             catch (Exception ex)
             {
@@ -223,11 +260,6 @@ namespace StockSalesApp.UI
         {
             if (e.KeyCode == Keys.Enter)
                 btnSearch_Click(null, null);
-        }
-
-        private void close_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }
