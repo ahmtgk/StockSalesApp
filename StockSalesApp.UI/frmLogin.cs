@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using StockSalesApp.Business;
 using StockSalesApp.Entities;
+using Microsoft.Win32; // Registry için
 
 namespace StockSalesApp.UI
 {
@@ -16,12 +17,56 @@ namespace StockSalesApp.UI
     {
         private readonly UserService _userService = new UserService();
 
+        // Registry'de kayıt için anahtar yolu
+        private const string RegistryKey = @"SOFTWARE\StockSalesApp";
+
         public frmLogin()
         {
             InitializeComponent();
         }
 
-        // Giriş Yap butonuna tıklanınca
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+            LoadRememberedUser();
+        }
+
+        // Kaydedilmiş kullanıcı adını Registry'den yükle
+        private void LoadRememberedUser()
+        {
+            try
+            {
+                using (var key = Registry.CurrentUser.OpenSubKey(RegistryKey))
+                {
+                    if (key == null) return;
+
+                    string savedUser = key.GetValue("Username")?.ToString();
+                    if (!string.IsNullOrEmpty(savedUser))
+                    {
+                        txtUsername.Text = savedUser;
+                        chkRememberMe.Checked = true;
+                        txtPassword.Focus();  // Şifre kutusuna geç
+                    }
+                }
+            }
+            catch { } // Registry hatası uygulamayı engellemesin
+        }
+
+        // Kullanıcı adını Registry'ye kaydet veya sil
+        private void SaveRememberedUser(string username)
+        {
+            try
+            {
+                using (var key = Registry.CurrentUser.CreateSubKey(RegistryKey))
+                {
+                    if (chkRememberMe.Checked)
+                        key.SetValue("Username", username);
+                    else
+                        key.DeleteValue("Username", false); // false = değer yoksa hata verme
+                }
+            }
+            catch { }
+        }
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtUsername.Text))
@@ -44,16 +89,18 @@ namespace StockSalesApp.UI
                     txtUsername.Text.Trim(),
                     txtPassword.Text);
 
-                if (user == null)
+                if (user is null)
                 {
                     MessageBox.Show("Kullanıcı adı veya şifre hatalı.",
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtPassword.Clear();
                     txtPassword.Focus();
                     return;
                 }
 
-                // Giriş başarılı, ana formu aç
+                // Beni hatırla — kaydet veya sil
+                SaveRememberedUser(txtUsername.Text.Trim());
+
                 frmMain mainForm = new frmMain(user);
                 mainForm.Show();
                 this.Hide();
@@ -65,16 +112,11 @@ namespace StockSalesApp.UI
             }
         }
 
-        // CheckBox işaretlenince şifreyi göster/gizle
         private void chkShowPassword_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkShowPassword.Checked)
-                txtPassword.PasswordChar = '\0'; // '\0' = karakter yok = düz metin göster
-            else
-                txtPassword.PasswordChar = '*';  // Tekrar yıldız yap
+            txtPassword.PasswordChar = chkShowPassword.Checked ? '\0' : '*';
         }
 
-        // Enter tuşuna basınca giriş yap
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Enter)
@@ -84,7 +126,6 @@ namespace StockSalesApp.UI
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
         private void frmLogin_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();

@@ -36,6 +36,7 @@
             chkShowPassword = new CheckBox();
             panel1 = new Panel();
             pictureBox1 = new PictureBox();
+            chkRememberMe = new CheckBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -44,7 +45,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            label1.Location = new Point(446, 159);
+            label1.Location = new Point(488, 132);
             label1.Name = "label1";
             label1.Size = new Size(85, 17);
             label1.TabIndex = 0;
@@ -52,16 +53,16 @@
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(537, 153);
+            txtUsername.Location = new Point(488, 161);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(180, 23);
+            txtUsername.Size = new Size(271, 23);
             txtUsername.TabIndex = 1;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            label2.Location = new Point(490, 240);
+            label2.Location = new Point(488, 213);
             label2.Name = "label2";
             label2.Size = new Size(41, 17);
             label2.TabIndex = 2;
@@ -69,10 +70,10 @@
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(537, 234);
+            txtPassword.Location = new Point(488, 242);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
-            txtPassword.Size = new Size(180, 23);
+            txtPassword.Size = new Size(271, 23);
             txtPassword.TabIndex = 3;
             // 
             // btnLogin
@@ -82,7 +83,7 @@
             btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
             btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(490, 348);
+            btnLogin.Location = new Point(488, 341);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(271, 34);
             btnLogin.TabIndex = 4;
@@ -94,7 +95,7 @@
             // 
             chkShowPassword.AutoSize = true;
             chkShowPassword.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            chkShowPassword.Location = new Point(612, 294);
+            chkShowPassword.Location = new Point(654, 289);
             chkShowPassword.Name = "chkShowPassword";
             chkShowPassword.Size = new Size(105, 21);
             chkShowPassword.TabIndex = 5;
@@ -123,12 +124,24 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
+            // chkRememberMe
+            // 
+            chkRememberMe.AutoSize = true;
+            chkRememberMe.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            chkRememberMe.Location = new Point(488, 289);
+            chkRememberMe.Name = "chkRememberMe";
+            chkRememberMe.Size = new Size(93, 21);
+            chkRememberMe.TabIndex = 7;
+            chkRememberMe.Text = "Beni Hatırla";
+            chkRememberMe.UseVisualStyleBackColor = true;
+            // 
             // frmLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(850, 500);
+            Controls.Add(chkRememberMe);
             Controls.Add(label1);
             Controls.Add(label2);
             Controls.Add(chkShowPassword);
@@ -141,6 +154,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Giriş";
             FormClosed += frmLogin_FormClosed;
+            Load += frmLogin_Load;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
@@ -157,5 +171,6 @@
         private CheckBox chkShowPassword;
         private Panel panel1;
         private PictureBox pictureBox1;
+        private CheckBox chkRememberMe;
     }
 }
