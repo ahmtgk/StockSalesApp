@@ -39,7 +39,6 @@
             txtSalePrice = new TextBox();
             txtStockQuantity = new TextBox();
             btnSave = new Button();
-            btnCancel = new Button();
             panel1 = new Panel();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -142,7 +141,7 @@
             btnSave.FlatStyle = FlatStyle.Flat;
             btnSave.Font = new Font("Segoe UI", 11.25F);
             btnSave.ForeColor = Color.White;
-            btnSave.Location = new Point(136, 272);
+            btnSave.Location = new Point(286, 274);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(114, 45);
             btnSave.TabIndex = 12;
@@ -150,26 +149,10 @@
             btnSave.UseVisualStyleBackColor = false;
             btnSave.Click += btnSave_Click;
             // 
-            // btnCancel
-            // 
-            btnCancel.BackColor = Color.FromArgb(116, 142, 191);
-            btnCancel.FlatAppearance.BorderSize = 0;
-            btnCancel.FlatAppearance.MouseOverBackColor = Color.FromArgb(133, 163, 219);
-            btnCancel.FlatStyle = FlatStyle.Flat;
-            btnCancel.Font = new Font("Segoe UI", 11.25F);
-            btnCancel.ForeColor = Color.White;
-            btnCancel.Location = new Point(286, 272);
-            btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(114, 45);
-            btnCancel.TabIndex = 13;
-            btnCancel.Text = "İptal";
-            btnCancel.UseVisualStyleBackColor = false;
-            // 
             // panel1
             // 
             panel1.BackColor = Color.White;
             panel1.Controls.Add(txtName);
-            panel1.Controls.Add(btnCancel);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(btnSave);
             panel1.Controls.Add(label2);
@@ -215,7 +198,6 @@
         private TextBox txtSalePrice;
         private TextBox txtStockQuantity;
         private Button btnSave;
-        private Button btnCancel;
         private Panel panel1;
     }
 }

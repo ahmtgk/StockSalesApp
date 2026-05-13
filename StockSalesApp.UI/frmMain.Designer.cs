@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             lblWelcome = new Label();
             pnlSaleAmount = new Panel();
             lblSaleAmount = new Label();
@@ -47,21 +48,21 @@
             btnReports = new Button();
             btnUsers = new Button();
             lblLastSalesTitle = new Label();
-            dgvLastSales = new DataGridView();
             panel2 = new Panel();
             btnLogout = new Button();
             pictureBox1 = new PictureBox();
             panel3 = new Panel();
             panel4 = new Panel();
+            dgvLastSales = new DataGridView();
             pnlSaleAmount.SuspendLayout();
             pnlProductCount.SuspendLayout();
             pnlCriticalStock.SuspendLayout();
             pnlSaleCount.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvLastSales).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvLastSales).BeginInit();
             SuspendLayout();
             // 
             // lblWelcome
@@ -299,24 +300,11 @@
             lblLastSalesTitle.BackColor = Color.White;
             lblLastSalesTitle.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             lblLastSalesTitle.ForeColor = Color.Black;
-            lblLastSalesTitle.Location = new Point(24, 14);
+            lblLastSalesTitle.Location = new Point(14, 12);
             lblLastSalesTitle.Name = "lblLastSalesTitle";
             lblLastSalesTitle.Size = new Size(116, 25);
             lblLastSalesTitle.TabIndex = 10;
             lblLastSalesTitle.Text = "Son Satışlar";
-            // 
-            // dgvLastSales
-            // 
-            dgvLastSales.AllowUserToAddRows = false;
-            dgvLastSales.AllowUserToDeleteRows = false;
-            dgvLastSales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvLastSales.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvLastSales.Location = new Point(24, 55);
-            dgvLastSales.Name = "dgvLastSales";
-            dgvLastSales.ReadOnly = true;
-            dgvLastSales.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvLastSales.Size = new Size(1185, 455);
-            dgvLastSales.TabIndex = 11;
             // 
             // panel2
             // 
@@ -387,6 +375,27 @@
             panel4.Size = new Size(1233, 541);
             panel4.TabIndex = 15;
             // 
+            // dgvLastSales
+            // 
+            dgvLastSales.AllowUserToAddRows = false;
+            dgvLastSales.AllowUserToDeleteRows = false;
+            dgvLastSales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvLastSales.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dgvLastSales.DefaultCellStyle = dataGridViewCellStyle1;
+            dgvLastSales.Location = new Point(14, 51);
+            dgvLastSales.Name = "dgvLastSales";
+            dgvLastSales.ReadOnly = true;
+            dgvLastSales.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvLastSales.Size = new Size(1205, 477);
+            dgvLastSales.TabIndex = 11;
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -411,13 +420,13 @@
             pnlCriticalStock.PerformLayout();
             pnlSaleCount.ResumeLayout(false);
             pnlSaleCount.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvLastSales).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel3.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvLastSales).EndInit();
             ResumeLayout(false);
         }
 
@@ -441,12 +450,12 @@
         private Button btnReports;
         private Button btnUsers;
         private Label lblLastSalesTitle;
-        private DataGridView dgvLastSales;
         private Panel panel2;
         private PictureBox pictureBox1;
         private Button btnLogout;
         private Panel panel3;
         private Label lblProductCountTitle;
         private Panel panel4;
+        private DataGridView dgvLastSales;
     }
 }

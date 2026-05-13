@@ -97,15 +97,15 @@ namespace StockSalesApp.DataAccess
             }
         }
         // Son 5 satışı getirir (Dashboard listesi için)
-        public List<Sale> GetLast5()
+        public List<Sale> GetLast10()
         {
             var list = new List<Sale>();
             using (var conn = DbHelper.GetConnection())
             {
                 conn.Open();
-                // JOIN ile kullanıcı adını da çekiyoruz
                 var cmd = new SqlCommand(@"
-            SELECT TOP 5 s.Id, s.UserId, s.TotalAmount, s.SaleDate, u.Username
+            SELECT TOP 10 s.Id, s.UserId, s.TotalAmount, s.SaleDate,
+                         u.Username
             FROM Sales s
             INNER JOIN Users u ON s.UserId = u.Id
             ORDER BY s.SaleDate DESC", conn);
@@ -121,6 +121,80 @@ namespace StockSalesApp.DataAccess
                             TotalAmount = (decimal)reader["TotalAmount"],
                             SaleDate = (DateTime)reader["SaleDate"],
                             Username = reader["Username"].ToString()
+                        });
+                    }
+                }
+            }
+            return list;
+        }
+        // Tarih aralığına göre satışları getirir (Günlük Satış Raporu)
+        public List<Sale> GetByDateRange(DateTime start, DateTime end)
+        {
+            var list = new List<Sale>();
+            using (var conn = DbHelper.GetConnection())
+            {
+                conn.Open();
+                var cmd = new SqlCommand(@"
+            SELECT s.Id, s.UserId, s.TotalAmount, s.SaleDate, u.Username
+            FROM Sales s
+            INNER JOIN Users u ON s.UserId = u.Id
+            WHERE CAST(s.SaleDate AS DATE) >= @Start
+            AND CAST(s.SaleDate AS DATE) <= @End
+            ORDER BY s.SaleDate DESC", conn);
+
+                cmd.Parameters.AddWithValue("@Start", start.Date);
+                cmd.Parameters.AddWithValue("@End", end.Date);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Sale
+                        {
+                            Id = (int)reader["Id"],
+                            UserId = (int)reader["UserId"],
+                            TotalAmount = (decimal)reader["TotalAmount"],
+                            SaleDate = (DateTime)reader["SaleDate"],
+                            Username = reader["Username"].ToString()
+                        });
+                    }
+                }
+            }
+            return list;
+        }
+
+        // En çok satılan ürünleri getirir (satılan toplam adete göre sıralı)
+        public List<TopProduct> GetTopProducts(DateTime start, DateTime end)
+        {
+            var list = new List<TopProduct>();
+            using (var conn = DbHelper.GetConnection())
+            {
+                conn.Open();
+                var cmd = new SqlCommand(@"
+            SELECT TOP 10
+                p.Name AS ProductName,
+                SUM(sd.Quantity) AS TotalQuantity,
+                SUM(sd.TotalPrice) AS TotalRevenue
+            FROM SaleDetails sd
+            INNER JOIN Products p ON sd.ProductId = p.Id
+            INNER JOIN Sales s ON sd.SaleId = s.Id
+            WHERE CAST(s.SaleDate AS DATE) >= @Start
+            AND CAST(s.SaleDate AS DATE) <= @End
+            GROUP BY p.Id, p.Name
+            ORDER BY TotalQuantity DESC", conn);
+
+                cmd.Parameters.AddWithValue("@Start", start.Date);
+                cmd.Parameters.AddWithValue("@End", end.Date);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new TopProduct
+                        {
+                            ProductName = reader["ProductName"].ToString(),
+                            TotalQuantity = (int)reader["TotalQuantity"],
+                            TotalRevenue = (decimal)reader["TotalRevenue"]
                         });
                     }
                 }

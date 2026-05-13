@@ -22,7 +22,6 @@ namespace StockSalesApp.UI
             InitializeComponent();
             _user = user;
         }
-
         private void frmUserDetail_Load(object sender, EventArgs e)
         {
             // ComboBox'a rolleri ekle
@@ -48,7 +47,6 @@ namespace StockSalesApp.UI
                 cmbRole.SelectedItem = _user.RoleName;
             }
         }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             // Kullanıcı adı kontrolü
@@ -92,7 +90,6 @@ namespace StockSalesApp.UI
                     return;
                 }
             }
-
             try
             {
                 // Seçilen rol adından RoleId belirle

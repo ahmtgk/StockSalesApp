@@ -26,6 +26,7 @@ namespace StockSalesApp.Business
         // 4. Her ürünün stok miktarını düşürür
         // 5. StockMovements tablosuna "OUT" hareketi ekler
         // Hata olursa hepsi geri alınır
+
         public void CompleteSale(Sale sale, List<SaleDetail> details)
         {
             if (details == null || details.Count == 0)
@@ -97,13 +98,33 @@ namespace StockSalesApp.Business
                 }
             }
         }
+
         // Tüm satışları listeler (rapor ekranı için)
         public List<Sale> GetAll()
         {
             return _saleRepo.GetAll();
         }
+
         public decimal GetTodayTotalAmount() => _saleRepo.GetTodayTotalAmount();
         public int GetTodaySaleCount() => _saleRepo.GetTodaySaleCount();
-        public List<Sale> GetLast5() => _saleRepo.GetLast5();
+        public List<Sale> GetLast10() => _saleRepo.GetLast10();
+
+        // Tarih aralığına göre satış raporu
+        public List<Sale> GetByDateRange(DateTime start, DateTime end)
+        {
+            if (start > end)
+                throw new Exception("Başlangıç tarihi bitiş tarihinden büyük olamaz.");
+
+            return _saleRepo.GetByDateRange(start, end);
+        }
+
+        // En çok satılan ürünler raporu
+        public List<TopProduct> GetTopProducts(DateTime start, DateTime end)
+        {
+            if (start > end)
+                throw new Exception("Başlangıç tarihi bitiş tarihinden büyük olamaz.");
+
+            return _saleRepo.GetTopProducts(start, end);
+        }
     }
 }

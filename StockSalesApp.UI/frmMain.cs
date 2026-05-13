@@ -52,19 +52,25 @@ namespace StockSalesApp.UI
                     ? System.Drawing.Color.FromArgb(200, 50, 50)   // Koyu kırmızı — dikkat!
                     : System.Drawing.Color.FromArgb(220, 80, 60);  // Normal renk
 
-                // Son satışları DataGridView'e yükle
-                var lastSales = _saleService.GetLast5();
+                // Son 10 satışı yükle
+                var lastSales = _saleService.GetLast10();
                 dgvLastSales.DataSource = null;
                 dgvLastSales.DataSource = lastSales;
 
-                // Sütun başlıklarını Türkçe yap
                 if (dgvLastSales.Columns.Count > 0)
                 {
+                    // Sütun sıralamasını manuel ayarla — ID her zaman görünsün
                     dgvLastSales.Columns["Id"].HeaderText = "Satış No";
-                    dgvLastSales.Columns["UserId"].Visible = false;
-                    dgvLastSales.Columns["TotalAmount"].HeaderText = "Toplam Tutar";
-                    dgvLastSales.Columns["SaleDate"].HeaderText = "Tarih";
+                    dgvLastSales.Columns["Id"].DisplayIndex = 0;
                     dgvLastSales.Columns["Username"].HeaderText = "Kasiyer";
+                    dgvLastSales.Columns["Username"].DisplayIndex = 1;
+                    dgvLastSales.Columns["TotalAmount"].HeaderText = "Tutar (₺)";
+                    dgvLastSales.Columns["TotalAmount"].DisplayIndex = 2;
+                    dgvLastSales.Columns["SaleDate"].HeaderText = "Tarih";
+                    dgvLastSales.Columns["SaleDate"].DisplayIndex = 3;
+                    dgvLastSales.Columns["UserId"].Visible = false;
+
+                    dgvLastSales.Refresh();
                 }
             }
             catch (Exception ex)
