@@ -33,7 +33,6 @@
             btnSearch = new Button();
             dgvProducts = new DataGridView();
             label2 = new Label();
-            txtQuantity = new TextBox();
             btnAddToCart = new Button();
             label3 = new Label();
             dgvCart = new DataGridView();
@@ -43,10 +42,12 @@
             lblTotal = new Label();
             btnCompleteSale = new Button();
             panel1 = new Panel();
+            nudQuantity = new NumericUpDown();
             panel2 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvCart).BeginInit();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudQuantity).BeginInit();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -107,15 +108,6 @@
             label2.Size = new Size(59, 25);
             label2.TabIndex = 13;
             label2.Text = "Adet:";
-            // 
-            // txtQuantity
-            // 
-            txtQuantity.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            txtQuantity.Location = new Point(78, 854);
-            txtQuantity.Name = "txtQuantity";
-            txtQuantity.Size = new Size(256, 27);
-            txtQuantity.TabIndex = 14;
-            txtQuantity.KeyDown += txtQuantity_KeyDown;
             // 
             // btnAddToCart
             // 
@@ -227,19 +219,31 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
+            panel1.Controls.Add(nudQuantity);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(txtSearch);
             panel1.Controls.Add(btnSearch);
             panel1.Controls.Add(btnClearCart);
             panel1.Controls.Add(btnRemoveFromCart);
             panel1.Controls.Add(dgvProducts);
-            panel1.Controls.Add(txtQuantity);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(btnAddToCart);
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
             panel1.Size = new Size(726, 902);
             panel1.TabIndex = 24;
+            // 
+            // nudQuantity
+            // 
+            nudQuantity.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            nudQuantity.Location = new Point(78, 855);
+            nudQuantity.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
+            nudQuantity.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudQuantity.Name = "nudQuantity";
+            nudQuantity.Size = new Size(256, 27);
+            nudQuantity.TabIndex = 21;
+            nudQuantity.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nudQuantity.KeyDown += nudQuantity_KeyDown;
             // 
             // panel2
             // 
@@ -271,6 +275,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvCart).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudQuantity).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ResumeLayout(false);
@@ -283,7 +288,6 @@
         private Button btnSearch;
         private DataGridView dgvProducts;
         private Label label2;
-        private TextBox txtQuantity;
         private Button btnAddToCart;
         private Label label3;
         private DataGridView dgvCart;
@@ -294,5 +298,6 @@
         private Button btnCompleteSale;
         private Panel panel1;
         private Panel panel2;
+        private NumericUpDown nudQuantity;
     }
 }

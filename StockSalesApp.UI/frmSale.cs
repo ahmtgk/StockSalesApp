@@ -107,12 +107,7 @@ namespace StockSalesApp.UI
                 return;
             }
 
-            if (!int.TryParse(txtQuantity.Text, out int quantity) || quantity <= 0)
-            {
-                MessageBox.Show("Lütfen geçerli bir adet girin.",
-                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            int quantity = (int)nudQuantity.Value;
 
             var row = dgvProducts.SelectedRows[0];
             var product = new Product
@@ -124,7 +119,7 @@ namespace StockSalesApp.UI
             };
 
             AddToCart(product, quantity);
-            txtQuantity.Clear();
+            nudQuantity.Value = 1;
         }
 
         // Ürünü sepete ekleyen yardımcı metot
@@ -283,7 +278,7 @@ namespace StockSalesApp.UI
                 btnSearch_Click(null, null);
         }
 
-        private void txtQuantity_KeyDown(object sender, KeyEventArgs e)
+        private void nudQuantity_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 btnAddToCart_Click(null, null);
