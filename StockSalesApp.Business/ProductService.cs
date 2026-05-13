@@ -88,7 +88,22 @@ namespace StockSalesApp.Business
         }
         public void Delete(int id)
         {
-            _repo.Delete(id);
+            try
+            {
+                _repo.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                // SQL Foreign Key hatası — ürün satışlarda veya stok hareketlerinde kullanılmış
+                if (ex.Message.Contains("FK") || ex.Message.Contains("REFERENCE") ||
+                    ex.Message.Contains("FOREIGN KEY"))
+                {
+                    throw new Exception(
+                        "Bu ürün daha önce satış veya stok işleminde kullanıldığı için silinemez. " +
+                        "Ürünü silmek yerine stok miktarını sıfırlayabilirsiniz.");
+                }
+                throw; // Başka bir hatayla fırlatmaya devam et
+            }
         }
         public int GetTotalCount() => _repo.GetTotalCount();
         public int GetCriticalStockCount() => _repo.GetCriticalStockCount();
