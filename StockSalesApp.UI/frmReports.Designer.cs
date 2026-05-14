@@ -28,33 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             tabReports = new TabControl();
             tabPage1 = new TabPage();
+            panel2 = new Panel();
+            label1 = new Label();
             btnFilterSales = new Button();
-            dgvSalesReport = new DataGridView();
+            dtpStart = new DateTimePicker();
+            label2 = new Label();
             lblSalesSummary = new Label();
             dtpEnd = new DateTimePicker();
-            label2 = new Label();
-            dtpStart = new DateTimePicker();
-            label1 = new Label();
+            panel1 = new Panel();
+            dgvSalesReport = new DataGridView();
             tabPage2 = new TabPage();
-            btnFilterTop = new Button();
-            dtpTopEnd = new DateTimePicker();
-            dtpTopStart = new DateTimePicker();
+            panel4 = new Panel();
             dgvTopProducts = new DataGridView();
-            label4 = new Label();
+            panel3 = new Panel();
             label3 = new Label();
+            label4 = new Label();
+            btnFilterTop = new Button();
+            dtpTopStart = new DateTimePicker();
+            dtpTopEnd = new DateTimePicker();
             tabPage3 = new TabPage();
-            dgvStockReport = new DataGridView();
-            cmbStockFilter = new ComboBox();
+            panel6 = new Panel();
+            panel5 = new Panel();
             label5 = new Label();
+            cmbStockFilter = new ComboBox();
             btnLoadStock = new Button();
+            dgvStockReport = new DataGridView();
             tabReports.SuspendLayout();
             tabPage1.SuspendLayout();
+            panel2.SuspendLayout();
+            panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvSalesReport).BeginInit();
             tabPage2.SuspendLayout();
+            panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvTopProducts).BeginInit();
+            panel3.SuspendLayout();
             tabPage3.SuspendLayout();
+            panel6.SuspendLayout();
+            panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvStockReport).BeginInit();
             SuspendLayout();
             // 
@@ -64,28 +80,51 @@
             tabReports.Controls.Add(tabPage2);
             tabReports.Controls.Add(tabPage3);
             tabReports.Dock = DockStyle.Fill;
+            tabReports.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             tabReports.Location = new Point(0, 0);
             tabReports.Name = "tabReports";
             tabReports.SelectedIndex = 0;
-            tabReports.Size = new Size(884, 561);
+            tabReports.Size = new Size(1158, 749);
             tabReports.TabIndex = 0;
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(btnFilterSales);
-            tabPage1.Controls.Add(dgvSalesReport);
-            tabPage1.Controls.Add(lblSalesSummary);
-            tabPage1.Controls.Add(dtpEnd);
-            tabPage1.Controls.Add(label2);
-            tabPage1.Controls.Add(dtpStart);
-            tabPage1.Controls.Add(label1);
-            tabPage1.Location = new Point(4, 24);
+            tabPage1.BackColor = Color.WhiteSmoke;
+            tabPage1.Controls.Add(panel2);
+            tabPage1.Controls.Add(panel1);
+            tabPage1.Location = new Point(4, 29);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(876, 533);
+            tabPage1.Size = new Size(1150, 716);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Günlük Satış Raporu";
-            tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.Click += tabPage1_Click;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.White;
+            panel2.BorderStyle = BorderStyle.FixedSingle;
+            panel2.Controls.Add(label1);
+            panel2.Controls.Add(btnFilterSales);
+            panel2.Controls.Add(dtpStart);
+            panel2.Controls.Add(label2);
+            panel2.Controls.Add(lblSalesSummary);
+            panel2.Controls.Add(dtpEnd);
+            panel2.Location = new Point(20, 16);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1110, 115);
+            panel2.TabIndex = 16;
+            panel2.Paint += panel2_Paint;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            label1.Location = new Point(17, 43);
+            label1.Name = "label1";
+            label1.Size = new Size(78, 21);
+            label1.TabIndex = 0;
+            label1.Text = "Başlangıç:";
             // 
             // btnFilterSales
             // 
@@ -95,84 +134,172 @@
             btnFilterSales.FlatStyle = FlatStyle.Flat;
             btnFilterSales.Font = new Font("Segoe UI", 11.25F);
             btnFilterSales.ForeColor = Color.White;
-            btnFilterSales.Location = new Point(450, 11);
+            btnFilterSales.Location = new Point(599, 39);
             btnFilterSales.Name = "btnFilterSales";
-            btnFilterSales.Size = new Size(80, 25);
+            btnFilterSales.Size = new Size(134, 27);
             btnFilterSales.TabIndex = 15;
             btnFilterSales.Text = "Filtrele";
             btnFilterSales.UseVisualStyleBackColor = false;
             btnFilterSales.Click += btnFilterSales_Click;
             // 
-            // dgvSalesReport
+            // dtpStart
             // 
-            dgvSalesReport.AllowUserToAddRows = false;
-            dgvSalesReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvSalesReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSalesReport.Location = new Point(10, 45);
-            dgvSalesReport.Name = "dgvSalesReport";
-            dgvSalesReport.ReadOnly = true;
-            dgvSalesReport.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvSalesReport.Size = new Size(800, 380);
-            dgvSalesReport.TabIndex = 6;
+            dtpStart.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            dtpStart.Location = new Point(101, 39);
+            dtpStart.Name = "dtpStart";
+            dtpStart.Size = new Size(219, 27);
+            dtpStart.TabIndex = 1;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            label2.Location = new Point(326, 43);
+            label2.Name = "label2";
+            label2.Size = new Size(42, 21);
+            label2.TabIndex = 2;
+            label2.Text = "Bitiş:";
             // 
             // lblSalesSummary
             // 
             lblSalesSummary.AutoSize = true;
-            lblSalesSummary.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblSalesSummary.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
             lblSalesSummary.ForeColor = Color.FromArgb(30, 130, 70);
-            lblSalesSummary.Location = new Point(545, 15);
+            lblSalesSummary.Location = new Point(739, 44);
             lblSalesSummary.Name = "lblSalesSummary";
-            lblSalesSummary.Size = new Size(40, 15);
+            lblSalesSummary.Size = new Size(51, 20);
             lblSalesSummary.TabIndex = 5;
             lblSalesSummary.Text = "label3";
             // 
             // dtpEnd
             // 
-            dtpEnd.Location = new Point(285, 12);
+            dtpEnd.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            dtpEnd.Location = new Point(374, 39);
             dtpEnd.Name = "dtpEnd";
-            dtpEnd.Size = new Size(150, 23);
+            dtpEnd.Size = new Size(219, 27);
             dtpEnd.TabIndex = 3;
             // 
-            // label2
+            // panel1
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(245, 15);
-            label2.Name = "label2";
-            label2.Size = new Size(32, 15);
-            label2.TabIndex = 2;
-            label2.Text = "Bitiş:";
+            panel1.BackColor = Color.White;
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(dgvSalesReport);
+            panel1.Location = new Point(20, 150);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1110, 546);
+            panel1.TabIndex = 1;
             // 
-            // dtpStart
+            // dgvSalesReport
             // 
-            dtpStart.Location = new Point(80, 12);
-            dtpStart.Name = "dtpStart";
-            dtpStart.Size = new Size(150, 23);
-            dtpStart.TabIndex = 1;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(10, 15);
-            label1.Name = "label1";
-            label1.Size = new Size(60, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Başlangıç:";
+            dgvSalesReport.AllowUserToAddRows = false;
+            dgvSalesReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvSalesReport.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvSalesReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvSalesReport.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvSalesReport.Location = new Point(17, 19);
+            dgvSalesReport.Name = "dgvSalesReport";
+            dgvSalesReport.ReadOnly = true;
+            dgvSalesReport.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvSalesReport.Size = new Size(1075, 508);
+            dgvSalesReport.TabIndex = 6;
             // 
             // tabPage2
             // 
-            tabPage2.Controls.Add(btnFilterTop);
-            tabPage2.Controls.Add(dtpTopEnd);
-            tabPage2.Controls.Add(dtpTopStart);
-            tabPage2.Controls.Add(dgvTopProducts);
-            tabPage2.Controls.Add(label4);
-            tabPage2.Controls.Add(label3);
-            tabPage2.Location = new Point(4, 24);
+            tabPage2.BackColor = Color.WhiteSmoke;
+            tabPage2.Controls.Add(panel4);
+            tabPage2.Controls.Add(panel3);
+            tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(876, 533);
+            tabPage2.Size = new Size(1150, 716);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "En Çok Satılan Ürünler";
-            tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.White;
+            panel4.BorderStyle = BorderStyle.FixedSingle;
+            panel4.Controls.Add(dgvTopProducts);
+            panel4.Location = new Point(20, 150);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(1110, 546);
+            panel4.TabIndex = 6;
+            // 
+            // dgvTopProducts
+            // 
+            dgvTopProducts.AllowUserToAddRows = false;
+            dgvTopProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvTopProducts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dgvTopProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dgvTopProducts.DefaultCellStyle = dataGridViewCellStyle4;
+            dgvTopProducts.Location = new Point(17, 19);
+            dgvTopProducts.Name = "dgvTopProducts";
+            dgvTopProducts.ReadOnly = true;
+            dgvTopProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvTopProducts.Size = new Size(1075, 508);
+            dgvTopProducts.TabIndex = 4;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.White;
+            panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(label3);
+            panel3.Controls.Add(label4);
+            panel3.Controls.Add(btnFilterTop);
+            panel3.Controls.Add(dtpTopStart);
+            panel3.Controls.Add(dtpTopEnd);
+            panel3.Location = new Point(20, 16);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1110, 115);
+            panel3.TabIndex = 5;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            label3.Location = new Point(17, 43);
+            label3.Name = "label3";
+            label3.Size = new Size(75, 20);
+            label3.TabIndex = 0;
+            label3.Text = "Başlangıç:";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            label4.Location = new Point(357, 43);
+            label4.Name = "label4";
+            label4.Size = new Size(40, 20);
+            label4.TabIndex = 1;
+            label4.Text = "Bitiş:";
             // 
             // btnFilterTop
             // 
@@ -180,100 +307,84 @@
             btnFilterTop.FlatAppearance.BorderSize = 0;
             btnFilterTop.FlatAppearance.MouseOverBackColor = Color.FromArgb(133, 163, 219);
             btnFilterTop.FlatStyle = FlatStyle.Flat;
-            btnFilterTop.Font = new Font("Segoe UI", 11.25F);
+            btnFilterTop.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
             btnFilterTop.ForeColor = Color.White;
-            btnFilterTop.Location = new Point(450, 11);
+            btnFilterTop.Location = new Point(637, 38);
             btnFilterTop.Name = "btnFilterTop";
-            btnFilterTop.Size = new Size(80, 25);
+            btnFilterTop.Size = new Size(134, 28);
             btnFilterTop.TabIndex = 3;
             btnFilterTop.Text = "Filtrele";
             btnFilterTop.UseVisualStyleBackColor = false;
             btnFilterTop.Click += btnFilterTop_Click;
             // 
-            // dtpTopEnd
-            // 
-            dtpTopEnd.Location = new Point(285, 12);
-            dtpTopEnd.Name = "dtpTopEnd";
-            dtpTopEnd.Size = new Size(150, 23);
-            dtpTopEnd.TabIndex = 2;
-            // 
             // dtpTopStart
             // 
-            dtpTopStart.Location = new Point(80, 12);
+            dtpTopStart.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            dtpTopStart.Location = new Point(98, 39);
             dtpTopStart.Name = "dtpTopStart";
-            dtpTopStart.Size = new Size(150, 23);
+            dtpTopStart.Size = new Size(219, 27);
             dtpTopStart.TabIndex = 1;
             // 
-            // dgvTopProducts
+            // dtpTopEnd
             // 
-            dgvTopProducts.AllowUserToAddRows = false;
-            dgvTopProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvTopProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTopProducts.Location = new Point(10, 45);
-            dgvTopProducts.Name = "dgvTopProducts";
-            dgvTopProducts.ReadOnly = true;
-            dgvTopProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvTopProducts.Size = new Size(800, 380);
-            dgvTopProducts.TabIndex = 4;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(245, 15);
-            label4.Name = "label4";
-            label4.Size = new Size(32, 15);
-            label4.TabIndex = 1;
-            label4.Text = "Bitiş:";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(10, 15);
-            label3.Name = "label3";
-            label3.Size = new Size(60, 15);
-            label3.TabIndex = 0;
-            label3.Text = "Başlangıç:";
+            dtpTopEnd.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            dtpTopEnd.Location = new Point(403, 38);
+            dtpTopEnd.Name = "dtpTopEnd";
+            dtpTopEnd.Size = new Size(219, 27);
+            dtpTopEnd.TabIndex = 2;
             // 
             // tabPage3
             // 
-            tabPage3.Controls.Add(dgvStockReport);
-            tabPage3.Controls.Add(cmbStockFilter);
-            tabPage3.Controls.Add(label5);
-            tabPage3.Controls.Add(btnLoadStock);
-            tabPage3.Location = new Point(4, 24);
+            tabPage3.BackColor = Color.WhiteSmoke;
+            tabPage3.Controls.Add(panel6);
+            tabPage3.Controls.Add(panel5);
+            tabPage3.Location = new Point(4, 29);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(876, 533);
+            tabPage3.Size = new Size(1150, 716);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Stok Durumu";
-            tabPage3.UseVisualStyleBackColor = true;
             // 
-            // dgvStockReport
+            // panel6
             // 
-            dgvStockReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvStockReport.Location = new Point(10, 50);
-            dgvStockReport.Name = "dgvStockReport";
-            dgvStockReport.Size = new Size(800, 380);
-            dgvStockReport.TabIndex = 7;
+            panel6.BackColor = Color.White;
+            panel6.Controls.Add(dgvStockReport);
+            panel6.Location = new Point(20, 166);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(1110, 546);
+            panel6.TabIndex = 9;
             // 
-            // cmbStockFilter
+            // panel5
             // 
-            cmbStockFilter.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbStockFilter.FormattingEnabled = true;
-            cmbStockFilter.Location = new Point(235, 12);
-            cmbStockFilter.Name = "cmbStockFilter";
-            cmbStockFilter.Size = new Size(150, 23);
-            cmbStockFilter.TabIndex = 6;
-            cmbStockFilter.SelectedIndexChanged += cmbStockFilter_SelectedIndexChanged;
+            panel5.BackColor = Color.White;
+            panel5.Controls.Add(label5);
+            panel5.Controls.Add(cmbStockFilter);
+            panel5.Controls.Add(btnLoadStock);
+            panel5.Location = new Point(20, 16);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(1110, 115);
+            panel5.TabIndex = 8;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(185, 15);
+            label5.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            label5.Location = new Point(17, 41);
             label5.Name = "label5";
-            label5.Size = new Size(45, 15);
+            label5.Size = new Size(57, 20);
             label5.TabIndex = 5;
             label5.Text = "Filtrele:";
+            // 
+            // cmbStockFilter
+            // 
+            cmbStockFilter.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbStockFilter.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            cmbStockFilter.FormattingEnabled = true;
+            cmbStockFilter.Location = new Point(80, 38);
+            cmbStockFilter.Name = "cmbStockFilter";
+            cmbStockFilter.Size = new Size(250, 28);
+            cmbStockFilter.TabIndex = 6;
+            cmbStockFilter.SelectedIndexChanged += cmbStockFilter_SelectedIndexChanged;
             // 
             // btnLoadStock
             // 
@@ -283,20 +394,28 @@
             btnLoadStock.FlatStyle = FlatStyle.Flat;
             btnLoadStock.Font = new Font("Segoe UI", 11.25F);
             btnLoadStock.ForeColor = Color.White;
-            btnLoadStock.Location = new Point(10, 10);
+            btnLoadStock.Location = new Point(346, 36);
             btnLoadStock.Name = "btnLoadStock";
-            btnLoadStock.Size = new Size(160, 30);
+            btnLoadStock.Size = new Size(191, 30);
             btnLoadStock.TabIndex = 4;
             btnLoadStock.Text = "Stok Durumunu Yükle";
             btnLoadStock.UseVisualStyleBackColor = false;
             btnLoadStock.Click += btnLoadStock_Click;
+            // 
+            // dgvStockReport
+            // 
+            dgvStockReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvStockReport.Location = new Point(17, 19);
+            dgvStockReport.Name = "dgvStockReport";
+            dgvStockReport.Size = new Size(1075, 508);
+            dgvStockReport.TabIndex = 7;
             // 
             // frmReports
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(884, 561);
+            ClientSize = new Size(1158, 749);
             Controls.Add(tabReports);
             MaximizeBox = false;
             Name = "frmReports";
@@ -305,13 +424,19 @@
             Load += frmReports_Load;
             tabReports.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
-            tabPage1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvSalesReport).EndInit();
             tabPage2.ResumeLayout(false);
-            tabPage2.PerformLayout();
+            panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvTopProducts).EndInit();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             tabPage3.ResumeLayout(false);
-            tabPage3.PerformLayout();
+            panel6.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvStockReport).EndInit();
             ResumeLayout(false);
         }
@@ -319,16 +444,9 @@
         #endregion
 
         private TabControl tabReports;
-        private TabPage tabPage1;
         private TabPage tabPage2;
         private TabPage tabPage3;
         private DataGridView dgvSalesReport;
-        private Label lblSalesSummary;
-        private DateTimePicker dtpEnd;
-        private Label label2;
-        private DateTimePicker dtpStart;
-        private Label label1;
-        private Button btnFilterSales;
         private DateTimePicker dtpTopEnd;
         private DateTimePicker dtpTopStart;
         private DataGridView dgvTopProducts;
@@ -339,5 +457,18 @@
         private ComboBox cmbStockFilter;
         private Label label5;
         private Button btnLoadStock;
+        private TabPage tabPage1;
+        private Panel panel2;
+        private Label label1;
+        private Button btnFilterSales;
+        private DateTimePicker dtpStart;
+        private Label label2;
+        private Label lblSalesSummary;
+        private DateTimePicker dtpEnd;
+        private Panel panel1;
+        private Panel panel4;
+        private Panel panel3;
+        private Panel panel6;
+        private Panel panel5;
     }
 }
