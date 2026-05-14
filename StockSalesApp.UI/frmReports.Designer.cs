@@ -32,6 +32,9 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             tabReports = new TabControl();
             tabPage1 = new TabPage();
             panel2 = new Panel();
@@ -54,11 +57,11 @@
             dtpTopEnd = new DateTimePicker();
             tabPage3 = new TabPage();
             panel6 = new Panel();
+            dgvStockReport = new DataGridView();
             panel5 = new Panel();
             label5 = new Label();
             cmbStockFilter = new ComboBox();
             btnLoadStock = new Button();
-            dgvStockReport = new DataGridView();
             tabReports.SuspendLayout();
             tabPage1.SuspendLayout();
             panel2.SuspendLayout();
@@ -70,8 +73,8 @@
             panel3.SuspendLayout();
             tabPage3.SuspendLayout();
             panel6.SuspendLayout();
-            panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvStockReport).BeginInit();
+            panel5.SuspendLayout();
             SuspendLayout();
             // 
             // tabReports
@@ -199,7 +202,6 @@
             dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dgvSalesReport.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvSalesReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -246,10 +248,9 @@
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Control;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dgvTopProducts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvTopProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -354,6 +355,41 @@
             panel6.Size = new Size(1110, 546);
             panel6.TabIndex = 9;
             // 
+            // dgvStockReport
+            // 
+            dgvStockReport.AllowUserToAddRows = false;
+            dgvStockReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dgvStockReport.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dgvStockReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dgvStockReport.DefaultCellStyle = dataGridViewCellStyle6;
+            dgvStockReport.Location = new Point(17, 19);
+            dgvStockReport.Name = "dgvStockReport";
+            dgvStockReport.ReadOnly = true;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Control;
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dgvStockReport.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dgvStockReport.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvStockReport.Size = new Size(1075, 508);
+            dgvStockReport.TabIndex = 7;
+            // 
             // panel5
             // 
             panel5.BackColor = Color.White;
@@ -402,14 +438,6 @@
             btnLoadStock.UseVisualStyleBackColor = false;
             btnLoadStock.Click += btnLoadStock_Click;
             // 
-            // dgvStockReport
-            // 
-            dgvStockReport.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvStockReport.Location = new Point(17, 19);
-            dgvStockReport.Name = "dgvStockReport";
-            dgvStockReport.Size = new Size(1075, 508);
-            dgvStockReport.TabIndex = 7;
-            // 
             // frmReports
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -435,9 +463,9 @@
             panel3.PerformLayout();
             tabPage3.ResumeLayout(false);
             panel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvStockReport).EndInit();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvStockReport).EndInit();
             ResumeLayout(false);
         }
 
