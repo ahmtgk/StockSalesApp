@@ -69,6 +69,22 @@ namespace StockSalesApp.UI
                     // Barkod bulundu — direkt sepete ekle, adet 1
                     AddToCart(byBarcode, 1);
                     txtSearch.Clear();
+                    if (dgvProducts.Rows.Count > 0)
+                    {
+                        // Barkodla bulunan ürünü listede seç
+                        foreach (DataGridViewRow row in dgvProducts.Rows)
+                        {
+                            if (row.Cells["Id"].Value != null &&
+                                (int)row.Cells["Id"].Value == byBarcode.Id)
+                            {
+                                dgvProducts.ClearSelection();
+                                row.Selected = true;
+                                dgvProducts.CurrentCell = row.Cells["Name"];
+                                dgvProducts.Focus(); // Odağı DataGridView'e ver
+                                break;
+                            }
+                        }
+                    }
                     return;
                 }
             }
@@ -205,6 +221,47 @@ namespace StockSalesApp.UI
             int productId = (int)dgvCart.SelectedRows[0].Cells["ProductId"].Value;
             _cart.RemoveAll(c => c.ProductId == productId);
             RefreshCart();
+        }
+
+        // Sepetteki ürünün adetini nudQuantity kadar azaltır
+        // Kalan adet 0'a düşerse ürünü sepetten çıkarır
+        private void btnReduceFromCart_Click(object sender, EventArgs e)
+        {
+            if (dgvCart.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Lütfen sepetten işlem yapılacak ürünü seçin.",
+                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int productId = (int)dgvCart.SelectedRows[0].Cells["ProductId"].Value;
+            string prodName = dgvCart.SelectedRows[0].Cells["ProductName"].Value.ToString();
+            int reduceQty = (int)nudQuantity.Value; // nudQuantity'deki değer kadar azalt
+
+            // Sepette bu ürünü bul
+            var existing = _cart.Find(c => c.ProductId == productId);
+            if (existing == null) return;
+
+            if (reduceQty >= existing.Quantity)
+            {
+                // Azaltılacak miktar mevcut adetten büyük veya eşitse ürünü tamamen kaldır
+                var result = MessageBox.Show(
+                    $"'{prodName}' ürününün tüm adeti ({existing.Quantity}) sepetten çıkarılacak. Onaylıyor musunuz?",
+                    "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result != DialogResult.Yes) return;
+
+                _cart.RemoveAll(c => c.ProductId == productId);
+            }
+            else
+            {
+                // Sadece belirtilen miktarı azalt
+                existing.Quantity -= reduceQty;
+                existing.TotalPrice = existing.UnitPrice * existing.Quantity;
+            }
+
+            RefreshCart();
+            nudQuantity.Value = 1; // nudQuantity'yi sıfırla
         }
 
         // Sepeti tamamen temizle

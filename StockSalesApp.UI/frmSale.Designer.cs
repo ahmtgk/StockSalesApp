@@ -42,6 +42,7 @@
             lblTotal = new Label();
             btnCompleteSale = new Button();
             panel1 = new Panel();
+            btnReduceFromCart = new Button();
             nudQuantity = new NumericUpDown();
             panel2 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
@@ -66,7 +67,7 @@
             txtSearch.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
             txtSearch.Location = new Point(200, 20);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(385, 27);
+            txtSearch.Size = new Size(428, 27);
             txtSearch.TabIndex = 1;
             txtSearch.KeyDown += txtSearch_KeyDown;
             // 
@@ -78,9 +79,9 @@
             btnSearch.FlatStyle = FlatStyle.Flat;
             btnSearch.Font = new Font("Segoe UI", 11.25F);
             btnSearch.ForeColor = Color.White;
-            btnSearch.Location = new Point(591, 18);
+            btnSearch.Location = new Point(634, 18);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(120, 31);
+            btnSearch.Size = new Size(129, 31);
             btnSearch.TabIndex = 11;
             btnSearch.Text = "Ara";
             btnSearch.UseVisualStyleBackColor = false;
@@ -96,7 +97,7 @@
             dgvProducts.Name = "dgvProducts";
             dgvProducts.ReadOnly = true;
             dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProducts.Size = new Size(699, 763);
+            dgvProducts.Size = new Size(751, 763);
             dgvProducts.TabIndex = 12;
             // 
             // label2
@@ -117,9 +118,9 @@
             btnAddToCart.FlatStyle = FlatStyle.Flat;
             btnAddToCart.Font = new Font("Segoe UI", 11.25F);
             btnAddToCart.ForeColor = Color.White;
-            btnAddToCart.Location = new Point(340, 852);
+            btnAddToCart.Location = new Point(372, 852);
             btnAddToCart.Name = "btnAddToCart";
-            btnAddToCart.Size = new Size(120, 31);
+            btnAddToCart.Size = new Size(120, 30);
             btnAddToCart.TabIndex = 15;
             btnAddToCart.Text = "Sepete Ekle";
             btnAddToCart.UseVisualStyleBackColor = false;
@@ -145,7 +146,7 @@
             dgvCart.Name = "dgvCart";
             dgvCart.ReadOnly = true;
             dgvCart.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCart.Size = new Size(699, 763);
+            dgvCart.Size = new Size(711, 763);
             dgvCart.TabIndex = 17;
             // 
             // btnClearCart
@@ -154,11 +155,11 @@
             btnClearCart.FlatAppearance.BorderSize = 0;
             btnClearCart.FlatAppearance.MouseOverBackColor = Color.FromArgb(133, 163, 219);
             btnClearCart.FlatStyle = FlatStyle.Flat;
-            btnClearCart.Font = new Font("Segoe UI", 11.25F);
+            btnClearCart.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
             btnClearCart.ForeColor = Color.White;
-            btnClearCart.Location = new Point(592, 852);
+            btnClearCart.Location = new Point(643, 852);
             btnClearCart.Name = "btnClearCart";
-            btnClearCart.Size = new Size(120, 31);
+            btnClearCart.Size = new Size(120, 30);
             btnClearCart.TabIndex = 19;
             btnClearCart.Text = "Sepeti Temizle";
             btnClearCart.UseVisualStyleBackColor = false;
@@ -170,13 +171,13 @@
             btnRemoveFromCart.FlatAppearance.BorderSize = 0;
             btnRemoveFromCart.FlatAppearance.MouseOverBackColor = Color.FromArgb(240, 100, 80);
             btnRemoveFromCart.FlatStyle = FlatStyle.Flat;
-            btnRemoveFromCart.Font = new Font("Segoe UI", 11.25F);
+            btnRemoveFromCart.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
             btnRemoveFromCart.ForeColor = Color.White;
-            btnRemoveFromCart.Location = new Point(466, 852);
+            btnRemoveFromCart.Location = new Point(412, 842);
             btnRemoveFromCart.Name = "btnRemoveFromCart";
-            btnRemoveFromCart.Size = new Size(120, 31);
+            btnRemoveFromCart.Size = new Size(150, 49);
             btnRemoveFromCart.TabIndex = 20;
-            btnRemoveFromCart.Text = "Sil";
+            btnRemoveFromCart.Text = "Ürünü Sil";
             btnRemoveFromCart.UseVisualStyleBackColor = false;
             btnRemoveFromCart.Click += btnRemoveFromCart_Click;
             // 
@@ -208,9 +209,9 @@
             btnCompleteSale.FlatStyle = FlatStyle.Flat;
             btnCompleteSale.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
             btnCompleteSale.ForeColor = Color.White;
-            btnCompleteSale.Location = new Point(553, 842);
+            btnCompleteSale.Location = new Point(577, 842);
             btnCompleteSale.Name = "btnCompleteSale";
-            btnCompleteSale.Size = new Size(162, 49);
+            btnCompleteSale.Size = new Size(150, 49);
             btnCompleteSale.TabIndex = 23;
             btnCompleteSale.Text = "SATIŞ TAMAMLA";
             btnCompleteSale.UseVisualStyleBackColor = false;
@@ -219,28 +220,44 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
+            panel1.Controls.Add(btnReduceFromCart);
             panel1.Controls.Add(nudQuantity);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(txtSearch);
             panel1.Controls.Add(btnSearch);
             panel1.Controls.Add(btnClearCart);
-            panel1.Controls.Add(btnRemoveFromCart);
             panel1.Controls.Add(dgvProducts);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(btnAddToCart);
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(726, 902);
+            panel1.Size = new Size(776, 902);
             panel1.TabIndex = 24;
+            // 
+            // btnReduceFromCart
+            // 
+            btnReduceFromCart.BackColor = Color.FromArgb(200, 80, 60);
+            btnReduceFromCart.FlatAppearance.BorderSize = 0;
+            btnReduceFromCart.FlatAppearance.MouseOverBackColor = Color.FromArgb(240, 100, 80);
+            btnReduceFromCart.FlatStyle = FlatStyle.Flat;
+            btnReduceFromCart.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            btnReduceFromCart.ForeColor = Color.White;
+            btnReduceFromCart.Location = new Point(508, 852);
+            btnReduceFromCart.Name = "btnReduceFromCart";
+            btnReduceFromCart.Size = new Size(120, 30);
+            btnReduceFromCart.TabIndex = 22;
+            btnReduceFromCart.Text = "Ürünü Sil";
+            btnReduceFromCart.UseVisualStyleBackColor = false;
+            btnReduceFromCart.Click += btnReduceFromCart_Click;
             // 
             // nudQuantity
             // 
             nudQuantity.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            nudQuantity.Location = new Point(78, 855);
+            nudQuantity.Location = new Point(78, 853);
             nudQuantity.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
             nudQuantity.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudQuantity.Name = "nudQuantity";
-            nudQuantity.Size = new Size(256, 27);
+            nudQuantity.Size = new Size(277, 27);
             nudQuantity.TabIndex = 21;
             nudQuantity.Value = new decimal(new int[] { 1, 0, 0, 0 });
             nudQuantity.KeyDown += nudQuantity_KeyDown;
@@ -253,9 +270,10 @@
             panel2.Controls.Add(lblTotal);
             panel2.Controls.Add(btnCompleteSale);
             panel2.Controls.Add(label4);
-            panel2.Location = new Point(754, 12);
+            panel2.Controls.Add(btnRemoveFromCart);
+            panel2.Location = new Point(812, 12);
             panel2.Name = "panel2";
-            panel2.Size = new Size(726, 902);
+            panel2.Size = new Size(743, 902);
             panel2.TabIndex = 25;
             // 
             // frmSale
@@ -263,7 +281,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(1492, 926);
+            ClientSize = new Size(1567, 929);
             Controls.Add(panel2);
             Controls.Add(panel1);
             MaximizeBox = false;
@@ -299,5 +317,6 @@
         private Panel panel1;
         private Panel panel2;
         private NumericUpDown nudQuantity;
+        private Button btnReduceFromCart;
     }
 }

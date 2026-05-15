@@ -101,7 +101,6 @@
             tabPage1.Size = new Size(1150, 716);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Günlük Satış Raporu";
-            tabPage1.Click += tabPage1_Click;
             // 
             // panel2
             // 
@@ -117,7 +116,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1110, 115);
             panel2.TabIndex = 16;
-            panel2.Paint += panel2_Paint;
             // 
             // label1
             // 

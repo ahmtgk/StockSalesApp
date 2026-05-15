@@ -41,7 +41,6 @@ namespace StockSalesApp.UI
             // Formlar açılınca her sekmeyi yükle
             LoadSalesReport();
             LoadTopProducts();
-            LoadStockReport();
         }
 
         // SEKME 1: Günlük Satış Raporu 
@@ -173,17 +172,7 @@ namespace StockSalesApp.UI
 
         private void cmbStockFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadStockReport();
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
+            
         }
     }
 }
