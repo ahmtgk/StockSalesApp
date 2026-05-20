@@ -63,9 +63,9 @@
             // txtSearch
             // 
             txtSearch.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            txtSearch.Location = new Point(86, 15);
+            txtSearch.Location = new Point(103, 15);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(359, 27);
+            txtSearch.Size = new Size(435, 27);
             txtSearch.TabIndex = 1;
             txtSearch.KeyDown += txtSearch_KeyDown;
             // 
@@ -77,7 +77,7 @@
             btnSearch.FlatStyle = FlatStyle.Flat;
             btnSearch.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
             btnSearch.ForeColor = Color.White;
-            btnSearch.Location = new Point(465, 12);
+            btnSearch.Location = new Point(555, 12);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(167, 33);
             btnSearch.TabIndex = 2;
@@ -95,7 +95,7 @@
             dgvProducts.Name = "dgvProducts";
             dgvProducts.ReadOnly = true;
             dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProducts.Size = new Size(827, 307);
+            dgvProducts.Size = new Size(1005, 307);
             dgvProducts.TabIndex = 3;
             dgvProducts.SelectionChanged += dgvProducts_SelectionChanged;
             // 
@@ -103,7 +103,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 11.25F);
-            label2.Location = new Point(13, 27);
+            label2.Location = new Point(20, 38);
             label2.Name = "label2";
             label2.Size = new Size(94, 20);
             label2.TabIndex = 4;
@@ -113,7 +113,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 11.25F);
-            label3.Location = new Point(13, 82);
+            label3.Location = new Point(20, 128);
             label3.Name = "label3";
             label3.Size = new Size(93, 20);
             label3.TabIndex = 5;
@@ -123,7 +123,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 11.25F);
-            label4.Location = new Point(13, 132);
+            label4.Location = new Point(20, 207);
             label4.Name = "label4";
             label4.Size = new Size(91, 20);
             label4.TabIndex = 6;
@@ -133,7 +133,7 @@
             // 
             txtSelectedProduct.BackColor = Color.White;
             txtSelectedProduct.Font = new Font("Segoe UI", 11.25F);
-            txtSelectedProduct.Location = new Point(113, 24);
+            txtSelectedProduct.Location = new Point(120, 35);
             txtSelectedProduct.Name = "txtSelectedProduct";
             txtSelectedProduct.ReadOnly = true;
             txtSelectedProduct.Size = new Size(244, 27);
@@ -143,18 +143,18 @@
             // 
             txtCurrentStock.BackColor = Color.White;
             txtCurrentStock.Font = new Font("Segoe UI", 11.25F);
-            txtCurrentStock.Location = new Point(113, 79);
+            txtCurrentStock.Location = new Point(120, 125);
             txtCurrentStock.Name = "txtCurrentStock";
             txtCurrentStock.ReadOnly = true;
-            txtCurrentStock.Size = new Size(162, 27);
+            txtCurrentStock.Size = new Size(244, 27);
             txtCurrentStock.TabIndex = 8;
             // 
             // txtQuantity
             // 
             txtQuantity.Font = new Font("Segoe UI", 11.25F);
-            txtQuantity.Location = new Point(113, 129);
+            txtQuantity.Location = new Point(120, 204);
             txtQuantity.Name = "txtQuantity";
-            txtQuantity.Size = new Size(162, 27);
+            txtQuantity.Size = new Size(244, 27);
             txtQuantity.TabIndex = 9;
             // 
             // btnStockIn
@@ -165,7 +165,7 @@
             btnStockIn.FlatStyle = FlatStyle.Flat;
             btnStockIn.Font = new Font("Segoe UI", 11.25F);
             btnStockIn.ForeColor = Color.White;
-            btnStockIn.Location = new Point(13, 197);
+            btnStockIn.Location = new Point(20, 266);
             btnStockIn.Name = "btnStockIn";
             btnStockIn.Size = new Size(150, 51);
             btnStockIn.TabIndex = 10;
@@ -191,7 +191,7 @@
             dgvMovements.Location = new Point(387, 35);
             dgvMovements.Name = "dgvMovements";
             dgvMovements.ReadOnly = true;
-            dgvMovements.Size = new Size(453, 251);
+            dgvMovements.Size = new Size(631, 282);
             dgvMovements.TabIndex = 13;
             // 
             // panel1
@@ -203,7 +203,7 @@
             panel1.Controls.Add(btnSearch);
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(856, 394);
+            panel1.Size = new Size(1032, 394);
             panel1.TabIndex = 14;
             // 
             // btnStockOut
@@ -214,7 +214,7 @@
             btnStockOut.FlatStyle = FlatStyle.Flat;
             btnStockOut.Font = new Font("Segoe UI", 11.25F);
             btnStockOut.ForeColor = Color.White;
-            btnStockOut.Location = new Point(207, 197);
+            btnStockOut.Location = new Point(214, 266);
             btnStockOut.Name = "btnStockOut";
             btnStockOut.Size = new Size(150, 51);
             btnStockOut.TabIndex = 15;
@@ -237,14 +237,14 @@
             panel2.Controls.Add(label3);
             panel2.Location = new Point(12, 433);
             panel2.Name = "panel2";
-            panel2.Size = new Size(856, 301);
+            panel2.Size = new Size(1032, 333);
             panel2.TabIndex = 16;
             // 
             // frmStock
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(880, 745);
+            ClientSize = new Size(1056, 778);
             Controls.Add(panel2);
             Controls.Add(panel1);
             MaximizeBox = false;
