@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\StockSalesApp.DataAccess\StockSalesApp.DataAccess.csproj" />
-    <ProjectReference Include="..\StockSAlesApp.Entities\StockSAlesApp.Entities.csproj" />
+    <ProjectReference Include="..\StockSAlesApp.Entities\StockSalesApp.Entities.csproj" />
   </ItemGroup>
 
 </Project>

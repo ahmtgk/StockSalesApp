@@ -1,6 +1,6 @@
 <Solution>
   <Project Path="StockSalesApp.Business/StockSalesApp.Business.csproj" />
   <Project Path="StockSalesApp.DataAccess/StockSalesApp.DataAccess.csproj" />
-  <Project Path="StockSAlesApp.Entities/StockSAlesApp.Entities.csproj" />
+  <Project Path="StockSAlesApp.Entities/StockSAlesApp.Entities.csproj" DisplayName="StockSalesApp.Entities" />
   <Project Path="StockSalesApp.UI/StockSalesApp.UI.csproj" />
 </Solution>

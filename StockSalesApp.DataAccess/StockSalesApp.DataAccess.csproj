@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StockSAlesApp.Entities\StockSAlesApp.Entities.csproj" />
+    <ProjectReference Include="..\StockSAlesApp.Entities\StockSalesApp.Entities.csproj" />
   </ItemGroup>
 
 </Project>
