@@ -16,9 +16,6 @@ namespace StockSalesApp.UI
     {
         private readonly StockService _stockService = new StockService();
         private readonly ProductService _productService = new ProductService();
-
-        // Listeden seçilen ürünü saklıyoruz
-        // Stok girişi yaparken hangi ürüne giriş yapıldığını bilmek için
         private Product _selectedProduct = null;
 
         public frmStock()
@@ -26,69 +23,81 @@ namespace StockSalesApp.UI
             InitializeComponent();
         }
 
+        // ─── BUTON OLAYLARI ──────────────────────────────────────────────
+
         private void frmStock_Load(object sender, EventArgs e)
         {
             LoadProducts();
-            LoadMovements();
         }
 
-        // Ürün listesini yükler
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            SearchProducts();
+        }
+
+        private void btnStockIn_Click(object sender, EventArgs e)
+        {
+            PerformStockIn();
+        }
+
+        private void btnStockOut_Click(object sender, EventArgs e)
+        {
+            PerformStockOut();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) SearchProducts();
+        }
+
+        private void dgvProducts_SelectionChanged(object sender, EventArgs e)
+        {
+            UpdateSelectedProduct();
+        }
+
+        // ─── PRIVATE METODLAR ────────────────────────────────────────────
+
+        // Sadece ürün listesini yükler
         private void LoadProducts()
         {
             try
             {
                 dgvProducts.DataSource = null;
                 dgvProducts.DataSource = _productService.GetAll();
-
-                if (dgvProducts.Columns.Count > 0)
-                {
-                    dgvProducts.Columns["Id"].Visible = false;
-                    dgvProducts.Columns["PurchasePrice"].Visible = false; // Bu ekranda gerek yok
-                    dgvProducts.Columns["SalePrice"].Visible = false; // Bu ekranda gerek yok
-                    dgvProducts.Columns["Name"].HeaderText = "Ürün Adı";
-                    dgvProducts.Columns["Barcode"].HeaderText = "Barkod";
-                    dgvProducts.Columns["StockQuantity"].HeaderText = "Mevcut Stok";
-                }
+                SetProductColumns();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ürünler yüklenirken hata: " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowError("Ürünler yüklenirken hata: " + ex.Message);
             }
         }
 
-        // Stok hareketlerini yükler
-        private void LoadMovements()
+        // Sadece arama işlemini yapar
+        private void SearchProducts()
         {
             try
             {
-                dgvMovements.DataSource = null;
-                dgvMovements.DataSource = _stockService.GetAll();
-
-                if (dgvMovements.Columns.Count > 0)
-                {
-                    dgvMovements.Columns["Id"].Visible = false;
-                    dgvMovements.Columns["ProductId"].Visible = false;
-                    dgvMovements.Columns["ProductName"].HeaderText = "Ürün";
-                    dgvMovements.Columns["Quantity"].HeaderText = "Miktar";
-                    dgvMovements.Columns["MovementType"].HeaderText = "Tür";
-                    dgvMovements.Columns["MovementDate"].HeaderText = "Tarih";
-                }
+                dgvProducts.DataSource = null;
+                dgvProducts.DataSource = _productService.Search(txtSearch.Text);
+                SetProductColumns();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Stok hareketleri yüklenirken hata: " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowError("Arama hatası: " + ex.Message);
             }
         }
 
-        // Listeden ürün seçilince alt kısımdaki bilgileri doldur
-        private void dgvProducts_SelectionChanged(object sender, EventArgs e)
+        // Sadece seçilen ürün bilgisini günceller
+        private void UpdateSelectedProduct()
         {
             if (dgvProducts.SelectedRows.Count == 0) return;
 
             var row = dgvProducts.SelectedRows[0];
-
             _selectedProduct = new Product
             {
                 Id = (int)row.Cells["Id"].Value,
@@ -101,165 +110,150 @@ namespace StockSalesApp.UI
             txtQuantity.Clear();
             txtQuantity.Focus();
 
-            // Seçilen ürünün hareketlerini yükle
             LoadMovementsByProduct(_selectedProduct.Id);
         }
 
-        // Belirli ürünün hareketlerini yükler
+        // Sadece stok girişi yapar
+        private void PerformStockIn()
+        {
+            if (!IsProductSelected()) return;
+            if (!IsValidQuantity(out int quantity)) return;
+
+            try
+            {
+                _stockService.StockIn(_selectedProduct.Id, quantity);
+                ShowInfo($"'{_selectedProduct.Name}' ürününe {quantity} adet stok girişi yapıldı.");
+                ResetSelectionArea();
+                RefreshAfterOperation();
+            }
+            catch (Exception ex)
+            {
+                ShowError("Hata: " + ex.Message);
+            }
+        }
+
+        // Sadece stok çıkışı yapar
+        private void PerformStockOut()
+        {
+            if (!IsProductSelected()) return;
+            if (!IsValidQuantity(out int quantity)) return;
+            if (!ConfirmStockOut(quantity)) return;
+
+            try
+            {
+                _stockService.StockOut(_selectedProduct.Id, quantity);
+                ShowInfo($"'{_selectedProduct.Name}' ürününden {quantity} adet stok çıkışı yapıldı.");
+                ResetSelectionArea();
+                RefreshAfterOperation();
+            }
+            catch (Exception ex)
+            {
+                ShowError("Hata: " + ex.Message);
+            }
+        }
+
+        // Sadece seçilen ürünün hareketlerini yükler
         private void LoadMovementsByProduct(int productId)
         {
             try
             {
                 dgvMovements.DataSource = null;
                 dgvMovements.DataSource = _stockService.GetByProductId(productId);
-
-                if (dgvMovements.Columns.Count > 0)
-                {
-                    dgvMovements.Columns["Id"].Visible = false;
-                    dgvMovements.Columns["ProductId"].Visible = false;
-                    dgvMovements.Columns["ProductName"].Visible = false;
-                    dgvMovements.Columns["Quantity"].HeaderText = "Miktar";
-                    dgvMovements.Columns["MovementType"].HeaderText = "Tür";
-                    dgvMovements.Columns["MovementDate"].HeaderText = "Tarih";
-
-                    // IN yeşil, OUT kırmızı göster
-                    foreach (DataGridViewRow r in dgvMovements.Rows)
-                    {
-                        string type = r.Cells["MovementType"].Value.ToString();
-                        r.DefaultCellStyle.BackColor = type == "IN"
-                            ? System.Drawing.Color.FromArgb(200, 240, 200)
-                            : System.Drawing.Color.FromArgb(255, 200, 200);
-                    }
-                }
+                SetMovementColumns();
+                ColorizeMovementRows();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Hareketler yüklenirken hata: " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowError("Hareketler yüklenirken hata: " + ex.Message);
             }
         }
 
-        // Arama butonu
-        private void btnSearch_Click(object sender, EventArgs e)
+        // Sadece işlem sonrası verileri yeniler
+        private void RefreshAfterOperation()
         {
-            try
-            {
-                dgvProducts.DataSource = null;
-                dgvProducts.DataSource = _productService.Search(txtSearch.Text);
+            LoadProducts();
+            if (_selectedProduct != null)
+                LoadMovementsByProduct(_selectedProduct.Id);
+        }
 
-                if (dgvProducts.Columns.Count > 0)
-                {
-                    dgvProducts.Columns["Id"].Visible = false;
-                    dgvProducts.Columns["PurchasePrice"].Visible = false;
-                    dgvProducts.Columns["SalePrice"].Visible = false;
-                    dgvProducts.Columns["Name"].HeaderText = "Ürün Adı";
-                    dgvProducts.Columns["Barcode"].HeaderText = "Barkod";
-                    dgvProducts.Columns["StockQuantity"].HeaderText = "Mevcut Stok";
-                }
-            }
-            catch (Exception ex)
+        // Sadece seçim alanını sıfırlar
+        private void ResetSelectionArea()
+        {
+            _selectedProduct = null;
+            txtSelectedProduct.Text = string.Empty;
+            txtCurrentStock.Text = string.Empty;
+            txtQuantity.Text = string.Empty;
+        }
+
+        // Sadece ürün sütun başlıklarını ayarlar
+        private void SetProductColumns()
+        {
+            if (dgvProducts.Columns.Count == 0) return;
+            dgvProducts.Columns["Id"].Visible = false;
+            dgvProducts.Columns["PurchasePrice"].Visible = false;
+            dgvProducts.Columns["SalePrice"].Visible = false;
+            dgvProducts.Columns["Name"].HeaderText = "Ürün Adı";
+            dgvProducts.Columns["Barcode"].HeaderText = "Barkod";
+            dgvProducts.Columns["StockQuantity"].HeaderText = "Mevcut Stok";
+        }
+
+        // Sadece hareket sütun başlıklarını ayarlar
+        private void SetMovementColumns()
+        {
+            if (dgvMovements.Columns.Count == 0) return;
+            dgvMovements.Columns["Id"].Visible = false;
+            dgvMovements.Columns["ProductId"].Visible = false;
+            dgvMovements.Columns["ProductName"].Visible = false;
+            dgvMovements.Columns["Quantity"].HeaderText = "Miktar";
+            dgvMovements.Columns["MovementType"].HeaderText = "Tür";
+            dgvMovements.Columns["MovementDate"].HeaderText = "Tarih";
+        }
+
+        // Sadece hareket satırlarını renklendirir
+        private void ColorizeMovementRows()
+        {
+            foreach (DataGridViewRow row in dgvMovements.Rows)
             {
-                MessageBox.Show("Arama hatası: " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string type = row.Cells["MovementType"].Value?.ToString();
+                row.DefaultCellStyle.BackColor = type == "IN"
+                    ? System.Drawing.Color.FromArgb(200, 240, 200)
+                    : System.Drawing.Color.FromArgb(255, 200, 200);
             }
         }
 
-        // Stok girişi yap butonu
-        private void btnStockIn_Click(object sender, EventArgs e)
+        // ─── YARDIMCI KONTROL METODLARI ──────────────────────────────────
+
+        // Sadece ürün seçili mi kontrol eder
+        private bool IsProductSelected()
         {
-            // Ürün seçilmemiş kontrolü
-            if (_selectedProduct == null)
-            {
-                MessageBox.Show("Lütfen listeden bir ürün seçin.",
-                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Miktar kontrolü
-            if (!int.TryParse(txtQuantity.Text, out int quantity) || quantity <= 0)
-            {
-                MessageBox.Show("Lütfen geçerli bir miktar girin.",
-                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                // Business katmanında stok girişi yap
-                _stockService.StockIn(_selectedProduct.Id, quantity);
-
-                MessageBox.Show(
-                    $"'{_selectedProduct.Name}' ürününe {quantity} adet stok girişi yapıldı.",
-                    "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Ekranı güncelle
-                _selectedProduct = null;
-                txtSelectedProduct.Clear();
-                txtCurrentStock.Clear();
-                txtQuantity.Clear();
-
-                LoadProducts();
-                if (_selectedProduct != null)
-                    LoadMovementsByProduct(_selectedProduct.Id);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Hata: " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            if (_selectedProduct != null) return true;
+            ShowWarning("Lütfen listeden bir ürün seçin.");
+            return false;
         }
-        private void btnStockOut_Click(object sender, EventArgs e)
+
+        // Sadece miktar geçerli mi kontrol eder
+        private bool IsValidQuantity(out int quantity)
         {
-            if (_selectedProduct == null)
-            {
-                MessageBox.Show("Lütfen listeden bir ürün seçin.",
-                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            if (int.TryParse(txtQuantity.Text, out quantity) && quantity > 0)
+                return true;
+            ShowWarning("Lütfen geçerli bir miktar girin.");
+            quantity = 0;
+            return false;
+        }
 
-            if (!int.TryParse(txtQuantity.Text, out int quantity) || quantity <= 0)
-            {
-                MessageBox.Show("Lütfen geçerli bir miktar girin.",
-                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Onay al — stok çıkışı geri alınamaz
-            var result = MessageBox.Show(
+        // Sadece stok çıkışı onayı alır
+        private bool ConfirmStockOut(int quantity) =>
+            MessageBox.Show(
                 $"'{_selectedProduct.Name}' ürününden {quantity} adet stok çıkışı yapılacak. Onaylıyor musunuz?",
-                "Stok Çıkışı Onayı", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                "Stok Çıkışı Onayı", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+            == DialogResult.Yes;
 
-            if (result != DialogResult.Yes) return;
-
-            try
-            {
-                _stockService.StockOut(_selectedProduct.Id, quantity);
-
-                MessageBox.Show(
-                    $"'{_selectedProduct.Name}' ürününden {quantity} adet stok çıkışı yapıldı.",
-                    "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                _selectedProduct = null;
-                txtSelectedProduct.Clear();
-                txtCurrentStock.Clear();
-                txtQuantity.Clear();
-
-                LoadProducts();
-                if (_selectedProduct != null)
-                    LoadMovementsByProduct(_selectedProduct.Id);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Hata: " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        // Enter tuşu ile arama
-        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-                btnSearch_Click(null, null);
-        }
+        // Mesaj metodları
+        private void ShowError(string msg) =>
+            MessageBox.Show(msg, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        private void ShowWarning(string msg) =>
+            MessageBox.Show(msg, "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        private void ShowInfo(string msg) =>
+            MessageBox.Show(msg, "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 }
