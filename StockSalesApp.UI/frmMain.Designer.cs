@@ -428,6 +428,7 @@
             panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvLastSales).EndInit();
             ResumeLayout(false);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
         }
 
         #endregion

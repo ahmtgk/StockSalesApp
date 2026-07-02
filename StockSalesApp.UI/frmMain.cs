@@ -17,6 +17,7 @@ namespace StockSalesApp.UI
         private readonly User _currentUser;
         private readonly SaleService _saleService = new SaleService();
         private readonly ProductService _productService = new ProductService();
+        private bool _isLogout = false;
 
         public frmMain(User user)
         {
@@ -130,16 +131,21 @@ namespace StockSalesApp.UI
 
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            if (!_isLogout)
+                Application.Exit();
         }
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Oturumu kapatmak istediğinize emin misiniz?", "Onay Mesajı", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                frmLogin loginForm = new frmLogin();
-                loginForm.Show();
-                this.Hide();
-            }
+            var result = MessageBox.Show("Çıkış yapmak istediğinize emin misiniz?",
+                "Çıkış", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result != DialogResult.Yes) return;
+
+            _isLogout = true;
+            var loginForm = new frmLogin();
+            loginForm.Show();
+            this.Close();
         }
     }
+    
 }

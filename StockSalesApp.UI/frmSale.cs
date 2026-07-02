@@ -17,7 +17,6 @@ namespace StockSalesApp.UI
         private readonly SaleService _saleService = new SaleService();
         private readonly ProductService _productService = new ProductService();
         private readonly User _currentUser;
-        // Form kapanana kadar bellekte tutulur, satış tamamlanınca veritabanına yazılır
         private readonly List<SaleDetail> _cart = new List<SaleDetail>();
 
         public frmSale(User user)
@@ -26,164 +25,283 @@ namespace StockSalesApp.UI
             _currentUser = user;
         }
 
+        // ─── BUTON OLAYLARI ──────────────────────────────────────────────
+
         private void frmSale_Load(object sender, EventArgs e)
         {
             LoadProducts();
             RefreshCart();
         }
 
-        // Ürün listesini yükler
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            SearchProduct();
+        }
+
+        private void btnAddToCart_Click(object sender, EventArgs e)
+        {
+            AddSelectedProductToCart();
+        }
+
+        private void btnRemoveFromCart_Click(object sender, EventArgs e)
+        {
+            RemoveFromCart();
+        }
+
+        private void btnReduceFromCart_Click(object sender, EventArgs e)
+        {
+            ReduceCartItem();
+        }
+
+        private void btnClearCart_Click(object sender, EventArgs e)
+        {
+            ClearCart();
+        }
+
+        private void btnCompleteSale_Click(object sender, EventArgs e)
+        {
+            CompleteSale();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) SearchProduct();
+        }
+
+        private void nudQuantity_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) AddSelectedProductToCart();
+        }
+
+        // ─── PRIVATE METODLAR ────────────────────────────────────────────
+
+        // Sadece ürün listesini yükler
         private void LoadProducts()
         {
             try
             {
                 dgvProducts.DataSource = null;
                 dgvProducts.DataSource = _productService.GetAll();
-
-                if (dgvProducts.Columns.Count > 0)
-                {
-                    dgvProducts.Columns["Id"].Visible = false;
-                    dgvProducts.Columns["PurchasePrice"].Visible = false;
-                    dgvProducts.Columns["Name"].HeaderText = "Ürün Adı";
-                    dgvProducts.Columns["Barcode"].HeaderText = "Barkod";
-                    dgvProducts.Columns["SalePrice"].HeaderText = "Fiyat";
-                    dgvProducts.Columns["StockQuantity"].HeaderText = "Stok";
-                }
+                SetProductColumns();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ürünler yüklenirken hata: " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowError("Ürünler yüklenirken hata: " + ex.Message);
             }
         }
 
-        // Arama butonu — barkod veya isimle ara
-        private void btnSearch_Click(object sender, EventArgs e)
+        // Sadece ürün arama işlemini yapar
+        private void SearchProduct()
+        {
+            if (string.IsNullOrWhiteSpace(txtSearch.Text)) return;
+
+            if (TrySearchByBarcode()) return;
+            SearchByName();
+        }
+
+        // Sadece barkodla arama dener — bulursa true döner
+        private bool TrySearchByBarcode()
         {
             try
             {
-                // Önce barkodla tam eşleşme dene
-                var byBarcode = _productService.GetByBarcode(txtSearch.Text.Trim());
-                if (byBarcode != null)
-                {
-                    // Barkod bulundu — direkt sepete ekle, adet 1
-                    AddToCart(byBarcode, 1);
-                    txtSearch.Clear();
-                    if (dgvProducts.Rows.Count > 0)
-                    {
-                        // Barkodla bulunan ürünü listede seç
-                        foreach (DataGridViewRow row in dgvProducts.Rows)
-                        {
-                            if (row.Cells["Id"].Value != null &&
-                                (int)row.Cells["Id"].Value == byBarcode.Id)
-                            {
-                                dgvProducts.ClearSelection();
-                                row.Selected = true;
-                                dgvProducts.CurrentCell = row.Cells["Name"];
-                                dgvProducts.Focus(); // Odağı DataGridView'e ver
-                                break;
-                            }
-                        }
-                    }
-                    return;
-                }
-            }
-            catch { }
+                var product = _productService.GetByBarcode(txtSearch.Text.Trim());
+                if (product == null) return false;
 
-            // Barkodla bulunamazsa isimle ara
+                AddToCart(product, 1);
+                txtSearch.Clear();
+                FocusProductInGrid(product.Id);
+                return true;
+            }
+            catch { return false; }
+        }
+
+        // Sadece isme göre arama yapar
+        private void SearchByName()
+        {
             try
             {
                 dgvProducts.DataSource = null;
                 dgvProducts.DataSource = _productService.Search(txtSearch.Text);
-
-                if (dgvProducts.Columns.Count > 0)
-                {
-                    dgvProducts.Columns["Id"].Visible = false;
-                    dgvProducts.Columns["PurchasePrice"].Visible = false;
-                    dgvProducts.Columns["Name"].HeaderText = "Ürün Adı";
-                    dgvProducts.Columns["Barcode"].HeaderText = "Barkod";
-                    dgvProducts.Columns["SalePrice"].HeaderText = "Fiyat";
-                    dgvProducts.Columns["StockQuantity"].HeaderText = "Stok";
-                }
+                SetProductColumns();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Arama hatası: " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowError("Arama hatası: " + ex.Message);
             }
         }
 
-        // Sepete Ekle butonu
-        private void btnAddToCart_Click(object sender, EventArgs e)
+        // Sadece grid'de ürünü seçer ve odaklanır
+        private void FocusProductInGrid(int productId)
         {
-            if (dgvProducts.SelectedRows.Count == 0)
+            foreach (DataGridViewRow row in dgvProducts.Rows)
             {
-                MessageBox.Show("Lütfen listeden bir ürün seçin.",
-                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                if (row.Cells["Id"].Value != null &&
+                    (int)row.Cells["Id"].Value == productId)
+                {
+                    dgvProducts.ClearSelection();
+                    row.Selected = true;
+                    dgvProducts.CurrentCell = row.Cells["Name"];
+                    dgvProducts.Focus();
+                    break;
+                }
             }
+        }
+
+        // Sadece listeden seçili ürünü sepete ekler
+        private void AddSelectedProductToCart()
+        {
+            if (!IsProductSelected()) return;
 
             int quantity = (int)nudQuantity.Value;
-
-            var row = dgvProducts.SelectedRows[0];
-            var product = new Product
-            {
-                Id = (int)row.Cells["Id"].Value,
-                Name = row.Cells["Name"].Value.ToString(),
-                SalePrice = (decimal)row.Cells["SalePrice"].Value,
-                StockQuantity = (int)row.Cells["StockQuantity"].Value
-            };
-
+            var product = GetSelectedProduct();
             AddToCart(product, quantity);
             nudQuantity.Value = 1;
         }
 
-        // Ürünü sepete ekleyen yardımcı metot
-        // Hem butondan hem barkod okutunca çağrılır
+        // Sadece ürünü sepete ekler — hem listeden hem barkoddan çağrılır
         private void AddToCart(Product product, int quantity)
         {
-            // Stok yeterli mi kontrol et
-            if (quantity > product.StockQuantity)
-            {
-                MessageBox.Show(
-                    $"Yetersiz stok. Mevcut stok: {product.StockQuantity}",
-                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            if (!IsStockSufficient(product, quantity)) return;
 
-            // Ürün sepette zaten var mı kontrol et
             var existing = _cart.Find(c => c.ProductId == product.Id);
             if (existing != null)
-            {
-                // Varsa adetini artır
-                int newQty = existing.Quantity + quantity;
-                if (newQty > product.StockQuantity)
-                {
-                    MessageBox.Show(
-                        $"Toplam adet stok miktarını aşıyor. Mevcut stok: {product.StockQuantity}",
-                        "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                existing.Quantity = newQty;
-                existing.TotalPrice = existing.UnitPrice * newQty;
-            }
+                UpdateExistingCartItem(existing, product, quantity);
             else
-            {
-                // Yoksa yeni satır ekle
-                _cart.Add(new SaleDetail
-                {
-                    ProductId = product.Id,
-                    ProductName = product.Name,
-                    Quantity = quantity,
-                    UnitPrice = product.SalePrice,
-                    TotalPrice = product.SalePrice * quantity
-                });
-            }
+                AddNewCartItem(product, quantity);
 
             RefreshCart();
         }
 
-        // Sepet DataGridView'ini günceller
+        // Sadece stok yeterliliğini kontrol eder
+        private bool IsStockSufficient(Product product, int quantity)
+        {
+            if (quantity <= product.StockQuantity) return true;
+            ShowWarning($"Yetersiz stok. Mevcut stok: {product.StockQuantity}");
+            return false;
+        }
+
+        // Sadece sepetteki mevcut kalemi günceller
+        private void UpdateExistingCartItem(SaleDetail existing, Product product, int quantity)
+        {
+            int newQty = existing.Quantity + quantity;
+            if (newQty > product.StockQuantity)
+            {
+                ShowWarning($"Toplam adet stoku aşıyor. Mevcut stok: {product.StockQuantity}");
+                return;
+            }
+            existing.Quantity = newQty;
+            existing.TotalPrice = existing.UnitPrice * newQty;
+        }
+
+        // Sadece sepete yeni kalem ekler
+        private void AddNewCartItem(Product product, int quantity)
+        {
+            _cart.Add(new SaleDetail
+            {
+                ProductId = product.Id,
+                ProductName = product.Name,
+                Quantity = quantity,
+                UnitPrice = product.SalePrice,
+                TotalPrice = product.SalePrice * quantity
+            });
+        }
+
+        // Sadece sepetten ürünü tamamen siler
+        private void RemoveFromCart()
+        {
+            if (!IsCartRowSelected()) return;
+            int productId = GetSelectedCartProductId();
+            _cart.RemoveAll(c => c.ProductId == productId);
+            RefreshCart();
+        }
+
+        // Sadece sepetteki ürün adetini azaltır
+        private void ReduceCartItem()
+        {
+            if (!IsCartRowSelected()) return;
+
+            int productId = GetSelectedCartProductId();
+            string prodName = dgvCart.SelectedRows[0].Cells["ProductName"].Value.ToString();
+            int reduceQty = (int)nudQuantity.Value;
+            var existing = _cart.Find(c => c.ProductId == productId);
+            if (existing == null) return;
+
+            if (reduceQty >= existing.Quantity)
+            {
+                if (!ConfirmFullRemoval(prodName, existing.Quantity)) return;
+                _cart.RemoveAll(c => c.ProductId == productId);
+            }
+            else
+            {
+                existing.Quantity -= reduceQty;
+                existing.TotalPrice = existing.UnitPrice * existing.Quantity;
+            }
+
+            RefreshCart();
+            nudQuantity.Value = 1;
+        }
+
+        // Sadece sepeti temizler
+        private void ClearCart()
+        {
+            if (_cart.Count == 0) return;
+            if (!ConfirmClearCart()) return;
+            _cart.Clear();
+            RefreshCart();
+        }
+
+        // Sadece satışı tamamlar
+        private void CompleteSale()
+        {
+            if (!IsCartNotEmpty()) return;
+            decimal total = CalculateTotal();
+            if (!ConfirmSale(total)) return;
+
+            try
+            {
+                var sale = BuildSaleObject(total);
+                _saleService.CompleteSale(sale, _cart);
+                ShowInfo($"Satış başarıyla tamamlandı!\nToplam Tutar: {total:N2} ₺");
+                ResetAfterSale();
+            }
+            catch (Exception ex)
+            {
+                ShowError("Satış sırasında hata: " + ex.Message);
+            }
+        }
+
+        // Sadece Sale nesnesini oluşturur
+        private Sale BuildSaleObject(decimal total)
+        {
+            return new Sale
+            {
+                UserId = _currentUser.Id,
+                TotalAmount = total
+            };
+        }
+
+        // Sadece toplam tutarı hesaplar
+        private decimal CalculateTotal()
+        {
+            decimal total = 0;
+            foreach (var item in _cart) total += item.TotalPrice;
+            return total;
+        }
+
+        // Sadece satış sonrası ekranı sıfırlar
+        private void ResetAfterSale()
+        {
+            _cart.Clear();
+            LoadProducts();
+            RefreshCart();
+        }
+
+        // Sadece sepet görünümünü günceller
         private void RefreshCart()
         {
             dgvCart.DataSource = null;
@@ -200,145 +318,81 @@ namespace StockSalesApp.UI
                 dgvCart.Columns["TotalPrice"].HeaderText = "Toplam";
             }
 
-            // Toplam tutarı hesapla ve göster
-            decimal total = 0;
-            foreach (var item in _cart)
-                total += item.TotalPrice;
-
-            lblTotal.Text = total.ToString("N2") + " ₺";
+            lblTotal.Text = CalculateTotal().ToString("N2") + " ₺";
         }
 
-        // Sepetten ürün sil
-        private void btnRemoveFromCart_Click(object sender, EventArgs e)
+        // Sadece ürün grid sütunlarını ayarlar
+        private void SetProductColumns()
         {
-            if (dgvCart.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Lütfen sepetten silinecek ürünü seçin.",
-                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            int productId = (int)dgvCart.SelectedRows[0].Cells["ProductId"].Value;
-            _cart.RemoveAll(c => c.ProductId == productId);
-            RefreshCart();
+            if (dgvProducts.Columns.Count == 0) return;
+            dgvProducts.Columns["Id"].Visible = false;
+            dgvProducts.Columns["PurchasePrice"].Visible = false;
+            dgvProducts.Columns["Name"].HeaderText = "Ürün Adı";
+            dgvProducts.Columns["Barcode"].HeaderText = "Barkod";
+            dgvProducts.Columns["SalePrice"].HeaderText = "Fiyat";
+            dgvProducts.Columns["StockQuantity"].HeaderText = "Stok";
         }
 
-        // Sepetteki ürünün adetini nudQuantity kadar azaltır
-        // Kalan adet 0'a düşerse ürünü sepetten çıkarır
-        private void btnReduceFromCart_Click(object sender, EventArgs e)
+        // ─── YARDIMCI KONTROL METODLARI ──────────────────────────────────
+
+        private bool IsProductSelected()
         {
-            if (dgvCart.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Lütfen sepetten işlem yapılacak ürünü seçin.",
-                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            int productId = (int)dgvCart.SelectedRows[0].Cells["ProductId"].Value;
-            string prodName = dgvCart.SelectedRows[0].Cells["ProductName"].Value.ToString();
-            int reduceQty = (int)nudQuantity.Value; // nudQuantity'deki değer kadar azalt
-
-            // Sepette bu ürünü bul
-            var existing = _cart.Find(c => c.ProductId == productId);
-            if (existing == null) return;
-
-            if (reduceQty >= existing.Quantity)
-            {
-                // Azaltılacak miktar mevcut adetten büyük veya eşitse ürünü tamamen kaldır
-                var result = MessageBox.Show(
-                    $"'{prodName}' ürününün tüm adeti ({existing.Quantity}) sepetten çıkarılacak. Onaylıyor musunuz?",
-                    "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (result != DialogResult.Yes) return;
-
-                _cart.RemoveAll(c => c.ProductId == productId);
-            }
-            else
-            {
-                // Sadece belirtilen miktarı azalt
-                existing.Quantity -= reduceQty;
-                existing.TotalPrice = existing.UnitPrice * existing.Quantity;
-            }
-
-            RefreshCart();
-            nudQuantity.Value = 1; // nudQuantity'yi sıfırla
+            if (dgvProducts.SelectedRows.Count > 0) return true;
+            ShowWarning("Lütfen listeden bir ürün seçin.");
+            return false;
         }
 
-        // Sepeti tamamen temizle
-        private void btnClearCart_Click(object sender, EventArgs e)
+        private bool IsCartRowSelected()
         {
-            if (_cart.Count == 0) return;
-
-            var result = MessageBox.Show("Sepeti temizlemek istediğinize emin misiniz?",
-                "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                _cart.Clear();
-                RefreshCart();
-            }
+            if (dgvCart.SelectedRows.Count > 0) return true;
+            ShowWarning("Lütfen sepetten bir ürün seçin.");
+            return false;
         }
 
-        // Satışı tamamla
-        private void btnCompleteSale_Click(object sender, EventArgs e)
+        private bool IsCartNotEmpty()
         {
-            if (_cart.Count == 0)
-            {
-                MessageBox.Show("Sepet boş. Lütfen ürün ekleyin.",
-                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Toplam tutarı hesapla
-            decimal total = 0;
-            foreach (var item in _cart)
-                total += item.TotalPrice;
-
-            // Onay al
-            var result = MessageBox.Show(
-                $"Toplam {total:N2} ₺ tutarında satış tamamlanacak. Onaylıyor musunuz?",
-                "Satış Onayı", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (result != DialogResult.Yes) return;
-
-            try
-            {
-                // Sale nesnesini oluştur
-                var sale = new Sale
-                {
-                    UserId = _currentUser.Id,
-                    TotalAmount = total
-                };
-
-                // Business katmanına gönder — transaction orada yönetiliyor
-                _saleService.CompleteSale(sale, _cart);
-
-                MessageBox.Show(
-                    $"Satış başarıyla tamamlandı!\nToplam Tutar: {total:N2} ₺",
-                    "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Sepeti temizle, listeyi yenile
-                _cart.Clear();
-                LoadProducts(); // Stok miktarları güncellensin
-                RefreshCart();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Satış sırasında hata: " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            if (_cart.Count > 0) return true;
+            ShowWarning("Sepet boş. Lütfen ürün ekleyin.");
+            return false;
         }
-        // Enter tuşu ile arama veya sepete ekleme
-        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+
+        private int GetSelectedCartProductId() =>
+            (int)dgvCart.SelectedRows[0].Cells["ProductId"].Value;
+
+        private Product GetSelectedProduct()
         {
-            if (e.KeyCode == Keys.Enter)
-                btnSearch_Click(null, null);
+            var row = dgvProducts.SelectedRows[0];
+            return new Product
+            {
+                Id = (int)row.Cells["Id"].Value,
+                Name = row.Cells["Name"].Value.ToString(),
+                SalePrice = (decimal)row.Cells["SalePrice"].Value,
+                StockQuantity = (int)row.Cells["StockQuantity"].Value
+            };
         }
 
-        private void nudQuantity_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-                btnAddToCart_Click(null, null);
-        }
+        private bool ConfirmSale(decimal total) =>
+            MessageBox.Show(
+                $"Toplam {total:N2} ₺ tutarında satış tamamlanacak.\nOnaylıyor musunuz?",
+                "Satış Onayı", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            == DialogResult.Yes;
+
+        private bool ConfirmClearCart() =>
+            MessageBox.Show("Sepeti temizlemek istediğinize emin misiniz?",
+                "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            == DialogResult.Yes;
+
+        private bool ConfirmFullRemoval(string name, int qty) =>
+            MessageBox.Show(
+                $"'{name}' ürününün tüm adeti ({qty}) sepetten çıkarılacak. Onaylıyor musunuz?",
+                "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            == DialogResult.Yes;
+
+        private void ShowError(string msg) =>
+            MessageBox.Show(msg, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        private void ShowWarning(string msg) =>
+            MessageBox.Show(msg, "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        private void ShowInfo(string msg) =>
+            MessageBox.Show(msg, "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 }

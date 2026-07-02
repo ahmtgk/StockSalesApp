@@ -1,4 +1,3 @@
-using System;
 using System.Windows.Forms;
 
 namespace StockSalesApp.UI
@@ -9,7 +8,13 @@ namespace StockSalesApp.UI
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new frmLogin());
+
+            var loginForm = new frmLogin();
+            loginForm.Show();
+
+            // Application.Run() formsuz çalışır
+            // Uygulama yalnızca Application.Exit() çağrılınca kapanır
+            Application.Run();
         }
     }
 }

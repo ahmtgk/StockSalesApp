@@ -16,8 +16,6 @@ namespace StockSalesApp.UI
     public partial class frmLogin : Form
     {
         private readonly UserService _userService = new UserService();
-
-        // Registry'de kayıt için anahtar yolu
         private const string RegistryKey = @"SOFTWARE\StockSalesApp";
 
         public frmLogin()
@@ -30,91 +28,18 @@ namespace StockSalesApp.UI
             LoadRememberedUser();
         }
 
-        // Kaydedilmiş kullanıcı adını Registry'den yükle
-        private void LoadRememberedUser()
-        {
-            try
-            {
-                using (var key = Registry.CurrentUser.OpenSubKey(RegistryKey))
-                {
-                    if (key == null) return;
-
-                    string savedUser = key.GetValue("Username")?.ToString();
-                    if (!string.IsNullOrEmpty(savedUser))
-                    {
-                        txtUsername.Text = savedUser;
-                        chkRememberMe.Checked = true;
-                        txtPassword.Focus();  // Şifre kutusuna geç
-                    }
-                }
-            }
-            catch { } // Registry hatası uygulamayı engellemesin
-        }
-
-        // Kullanıcı adını Registry'ye kaydet veya sil
-        private void SaveRememberedUser(string username)
-        {
-            try
-            {
-                using (var key = Registry.CurrentUser.CreateSubKey(RegistryKey))
-                {
-                    if (chkRememberMe.Checked)
-                        key.SetValue("Username", username);
-                    else
-                        key.DeleteValue("Username", false); // false = değer yoksa hata verme
-                }
-            }
-            catch { }
-        }
+        // ─── BUTON OLAYLARI ──────────────────────────────────────────────
+        // Her buton sadece ilgili metodu çağırır — iş mantığı burada olmaz
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtUsername.Text))
-            {
-                MessageBox.Show("Kullanıcı adı boş olamaz.",
-                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtPassword.Text))
-            {
-                MessageBox.Show("Şifre boş olamaz.",
-                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                User user = _userService.Login(
-                    txtUsername.Text.Trim(),
-                    txtPassword.Text);
-
-                if (user is null)
-                {
-                    MessageBox.Show("Kullanıcı adı veya şifre hatalı.",
-                        "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtPassword.Clear();
-                    txtPassword.Focus();
-                    return;
-                }
-
-                // Beni hatırla — kaydet veya sil
-                SaveRememberedUser(txtUsername.Text.Trim());
-
-                frmMain mainForm = new frmMain(user);
-                mainForm.Show();
-                this.Hide();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Bir hata oluştu: " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            if (!ValidateInputs()) return;
+            PerformLogin();
         }
 
         private void chkShowPassword_CheckedChanged(object sender, EventArgs e)
         {
-            txtPassword.PasswordChar = chkShowPassword.Checked ? '\0' : '*';
+            TogglePasswordVisibility();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -126,9 +51,130 @@ namespace StockSalesApp.UI
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
+        // ─── PRIVATE METODLAR ────────────────────────────────────────────
+        // Her metot tek bir iş yapar — SRP prensibi
+
+        // Sadece giriş alanlarının boş olup olmadığını kontrol eder
+        private bool ValidateInputs()
+        {
+            if (string.IsNullOrWhiteSpace(txtUsername.Text))
+            {
+                MessageBox.Show("Kullanıcı adı boş olamaz.",
+                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtPassword.Text))
+            {
+                MessageBox.Show("Şifre boş olamaz.",
+                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
+        // Sadece giriş işlemini gerçekleştirir
+        private void PerformLogin()
+        {
+            try
+            {
+                User user = _userService.Login(
+                    txtUsername.Text.Trim(),
+                    txtPassword.Text);
+
+                if (user is null)
+                {
+                    HandleFailedLogin();
+                    return;
+                }
+
+                HandleSuccessfulLogin(user);
+            }
+            catch (Exception ex)
+            {
+                ShowError("Bir hata oluştu: " + ex.Message);
+            }
+        }
+
+        // Sadece başarısız giriş durumunu yönetir
+        private void HandleFailedLogin()
+        {
+            MessageBox.Show("Kullanıcı adı veya şifre hatalı.",
+                "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            txtPassword.Clear();
+            txtPassword.Focus();
+        }
+
+        // Sadece başarılı giriş durumunu yönetir
+        private void HandleSuccessfulLogin(User user)
+        {
+            SaveRememberedUser(txtUsername.Text.Trim());
+            OpenMainForm(user);
+        }
+
+        // Sadece ana formu açar
+        private void OpenMainForm(User user)
+        {
+            var mainForm = new frmMain(user);
+            mainForm.Show();
+            this.Close();
+        }
+
+        // Sadece şifre görünürlüğünü değiştirir
+        private void TogglePasswordVisibility()
+        {
+            txtPassword.PasswordChar = chkShowPassword.Checked ? '\0' : '*';
+        }
+
+        // Sadece kayıtlı kullanıcıyı yükler
+        private void LoadRememberedUser()
+        {
+            try
+            {
+                using (var key = Registry.CurrentUser.OpenSubKey(RegistryKey))
+                {
+                    if (key == null) return;
+                    string savedUser = key.GetValue("Username")?.ToString();
+                    if (!string.IsNullOrEmpty(savedUser))
+                    {
+                        txtUsername.Text = savedUser;
+                        chkRememberMe.Checked = true;
+                        txtPassword.Focus();
+                    }
+                }
+            }
+            catch { }
+        }
+
+        // Sadece kullanıcı adını kaydeder veya siler
+        private void SaveRememberedUser(string username)
+        {
+            try
+            {
+                using (var key = Registry.CurrentUser.CreateSubKey(RegistryKey))
+                {
+                    if (chkRememberMe.Checked)
+                        key.SetValue("Username", username);
+                    else
+                        key.DeleteValue("Username", false);
+                }
+            }
+            catch { }
+        }
+
+        // Sadece hata mesajı gösterir
+        private void ShowError(string message)
+        {
+            MessageBox.Show(message, "Hata",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         private void frmLogin_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            // Login formu kapanınca açık başka form kalmadıysa uygulamayı kapat
+            if (Application.OpenForms.Count == 0)
+                Application.Exit();
         }
     }
 }

@@ -21,99 +21,141 @@ namespace StockSalesApp.UI
             InitializeComponent();
         }
 
-        // Form açılınca tüm ürünleri yükle
+        // ─── BUTON OLAYLARI ──────────────────────────────────────────────
+
         private void frmProducts_Load(object sender, EventArgs e)
         {
             LoadProducts();
         }
 
-        // Ürünleri DataGridView'e yükler
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            SearchProducts();
+        }
+
+        private void btnListAll_Click(object sender, EventArgs e)
+        {
+            ClearSearchAndReload();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            OpenAddForm();
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            OpenEditForm();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DeleteSelectedProduct();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) SearchProducts();
+        }
+
+        // ─── PRIVATE METODLAR ────────────────────────────────────────────
+
+        // Sadece ürünleri yükler ve grid'e bağlar
         private void LoadProducts()
         {
             try
             {
                 dgvProducts.DataSource = null;
                 dgvProducts.DataSource = _productService.GetAll();
-
-                // Sütun başlıklarını Türkçe yap
-                if (dgvProducts.Columns.Count > 0)
-                {
-                    dgvProducts.Columns["Id"].HeaderText = "ID";
-                    dgvProducts.Columns["Name"].HeaderText = "Ürün Adı";
-                    dgvProducts.Columns["Barcode"].HeaderText = "Barkod";
-                    dgvProducts.Columns["PurchasePrice"].HeaderText = "Alış Fiyatı";
-                    dgvProducts.Columns["SalePrice"].HeaderText = "Satış Fiyatı";
-                    dgvProducts.Columns["StockQuantity"].HeaderText = "Stok";
-
-                    // ID sütununu gizle — kullanıcının görmesine gerek yok
-                    dgvProducts.Columns["Id"].Visible = false;
-                }
+                SetColumnHeaders();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ürünler yüklenirken hata: " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowError("Ürünler yüklenirken hata: " + ex.Message);
             }
         }
 
-        // Arama butonu
-        private void btnSearch_Click(object sender, EventArgs e)
+        // Sadece arama işlemini yapar
+        private void SearchProducts()
         {
             try
             {
                 dgvProducts.DataSource = null;
                 dgvProducts.DataSource = _productService.Search(txtSearch.Text);
-
-                if (dgvProducts.Columns.Count > 0)
-                {
-                    dgvProducts.Columns["Id"].Visible = false;
-                    dgvProducts.Columns["Name"].HeaderText = "Ürün Adı";
-                    dgvProducts.Columns["Barcode"].HeaderText = "Barkod";
-                    dgvProducts.Columns["PurchasePrice"].HeaderText = "Alış Fiyatı";
-                    dgvProducts.Columns["SalePrice"].HeaderText = "Satış Fiyatı";
-                    dgvProducts.Columns["StockQuantity"].HeaderText = "Stok";
-                }
+                SetColumnHeaders();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Arama sırasında hata: " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowError("Arama sırasında hata: " + ex.Message);
             }
         }
 
-        // Tümünü listele butonu
-        private void btnListAll_Click(object sender, EventArgs e)
+        // Sadece aramayı temizler ve listeyi yeniler
+        private void ClearSearchAndReload()
         {
             txtSearch.Clear();
             LoadProducts();
         }
 
-        // Yeni ürün ekle butonu
-        private void btnAdd_Click(object sender, EventArgs e)
+        // Sadece ekleme formunu açar
+        private void OpenAddForm()
         {
-            // Ürün ekleme/düzenleme için ayrı bir form açıyoruz
-            // null gönderiyoruz çünkü yeni ürün — düzenlenecek ürün yok
-            var form = new frmProductDetail(null);
-            form.ShowDialog();
-            LoadProducts(); // Form kapanınca listeyi yenile
+            new frmProductDetail(null).ShowDialog();
+            LoadProducts();
         }
 
-        // Güncelle butonu
-        private void btnEdit_Click(object sender, EventArgs e)
+        // Sadece düzenleme formunu açar
+        private void OpenEditForm()
         {
-            // Listede seçili satır var mı kontrol et
-            if (dgvProducts.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Lütfen güncellenecek ürünü seçin.",
-                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            if (!IsRowSelected("güncellenecek")) return;
+            var product = GetSelectedProduct();
+            new frmProductDetail(product).ShowDialog();
+            LoadProducts();
+        }
 
-            // Seçili satırdan ürün bilgilerini al
-            var row = dgvProducts.SelectedRows[0];
-            var product = new Product
+        // Sadece silme işlemini yönetir
+        private void DeleteSelectedProduct()
+        {
+            if (!IsRowSelected("silinecek")) return;
+            if (!ConfirmDeletion()) return;
+
+            try
             {
-                // DataGridView'deki değerleri Product nesnesine aktar
+                int id = GetSelectedId();
+                _productService.Delete(id);
+                ShowInfo("Ürün başarıyla silindi.");
+                LoadProducts();
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex.Message);
+            }
+        }
+
+        // Sadece sütun başlıklarını ayarlar
+        private void SetColumnHeaders()
+        {
+            if (dgvProducts.Columns.Count == 0) return;
+
+            dgvProducts.Columns["Id"].Visible = false;
+            dgvProducts.Columns["Name"].HeaderText = "Ürün Adı";
+            dgvProducts.Columns["Barcode"].HeaderText = "Barkod";
+            dgvProducts.Columns["PurchasePrice"].HeaderText = "Alış Fiyatı";
+            dgvProducts.Columns["SalePrice"].HeaderText = "Satış Fiyatı";
+            dgvProducts.Columns["StockQuantity"].HeaderText = "Stok";
+        }
+
+        // Sadece seçili satırdan Product nesnesi oluşturur
+        private Product GetSelectedProduct()
+        {
+            var row = dgvProducts.SelectedRows[0];
+            return new Product
+            {
                 Id = (int)row.Cells["Id"].Value,
                 Name = row.Cells["Name"].Value.ToString(),
                 Barcode = row.Cells["Barcode"].Value.ToString(),
@@ -121,56 +163,38 @@ namespace StockSalesApp.UI
                 SalePrice = (decimal)row.Cells["SalePrice"].Value,
                 StockQuantity = (int)row.Cells["StockQuantity"].Value
             };
-
-            // Mevcut ürünü gönderiyoruz — form düzenleme modunda açılır
-            var form = new frmProductDetail(product);
-            form.ShowDialog();
-            LoadProducts();
         }
 
-        // Sil butonu
-        private void btnDelete_Click(object sender, EventArgs e)
+        // Sadece seçili satırın ID'sini döndürür
+        private int GetSelectedId()
         {
-            if (dgvProducts.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Lütfen silinecek ürünü seçin.",
-                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            var row = dgvProducts.SelectedRows[0];
-            string productName = row.Cells["Name"].Value.ToString();
-
-            // Silmeden önce onay al
-            var result = MessageBox.Show(
-                $"'{productName}' ürününü silmek istediğinize emin misiniz?",
-                "Silme Onayı",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                try
-                {
-                    int id = (int)row.Cells["Id"].Value;
-                    _productService.Delete(id);
-                    MessageBox.Show("Ürün başarıyla silindi.",
-                        "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadProducts();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Silme sırasında hata: " + ex.Message,
-                        "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+            return (int)dgvProducts.SelectedRows[0].Cells["Id"].Value;
         }
 
-        // Enter tuşu ile arama yapsın
-        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        // Sadece satır seçili mi kontrol eder
+        private bool IsRowSelected(string action)
         {
-            if (e.KeyCode == Keys.Enter)
-                btnSearch_Click(null, null);
+            if (dgvProducts.SelectedRows.Count > 0) return true;
+            ShowWarning($"Lütfen {action} ürünü seçin.");
+            return false;
         }
+
+        // Sadece silme onayı alır
+        private bool ConfirmDeletion()
+        {
+            string name = dgvProducts.SelectedRows[0].Cells["Name"].Value.ToString();
+            return MessageBox.Show(
+                $"'{name}' ürününü silmek istediğinize emin misiniz?",
+                "Silme Onayı", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                == DialogResult.Yes;
+        }
+
+        // Mesaj metodları — tek yerden yönetim
+        private void ShowError(string msg) =>
+            MessageBox.Show(msg, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        private void ShowWarning(string msg) =>
+            MessageBox.Show(msg, "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        private void ShowInfo(string msg) =>
+            MessageBox.Show(msg, "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 }
