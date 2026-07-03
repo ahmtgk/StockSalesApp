@@ -21,8 +21,6 @@ namespace StockSalesApp.UI
             InitializeComponent();
         }
 
-        // ─── BUTON OLAYLARI ──────────────────────────────────────────────
-
         private void frmProducts_Load(object sender, EventArgs e)
         {
             LoadProducts();
@@ -63,7 +61,7 @@ namespace StockSalesApp.UI
             if (e.KeyCode == Keys.Enter) SearchProducts();
         }
 
-        // ─── PRIVATE METODLAR ────────────────────────────────────────────
+        // PRIVATE METODLAR
 
         // Sadece ürünleri yükler ve grid'e bağlar
         private void LoadProducts()

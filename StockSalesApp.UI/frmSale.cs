@@ -25,8 +25,6 @@ namespace StockSalesApp.UI
             _currentUser = user;
         }
 
-        // ─── BUTON OLAYLARI ──────────────────────────────────────────────
-
         private void frmSale_Load(object sender, EventArgs e)
         {
             LoadProducts();
@@ -78,7 +76,7 @@ namespace StockSalesApp.UI
             if (e.KeyCode == Keys.Enter) AddSelectedProductToCart();
         }
 
-        // ─── PRIVATE METODLAR ────────────────────────────────────────────
+        // PRIVATE METODLAR
 
         // Sadece ürün listesini yükler
         private void LoadProducts()
@@ -333,7 +331,7 @@ namespace StockSalesApp.UI
             dgvProducts.Columns["StockQuantity"].HeaderText = "Stok";
         }
 
-        // ─── YARDIMCI KONTROL METODLARI ──────────────────────────────────
+        // YARDIMCI KONTROL METODLARI
 
         private bool IsProductSelected()
         {

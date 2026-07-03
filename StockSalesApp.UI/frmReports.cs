@@ -22,8 +22,6 @@ namespace StockSalesApp.UI
             InitializeComponent();
         }
 
-        // ─── BUTON OLAYLARI ──────────────────────────────────────────────
-
         private void frmReports_Load(object sender, EventArgs e)
         {
             InitializeDatePickers();
@@ -52,7 +50,7 @@ namespace StockSalesApp.UI
             // Otomatik yükleme yok — butona basılınca yüklenir
         }
 
-        // ─── PRIVATE METODLAR ────────────────────────────────────────────
+        // PRIVATE METODLAR
 
         // Sadece tarih seçicileri başlangıç değerlerini ayarlar
         private void InitializeDatePickers()

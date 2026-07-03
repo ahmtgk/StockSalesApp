@@ -27,9 +27,7 @@ namespace StockSalesApp.UI
         {
             LoadRememberedUser();
         }
-
-        // ─── BUTON OLAYLARI ──────────────────────────────────────────────
-        // Her buton sadece ilgili metodu çağırır — iş mantığı burada olmaz
+        // Her buton sadece ilgili metodu çağıracak 
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
@@ -52,7 +50,7 @@ namespace StockSalesApp.UI
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        // ─── PRIVATE METODLAR ────────────────────────────────────────────
+        // PRIVATE METODLAR 
         // Her metot tek bir iş yapar — SRP prensibi
 
         // Sadece giriş alanlarının boş olup olmadığını kontrol eder

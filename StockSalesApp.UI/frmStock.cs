@@ -23,8 +23,6 @@ namespace StockSalesApp.UI
             InitializeComponent();
         }
 
-        // ─── BUTON OLAYLARI ──────────────────────────────────────────────
-
         private void frmStock_Load(object sender, EventArgs e)
         {
             LoadProducts();
@@ -60,7 +58,7 @@ namespace StockSalesApp.UI
             UpdateSelectedProduct();
         }
 
-        // ─── PRIVATE METODLAR ────────────────────────────────────────────
+        // PRIVATE METODLAR
 
         // Sadece ürün listesini yükler
         private void LoadProducts()
@@ -221,7 +219,7 @@ namespace StockSalesApp.UI
             }
         }
 
-        // ─── YARDIMCI KONTROL METODLARI ──────────────────────────────────
+        // YARDIMCI KONTROL METODLARI
 
         // Sadece ürün seçili mi kontrol eder
         private bool IsProductSelected()

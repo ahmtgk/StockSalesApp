@@ -21,8 +21,6 @@ namespace StockSalesApp.UI
             InitializeComponent();
         }
 
-        // ─── BUTON OLAYLARI ──────────────────────────────────────────────
-
         private void frmUsers_Load(object sender, EventArgs e)
         {
             LoadUsers();
@@ -63,7 +61,7 @@ namespace StockSalesApp.UI
             if (e.KeyCode == Keys.Enter) SearchUsers();
         }
 
-        // ─── PRIVATE METODLAR ────────────────────────────────────────────
+        // PRIVATE METODLAR
 
         // Sadece kullanıcıları yükler
         private void LoadUsers()
