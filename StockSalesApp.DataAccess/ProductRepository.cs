@@ -140,8 +140,7 @@ namespace StockSalesApp.DataAccess
         }
         // SADECE stok miktarını günceller — satış tamamlanınca çağrılır
         // conn ve transaction dışarıdan geliyor çünkü bu işlem büyük bir transaction'ın parçası: satış + detay + stok hep birlikte commit/rollback olmalı
-        public void UpdateStock(int productId, int newQuantity,
-                                SqlConnection conn, SqlTransaction transaction)
+        public void UpdateStock(int productId, int newQuantity, SqlConnection conn, SqlTransaction transaction)
         {
             var cmd = new SqlCommand(@"
                 UPDATE Products
