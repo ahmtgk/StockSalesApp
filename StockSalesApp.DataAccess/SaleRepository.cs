@@ -96,7 +96,7 @@ namespace StockSalesApp.DataAccess
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }
         }
-        // Son 5 satışı getirir (Dashboard listesi için)
+        
         public List<Sale> GetLast10()
         {
             var list = new List<Sale>();
