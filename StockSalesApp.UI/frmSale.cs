@@ -253,18 +253,24 @@ namespace StockSalesApp.UI
             RefreshCart();
         }
 
-        // Sadece satışı tamamlar
         private void CompleteSale()
         {
             if (!IsCartNotEmpty()) return;
             decimal total = CalculateTotal();
-            if (!ConfirmSale(total)) return;
+
+            // Ödeme formunu aç
+            var paymentForm = new frmPayment(total);
+            if (paymentForm.ShowDialog() != DialogResult.OK) return;
+
+            // Onaylanmış ödeme bilgisini al
+            PaymentInfo payment = paymentForm.ConfirmedPayment;
 
             try
             {
                 var sale = BuildSaleObject(total);
-                _saleService.CompleteSale(sale, _cart);
-                ShowInfo($"Satış başarıyla tamamlandı!\nToplam Tutar: {total:N2} ₺");
+                _saleService.CompleteSale(sale, _cart, payment);
+
+                ShowInfo($"Satış başarıyla tamamlandı!\nToplam: {total:N2} ₺");
                 ResetAfterSale();
             }
             catch (Exception ex)
