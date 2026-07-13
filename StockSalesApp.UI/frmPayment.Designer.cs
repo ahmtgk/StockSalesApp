@@ -58,7 +58,7 @@
             // 
             lblTotalAmount.AutoSize = true;
             lblTotalAmount.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            lblTotalAmount.Location = new Point(20, 20);
+            lblTotalAmount.Location = new Point(20, 118);
             lblTotalAmount.Name = "lblTotalAmount";
             lblTotalAmount.Size = new Size(217, 25);
             lblTotalAmount.TabIndex = 0;
@@ -66,7 +66,7 @@
             // 
             // grpPaymentMethod
             // 
-            grpPaymentMethod.Location = new Point(20, 55);
+            grpPaymentMethod.Location = new Point(704, 219);
             grpPaymentMethod.Name = "grpPaymentMethod";
             grpPaymentMethod.Size = new Size(445, 60);
             grpPaymentMethod.TabIndex = 1;
@@ -75,37 +75,40 @@
             // 
             // rbCash
             // 
-            rbCash.Location = new Point(20, 25);
+            rbCash.Location = new Point(587, 141);
             rbCash.Name = "rbCash";
             rbCash.Size = new Size(100, 20);
             rbCash.TabIndex = 2;
             rbCash.TabStop = true;
             rbCash.Text = "Nakit";
             rbCash.UseVisualStyleBackColor = true;
+            rbCash.CheckedChanged += rbCash_CheckedChanged;
             // 
             // rbBank
             // 
-            rbBank.Location = new Point(130, 25);
+            rbBank.Location = new Point(704, 141);
             rbBank.Name = "rbBank";
             rbBank.Size = new Size(100, 20);
             rbBank.TabIndex = 3;
             rbBank.TabStop = true;
             rbBank.Text = "Kart";
             rbBank.UseVisualStyleBackColor = true;
+            rbBank.CheckedChanged += rbBank_CheckedChanged;
             // 
             // rbMixed
             // 
-            rbMixed.Location = new Point(240, 25);
+            rbMixed.Location = new Point(789, 141);
             rbMixed.Name = "rbMixed";
             rbMixed.Size = new Size(150, 20);
             rbMixed.TabIndex = 4;
             rbMixed.TabStop = true;
             rbMixed.Text = "Karma (Nakit+Kart)";
             rbMixed.UseVisualStyleBackColor = true;
+            rbMixed.CheckedChanged += rbMixed_CheckedChanged;
             // 
             // grpCash
             // 
-            grpCash.Location = new Point(20, 125);
+            grpCash.Location = new Point(704, 318);
             grpCash.Name = "grpCash";
             grpCash.Size = new Size(445, 110);
             grpCash.TabIndex = 5;
@@ -115,7 +118,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(15, 30);
+            label2.Location = new Point(5, 336);
             label2.Name = "label2";
             label2.Size = new Size(75, 15);
             label2.TabIndex = 6;
@@ -123,15 +126,16 @@
             // 
             // txtCashGiven
             // 
-            txtCashGiven.Location = new Point(120, 27);
+            txtCashGiven.Location = new Point(120, 281);
             txtCashGiven.Name = "txtCashGiven";
             txtCashGiven.Size = new Size(150, 23);
             txtCashGiven.TabIndex = 7;
+            txtCashGiven.TextChanged += txtCashGiven_TextChanged;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(15, 65);
+            label3.Location = new Point(20, 237);
             label3.Name = "label3";
             label3.Size = new Size(60, 15);
             label3.TabIndex = 8;
@@ -141,7 +145,7 @@
             // 
             lblChange.AutoSize = true;
             lblChange.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            lblChange.Location = new Point(120, 65);
+            lblChange.Location = new Point(328, 471);
             lblChange.Name = "lblChange";
             lblChange.Size = new Size(41, 15);
             lblChange.TabIndex = 9;
@@ -149,7 +153,7 @@
             // 
             // grpBank
             // 
-            grpBank.Location = new Point(20, 245);
+            grpBank.Location = new Point(704, 471);
             grpBank.Name = "grpBank";
             grpBank.Size = new Size(445, 110);
             grpBank.TabIndex = 10;
@@ -160,7 +164,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(15, 30);
+            label1.Location = new Point(681, 47);
             label1.Name = "label1";
             label1.Size = new Size(73, 15);
             label1.TabIndex = 11;
@@ -170,7 +174,7 @@
             // 
             cmbBank.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbBank.FormattingEnabled = true;
-            cmbBank.Location = new Point(110, 27);
+            cmbBank.Location = new Point(299, 154);
             cmbBank.Name = "cmbBank";
             cmbBank.Size = new Size(200, 23);
             cmbBank.TabIndex = 12;
@@ -178,7 +182,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(15, 65);
+            label4.Location = new Point(20, 193);
             label4.Name = "label4";
             label4.Size = new Size(65, 15);
             label4.TabIndex = 13;
@@ -186,15 +190,16 @@
             // 
             // txtBankAmount
             // 
-            txtBankAmount.Location = new Point(110, 62);
+            txtBankAmount.Location = new Point(120, 185);
             txtBankAmount.Name = "txtBankAmount";
             txtBankAmount.Size = new Size(150, 23);
             txtBankAmount.TabIndex = 14;
+            txtBankAmount.TextChanged += txtBankAmount_TextChanged;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(280, 65);
+            label5.Location = new Point(429, 118);
             label5.Name = "label5";
             label5.Size = new Size(70, 15);
             label5.TabIndex = 15;
@@ -204,7 +209,7 @@
             // 
             lblRemainingCash.AutoSize = true;
             lblRemainingCash.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            lblRemainingCash.Location = new Point(370, 65);
+            lblRemainingCash.Location = new Point(458, 86);
             lblRemainingCash.Name = "lblRemainingCash";
             lblRemainingCash.Size = new Size(41, 15);
             lblRemainingCash.TabIndex = 16;
@@ -212,7 +217,7 @@
             // 
             // grpMixedCash
             // 
-            grpMixedCash.Location = new Point(20, 365);
+            grpMixedCash.Location = new Point(704, 628);
             grpMixedCash.Name = "grpMixedCash";
             grpMixedCash.Size = new Size(445, 80);
             grpMixedCash.TabIndex = 17;
@@ -223,7 +228,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(15, 30);
+            label6.Location = new Point(5, 289);
             label6.Name = "label6";
             label6.Size = new Size(75, 15);
             label6.TabIndex = 18;
@@ -231,15 +236,16 @@
             // 
             // txtMixedCashGiven
             // 
-            txtMixedCashGiven.Location = new Point(120, 27);
+            txtMixedCashGiven.Location = new Point(120, 229);
             txtMixedCashGiven.Name = "txtMixedCashGiven";
             txtMixedCashGiven.Size = new Size(150, 23);
             txtMixedCashGiven.TabIndex = 19;
+            txtMixedCashGiven.TextChanged += txtMixedCashGiven_TextChanged;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(280, 30);
+            label7.Location = new Point(309, 86);
             label7.Name = "label7";
             label7.Size = new Size(60, 15);
             label7.TabIndex = 20;
@@ -249,7 +255,7 @@
             // 
             lblMixedChange.AutoSize = true;
             lblMixedChange.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            lblMixedChange.Location = new Point(370, 30);
+            lblMixedChange.Location = new Point(458, 47);
             lblMixedChange.Name = "lblMixedChange";
             lblMixedChange.Size = new Size(41, 15);
             lblMixedChange.TabIndex = 21;
@@ -263,12 +269,13 @@
             btnConfirm.FlatStyle = FlatStyle.Flat;
             btnConfirm.Font = new Font("Segoe UI", 11.25F);
             btnConfirm.ForeColor = Color.White;
-            btnConfirm.Location = new Point(20, 460);
+            btnConfirm.Location = new Point(704, 747);
             btnConfirm.Name = "btnConfirm";
             btnConfirm.Size = new Size(200, 45);
             btnConfirm.TabIndex = 23;
             btnConfirm.Text = "Ödemeyi Tamamla";
             btnConfirm.UseVisualStyleBackColor = false;
+            btnConfirm.Click += btnConfirm_Click;
             // 
             // btnCancel
             // 
@@ -278,18 +285,19 @@
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
             btnCancel.ForeColor = Color.White;
-            btnCancel.Location = new Point(265, 460);
+            btnCancel.Location = new Point(1010, 747);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(200, 45);
             btnCancel.TabIndex = 24;
             btnCancel.Text = "İptal";
             btnCancel.UseVisualStyleBackColor = false;
+            btnCancel.Click += btnCancel_Click;
             // 
             // frmPayment
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(484, 541);
+            ClientSize = new Size(1278, 870);
             Controls.Add(btnCancel);
             Controls.Add(btnConfirm);
             Controls.Add(lblMixedChange);
@@ -318,6 +326,7 @@
             Name = "frmPayment";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Ödeme";
+            Load += frmPayment_Load;
             ResumeLayout(false);
             PerformLayout();
         }

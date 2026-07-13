@@ -201,5 +201,31 @@ namespace StockSalesApp.UI
         // Mesaj metodları
         private void ShowError(string msg) =>
             MessageBox.Show(msg, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        private void dgvSalesReport_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            OpenReceipt();
+        }
+
+        private void OpenReceipt()
+        {
+            if (dgvSalesReport.SelectedRows.Count == 0) return;
+
+            var receiptPath = dgvSalesReport.SelectedRows[0]
+                .Cells["ReceiptPath"].Value?.ToString();
+
+            if (string.IsNullOrEmpty(receiptPath) || !System.IO.File.Exists(receiptPath))
+            {
+                ShowError("Bu satışa ait fiş bulunamadı.");
+                return;
+            }
+
+            // PDF'i varsayılan uygulama ile aç
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = receiptPath,
+                UseShellExecute = true
+            });
+        }
     }
 }
