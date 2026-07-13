@@ -42,41 +42,50 @@ namespace StockSalesApp.UI
         {
             try
             {
-                // Kartları doldur
                 lblSaleAmount.Text = _saleService.GetTodayTotalAmount().ToString("N2") + " ₺";
                 lblProductCount.Text = _productService.GetTotalCount().ToString();
                 lblCriticalStock.Text = _productService.GetCriticalStockCount().ToString();
                 lblSaleCount.Text = _saleService.GetTodaySaleCount().ToString();
 
-                // Kritik stok varsa paneli yanıp sönsün gibi kırmızı yap
+                // Kritik stok varsa kart rengi koyulaşsın
                 pnlCriticalStock.BackColor = _productService.GetCriticalStockCount() > 0
-                    ? System.Drawing.Color.FromArgb(200, 50, 50)   // Koyu kırmızı — dikkat!
-                    : System.Drawing.Color.FromArgb(220, 80, 60);  // Normal renk
+                    ? System.Drawing.Color.FromArgb(200, 50, 50)
+                    : System.Drawing.Color.FromArgb(220, 80, 60);
 
-                // Son 10 satışı yükle
-                var lastSales = _saleService.GetLast10();
+                // SON 10 SATIŞ 
                 dgvLastSales.DataSource = null;
+                dgvLastSales.Rows.Clear();
+
+                var lastSales = _saleService.GetLast10();
+
+                if (lastSales == null || lastSales.Count == 0)
+                    return;
+
                 dgvLastSales.DataSource = lastSales;
 
-                if (dgvLastSales.Columns.Count > 0)
-                {
-                    // Sütun sıralamasını manuel ayarla — ID her zaman görünsün
-                    dgvLastSales.Columns["Id"].HeaderText = "Satış No";
-                    dgvLastSales.Columns["Id"].DisplayIndex = 0;
-                    dgvLastSales.Columns["Username"].HeaderText = "Kasiyer";
-                    dgvLastSales.Columns["Username"].DisplayIndex = 1;
-                    dgvLastSales.Columns["TotalAmount"].HeaderText = "Tutar (₺)";
-                    dgvLastSales.Columns["TotalAmount"].DisplayIndex = 2;
-                    dgvLastSales.Columns["SaleDate"].HeaderText = "Tarih";
-                    dgvLastSales.Columns["SaleDate"].DisplayIndex = 3;
-                    dgvLastSales.Columns["UserId"].Visible = false;
+                if (dgvLastSales.Columns.Count == 0) return;
 
-                    dgvLastSales.Refresh();
-                }
+                // Sütun sıralarını ve başlıklarını ayarla
+                dgvLastSales.Columns["Id"].HeaderText = "Satış No";
+                dgvLastSales.Columns["Id"].DisplayIndex = 0;
+                dgvLastSales.Columns["Username"].HeaderText = "Kasiyer";
+                dgvLastSales.Columns["Username"].DisplayIndex = 1;
+                dgvLastSales.Columns["TotalAmount"].HeaderText = "Tutar (₺)";
+                dgvLastSales.Columns["TotalAmount"].DisplayIndex = 2;
+                dgvLastSales.Columns["SaleDate"].HeaderText = "Tarih";
+                dgvLastSales.Columns["SaleDate"].DisplayIndex = 3;
+                dgvLastSales.Columns["PaymentMethod"].HeaderText = "Ödeme";
+                dgvLastSales.Columns["PaymentMethod"].DisplayIndex = 4;
+
+                // Gizlenecek sütunlar
+                dgvLastSales.Columns["UserId"].Visible = false;
+                dgvLastSales.Columns["ReceiptPath"].Visible = false;
+
+                dgvLastSales.Refresh();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Dashboard yüklenirken hata oluştu: " + ex.Message,
+                MessageBox.Show("Dashboard yüklenirken hata: " + ex.Message,
                     "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

@@ -158,6 +158,8 @@ namespace StockSalesApp.UI
             dgvSalesReport.Columns["TotalAmount"].HeaderText = "Tutar (₺)";
             dgvSalesReport.Columns["SaleDate"].HeaderText = "Tarih";
             dgvSalesReport.Columns["Username"].HeaderText = "Kasiyer";
+            dgvSalesReport.Columns["PaymentMethod"].HeaderText = "Ödeme Yöntemi";
+            dgvSalesReport.Columns["ReceiptPath"].Visible = false;
         }
 
         // Sadece en çok satılan sütunlarını ayarlar

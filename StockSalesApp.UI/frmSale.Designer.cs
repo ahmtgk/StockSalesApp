@@ -173,9 +173,9 @@
             btnRemoveFromCart.FlatStyle = FlatStyle.Flat;
             btnRemoveFromCart.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
             btnRemoveFromCart.ForeColor = Color.White;
-            btnRemoveFromCart.Location = new Point(412, 842);
+            btnRemoveFromCart.Location = new Point(458, 842);
             btnRemoveFromCart.Name = "btnRemoveFromCart";
-            btnRemoveFromCart.Size = new Size(150, 49);
+            btnRemoveFromCart.Size = new Size(92, 49);
             btnRemoveFromCart.TabIndex = 20;
             btnRemoveFromCart.Text = "Ürünü Sil";
             btnRemoveFromCart.UseVisualStyleBackColor = false;
@@ -209,11 +209,11 @@
             btnCompleteSale.FlatStyle = FlatStyle.Flat;
             btnCompleteSale.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
             btnCompleteSale.ForeColor = Color.White;
-            btnCompleteSale.Location = new Point(577, 842);
+            btnCompleteSale.Location = new Point(556, 842);
             btnCompleteSale.Name = "btnCompleteSale";
-            btnCompleteSale.Size = new Size(150, 49);
+            btnCompleteSale.Size = new Size(171, 49);
             btnCompleteSale.TabIndex = 23;
-            btnCompleteSale.Text = "SATIŞ TAMAMLA";
+            btnCompleteSale.Text = "Ödeme Adımına Geç";
             btnCompleteSale.UseVisualStyleBackColor = false;
             btnCompleteSale.Click += btnCompleteSale_Click;
             // 
