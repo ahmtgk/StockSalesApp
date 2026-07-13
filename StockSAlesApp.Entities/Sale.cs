@@ -13,5 +13,7 @@ namespace StockSalesApp.Entities
         public decimal TotalAmount { get; set; }
         public DateTime SaleDate { get; set; }
         public string Username { get; set; } // Dashboard için
+        public string PaymentMethod { get; set; } // Ödeme yöntemi
+        public string ReceiptPath { get; set; } // Fiş PDF yolu
     }
 }
