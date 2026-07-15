@@ -271,11 +271,53 @@ namespace StockSalesApp.UI
                 _saleService.CompleteSale(sale, _cart, payment);
 
                 ShowInfo($"Satış başarıyla tamamlandı!\nToplam: {total:N2} ₺");
+
+                // Fiş PDF'ini otomatik aç
+                OpenReceipt(payment);
+
                 ResetAfterSale();
             }
             catch (Exception ex)
             {
                 ShowError("Satış sırasında hata: " + ex.Message);
+            }
+        }
+
+        // Sadece fiş PDF'ini açar
+        private void OpenReceipt(PaymentInfo payment)
+        {
+            try
+            {
+                // En son oluşturulan fişi bul
+                string folder = System.IO.Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    "StockSalesApp", "Receipts");
+
+                if (!System.IO.Directory.Exists(folder)) return;
+
+                // Klasördeki en yeni PDF dosyasını al
+                var files = System.IO.Directory.GetFiles(folder, "*.pdf");
+                if (files.Length == 0) return;
+
+                // En son değiştirilen dosyayı bul
+                string latestReceipt = files[0];
+                foreach (var file in files)
+                {
+                    if (System.IO.File.GetLastWriteTime(file) >
+                        System.IO.File.GetLastWriteTime(latestReceipt))
+                        latestReceipt = file;
+                }
+
+                // PDF'i varsayılan uygulama ile aç
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = latestReceipt,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                ShowError("Fiş açılırken hata: " + ex.Message);
             }
         }
 

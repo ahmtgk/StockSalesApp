@@ -36,6 +36,9 @@ namespace StockSalesApp.UI
             LoadBanks();
             rbCash.Checked = true;
             UpdatePanelVisibility();
+
+            // Kart seçilince tutar otomatik dolsun
+            txtBankAmount.Text = _totalAmount.ToString("N2");
         }
 
         private void rbCash_CheckedChanged(object sender, EventArgs e)
@@ -46,6 +49,10 @@ namespace StockSalesApp.UI
         private void rbBank_CheckedChanged(object sender, EventArgs e)
         {
             UpdatePanelVisibility();
+
+            // Kart seçilince tutarı otomatik doldur
+            if (rbBank.Checked)
+                txtBankAmount.Text = _totalAmount.ToString("N2");
         }
 
         private void rbMixed_CheckedChanged(object sender, EventArgs e)
@@ -188,6 +195,32 @@ namespace StockSalesApp.UI
             if (cmbBank.SelectedIndex < 0)
                 throw new Exception("Lütfen bir banka seçin.");
 
+            // Kart tutarı kutusu boş veya geçersizse
+            if (!decimal.TryParse(txtBankAmount.Text, out decimal bankAmt) || bankAmt <= 0)
+                throw new Exception("Lütfen geçerli bir kart tutarı girin.");
+
+            // Girilen tutar toplam tutardan az
+            if (bankAmt < _totalAmount)
+            {
+                decimal eksik = _totalAmount - bankAmt;
+                throw new Exception(
+                    $"Kart tutarı yetersiz!\n\n" +
+                    $"Ödenecek Tutar : {_totalAmount:N2} ₺\n" +
+                    $"Girilen Tutar  : {bankAmt:N2} ₺\n" +
+                    $"Eksik Kalan    : {eksik:N2} ₺\n\n" +
+                    $"Kalan {eksik:N2} ₺ için nakit veya başka kart ile ödeme yapılması gerekiyor.\n" +
+                    $"Karma ödeme yapmak için 'Karma (Nakit+Kart)' seçeneğini kullanın.");
+            }
+
+            // Girilen tutar toplam tutardan fazla
+            if (bankAmt > _totalAmount)
+                throw new Exception(
+                    $"Kart tutarı fazla!\n\n" +
+                    $"Ödenecek Tutar : {_totalAmount:N2} ₺\n" +
+                    $"Girilen Tutar  : {bankAmt:N2} ₺\n\n" +
+                    $"Kart ödemesinde para üstü verilemez.\n" +
+                    $"Lütfen tam tutarı ({_totalAmount:N2} ₺) girin.");
+
             var bank = _banks[cmbBank.SelectedIndex];
 
             return new PaymentInfo
@@ -196,7 +229,7 @@ namespace StockSalesApp.UI
                 PaymentMethod = "BANK",
                 BankAccountId = bank.Id,
                 BankName = bank.Name,
-                BankAmount = _totalAmount
+                BankAmount = _totalAmount // Her zaman tam tutar
             };
         }
 

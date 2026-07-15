@@ -177,9 +177,19 @@ namespace StockSalesApp.DataAccess
                 Username = r["Username"].ToString(),
                 // ?. operatörü: bu sütunlar null gelebilir
                 // null gelirse ToString() çağrılmaz, null döner
-                PaymentMethod = r["PaymentMethod"]?.ToString(),
+                PaymentMethod = TranslatePaymentMethod(r["PaymentMethod"]?.ToString()),
                 ReceiptPath = r["ReceiptPath"]?.ToString()
             };
+        }
+        private string TranslatePaymentMethod(string method)
+        {
+            switch (method)
+            {
+                case "CASH": return "Nakit";
+                case "BANK": return "Kart";
+                case "MIXED": return "Karma (Nakit+Kart)";
+                default: return method ?? "-";
+            }
         }
     }
 }
