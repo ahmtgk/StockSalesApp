@@ -36,9 +36,6 @@ namespace StockSalesApp.UI
             LoadBanks();
             rbCash.Checked = true;
             UpdatePanelVisibility();
-
-            // Kart seçilince tutar otomatik dolsun
-            txtBankAmount.Text = _totalAmount.ToString("N2");
         }
 
         private void rbCash_CheckedChanged(object sender, EventArgs e)
@@ -49,10 +46,6 @@ namespace StockSalesApp.UI
         private void rbBank_CheckedChanged(object sender, EventArgs e)
         {
             UpdatePanelVisibility();
-
-            // Kart seçilince tutarı otomatik doldur
-            if (rbBank.Checked)
-                txtBankAmount.Text = _totalAmount.ToString("N2");
         }
 
         private void rbMixed_CheckedChanged(object sender, EventArgs e)
