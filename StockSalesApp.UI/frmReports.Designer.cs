@@ -38,6 +38,7 @@
             tabReports = new TabControl();
             tabPage1 = new TabPage();
             panel2 = new Panel();
+            btnExportSales = new Button();
             label1 = new Label();
             btnFilterSales = new Button();
             dtpStart = new DateTimePicker();
@@ -50,6 +51,7 @@
             panel4 = new Panel();
             dgvTopProducts = new DataGridView();
             panel3 = new Panel();
+            btnExportTop = new Button();
             label3 = new Label();
             label4 = new Label();
             btnFilterTop = new Button();
@@ -59,6 +61,7 @@
             panel6 = new Panel();
             dgvStockReport = new DataGridView();
             panel5 = new Panel();
+            btnExportStock = new Button();
             label5 = new Label();
             cmbStockFilter = new ComboBox();
             btnLoadStock = new Button();
@@ -106,6 +109,7 @@
             // 
             panel2.BackColor = Color.White;
             panel2.BorderStyle = BorderStyle.FixedSingle;
+            panel2.Controls.Add(btnExportSales);
             panel2.Controls.Add(label1);
             panel2.Controls.Add(btnFilterSales);
             panel2.Controls.Add(dtpStart);
@@ -116,6 +120,22 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1110, 115);
             panel2.TabIndex = 16;
+            // 
+            // btnExportSales
+            // 
+            btnExportSales.BackColor = Color.FromArgb(116, 142, 191);
+            btnExportSales.FlatAppearance.BorderSize = 0;
+            btnExportSales.FlatAppearance.MouseOverBackColor = Color.FromArgb(133, 163, 219);
+            btnExportSales.FlatStyle = FlatStyle.Flat;
+            btnExportSales.Font = new Font("Segoe UI", 11.25F);
+            btnExportSales.ForeColor = Color.White;
+            btnExportSales.Location = new Point(599, 72);
+            btnExportSales.Name = "btnExportSales";
+            btnExportSales.Size = new Size(134, 27);
+            btnExportSales.TabIndex = 16;
+            btnExportSales.Text = "📊 Excel'e Aktar";
+            btnExportSales.UseVisualStyleBackColor = false;
+            btnExportSales.Click += btnExportSales_Click;
             // 
             // label1
             // 
@@ -271,6 +291,7 @@
             // 
             panel3.BackColor = Color.White;
             panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(btnExportTop);
             panel3.Controls.Add(label3);
             panel3.Controls.Add(label4);
             panel3.Controls.Add(btnFilterTop);
@@ -280,6 +301,22 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(1110, 115);
             panel3.TabIndex = 5;
+            // 
+            // btnExportTop
+            // 
+            btnExportTop.BackColor = Color.FromArgb(116, 142, 191);
+            btnExportTop.FlatAppearance.BorderSize = 0;
+            btnExportTop.FlatAppearance.MouseOverBackColor = Color.FromArgb(133, 163, 219);
+            btnExportTop.FlatStyle = FlatStyle.Flat;
+            btnExportTop.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            btnExportTop.ForeColor = Color.White;
+            btnExportTop.Location = new Point(777, 38);
+            btnExportTop.Name = "btnExportTop";
+            btnExportTop.Size = new Size(134, 28);
+            btnExportTop.TabIndex = 4;
+            btnExportTop.Text = "📊 Excel'e Aktar";
+            btnExportTop.UseVisualStyleBackColor = false;
+            btnExportTop.Click += btnExportTop_Click;
             // 
             // label3
             // 
@@ -392,6 +429,7 @@
             // panel5
             // 
             panel5.BackColor = Color.White;
+            panel5.Controls.Add(btnExportStock);
             panel5.Controls.Add(label5);
             panel5.Controls.Add(cmbStockFilter);
             panel5.Controls.Add(btnLoadStock);
@@ -399,6 +437,22 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(1110, 115);
             panel5.TabIndex = 8;
+            // 
+            // btnExportStock
+            // 
+            btnExportStock.BackColor = Color.FromArgb(116, 142, 191);
+            btnExportStock.FlatAppearance.BorderSize = 0;
+            btnExportStock.FlatAppearance.MouseOverBackColor = Color.FromArgb(133, 163, 219);
+            btnExportStock.FlatStyle = FlatStyle.Flat;
+            btnExportStock.Font = new Font("Segoe UI", 11.25F);
+            btnExportStock.ForeColor = Color.White;
+            btnExportStock.Location = new Point(543, 36);
+            btnExportStock.Name = "btnExportStock";
+            btnExportStock.Size = new Size(191, 30);
+            btnExportStock.TabIndex = 7;
+            btnExportStock.Text = "📊 Excel'e Aktar";
+            btnExportStock.UseVisualStyleBackColor = false;
+            btnExportStock.Click += btnExportStock_Click;
             // 
             // label5
             // 
@@ -497,5 +551,8 @@
         private Panel panel3;
         private Panel panel6;
         private Panel panel5;
+        private Button btnExportSales;
+        private Button btnExportTop;
+        private Button btnExportStock;
     }
 }

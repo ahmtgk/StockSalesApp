@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using StockSalesApp.Business;
+﻿using StockSalesApp.Business;
 using StockSalesApp.Entities;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace StockSalesApp.UI
 {
@@ -16,11 +10,14 @@ namespace StockSalesApp.UI
     {
         private readonly SaleService _saleService = new SaleService();
         private readonly ProductService _productService = new ProductService();
+        private readonly ExcelExportService _exportService = new ExcelExportService();
 
         public frmReports()
         {
             InitializeComponent();
         }
+
+        // ─── BUTON OLAYLARI ──────────────────────────────────────────────
 
         private void frmReports_Load(object sender, EventArgs e)
         {
@@ -50,7 +47,22 @@ namespace StockSalesApp.UI
             // Otomatik yükleme yok — butona basılınca yüklenir
         }
 
-        // PRIVATE METODLAR
+        private void btnExportSales_Click(object sender, EventArgs e)
+        {
+            ExportSalesReport();
+        }
+
+        private void btnExportTop_Click(object sender, EventArgs e)
+        {
+            ExportTopProducts();
+        }
+
+        private void btnExportStock_Click(object sender, EventArgs e)
+        {
+            ExportStockReport();
+        }
+
+        // ─── PRIVATE METODLAR ────────────────────────────────────────────
 
         // Sadece tarih seçicileri başlangıç değerlerini ayarlar
         private void InitializeDatePickers()
@@ -129,7 +141,7 @@ namespace StockSalesApp.UI
         }
 
         // Sadece filtreye göre ürün listesi döndürür
-        private System.Collections.Generic.List<StockSalesApp.Entities.Product> GetFilteredProducts()
+        private List<Product> GetFilteredProducts()
         {
             var all = _productService.GetAll();
             switch (cmbStockFilter.SelectedIndex)
@@ -141,8 +153,7 @@ namespace StockSalesApp.UI
         }
 
         // Sadece toplam tutarı hesaplar
-        private decimal CalculateTotalFromSales(
-            System.Collections.Generic.List<StockSalesApp.Entities.Sale> sales)
+        private decimal CalculateTotalFromSales(List<Sale> sales)
         {
             decimal total = 0;
             foreach (var s in sales) total += s.TotalAmount;
@@ -198,9 +209,96 @@ namespace StockSalesApp.UI
             }
         }
 
-        // Mesaj metodları
-        private void ShowError(string msg) =>
-            MessageBox.Show(msg, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        // ─── EXPORT METODLARI ────────────────────────────────────────────
+
+        // Sadece satış raporunu export eder
+        private void ExportSalesReport()
+        {
+            try
+            {
+                var sales = _saleService.GetByDateRange(dtpStart.Value, dtpEnd.Value);
+                if (sales.Count == 0)
+                {
+                    ShowError("Seçilen tarih aralığında satış bulunamadı.");
+                    return;
+                }
+
+                string path = AskSavePath(
+                    $"Satis_Raporu_{dtpStart.Value:ddMMyyyy}.xlsx");
+                if (path == null) return;
+
+                _exportService.ExportSalesReport(
+                    sales, dtpStart.Value, dtpEnd.Value, path);
+                ShowInfo("Excel dosyası başarıyla oluşturuldu.");
+            }
+            catch (Exception ex)
+            {
+                ShowError("Export sırasında hata: " + ex.Message);
+            }
+        }
+
+        // Sadece en çok satılanları export eder
+        private void ExportTopProducts()
+        {
+            try
+            {
+                var topList = _saleService.GetTopProducts(
+                    dtpTopStart.Value, dtpTopEnd.Value);
+                if (topList.Count == 0)
+                {
+                    ShowError("Seçilen tarih aralığında veri bulunamadı.");
+                    return;
+                }
+
+                string path = AskSavePath(
+                    $"EnCok_Satilan_{dtpTopStart.Value:ddMMyyyy}.xlsx");
+                if (path == null) return;
+
+                _exportService.ExportTopProducts(
+                    topList, dtpTopStart.Value, dtpTopEnd.Value, path);
+                ShowInfo("Excel dosyası başarıyla oluşturuldu.");
+            }
+            catch (Exception ex)
+            {
+                ShowError("Export sırasında hata: " + ex.Message);
+            }
+        }
+
+        // Sadece stok raporunu export eder
+        private void ExportStockReport()
+        {
+            try
+            {
+                var products = GetFilteredProducts();
+                if (products.Count == 0)
+                {
+                    ShowError("Gösterilecek ürün bulunamadı.");
+                    return;
+                }
+
+                string path = AskSavePath(
+                    $"Stok_Raporu_{DateTime.Today:ddMMyyyy}.xlsx");
+                if (path == null) return;
+
+                _exportService.ExportStockReport(products, path);
+                ShowInfo("Excel dosyası başarıyla oluşturuldu.");
+            }
+            catch (Exception ex)
+            {
+                ShowError("Export sırasında hata: " + ex.Message);
+            }
+        }
+
+        // Sadece kayıt yeri sorar
+        private string AskSavePath(string defaultFileName)
+        {
+            using (var dialog = new SaveFileDialog())
+            {
+                dialog.Filter = "Excel Dosyası (*.xlsx)|*.xlsx";
+                dialog.FileName = defaultFileName;
+                return dialog.ShowDialog() == DialogResult.OK ? dialog.FileName : null;
+            }
+        }
 
         private void dgvSalesReport_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -227,5 +325,12 @@ namespace StockSalesApp.UI
                 UseShellExecute = true
             });
         }
+
+        // ─── MESAJ METODLARI ─────────────────────────────────────────────
+
+        private void ShowError(string msg) =>
+            MessageBox.Show(msg, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        private void ShowInfo(string msg) =>
+            MessageBox.Show(msg, "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 }
